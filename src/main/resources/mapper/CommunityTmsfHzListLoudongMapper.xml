@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tt.dao.CommunityTmsfHzListLoudongMapper" >
+  <resultMap id="BaseResultMap" type="com.tt.entity.CommunityTmsfHzListLoudong" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="detail_url" property="detailUrl" jdbcType="VARCHAR" />
+    <result column="loudong" property="loudong" jdbcType="VARCHAR" />
+    <result column="house_name" property="houseName" jdbcType="VARCHAR" />
+    <result column="house_url" property="houseUrl" jdbcType="VARCHAR" />
+    <result column="batch_id" property="batchId" jdbcType="VARCHAR" />
+    <result column="source" property="source" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, detail_url, loudong, house_name, house_url, batch_id, source, status, create_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tt.entity.CommunityTmsfHzListLoudongExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from community_tmsf_hz_list_loudong
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from community_tmsf_hz_list_loudong
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from community_tmsf_hz_list_loudong
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tt.entity.CommunityTmsfHzListLoudongExample" >
+    delete from community_tmsf_hz_list_loudong
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tt.entity.CommunityTmsfHzListLoudong" >
+    insert into community_tmsf_hz_list_loudong (id, detail_url, loudong, 
+      house_name, house_url, batch_id, 
+      source, status, create_time
+      )
+    values (#{id,jdbcType=VARCHAR}, #{detailUrl,jdbcType=VARCHAR}, #{loudong,jdbcType=VARCHAR}, 
+      #{houseName,jdbcType=VARCHAR}, #{houseUrl,jdbcType=VARCHAR}, #{batchId,jdbcType=VARCHAR}, 
+      #{source,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tt.entity.CommunityTmsfHzListLoudong" >
+    insert into community_tmsf_hz_list_loudong
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="detailUrl != null" >
+        detail_url,
+      </if>
+      <if test="loudong != null" >
+        loudong,
+      </if>
+      <if test="houseName != null" >
+        house_name,
+      </if>
+      <if test="houseUrl != null" >
+        house_url,
+      </if>
+      <if test="batchId != null" >
+        batch_id,
+      </if>
+      <if test="source != null" >
+        source,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="detailUrl != null" >
+        #{detailUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="loudong != null" >
+        #{loudong,jdbcType=VARCHAR},
+      </if>
+      <if test="houseName != null" >
+        #{houseName,jdbcType=VARCHAR},
+      </if>
+      <if test="houseUrl != null" >
+        #{houseUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="batchId != null" >
+        #{batchId,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tt.entity.CommunityTmsfHzListLoudongExample" resultType="java.lang.Integer" >
+    select count(*) from community_tmsf_hz_list_loudong
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update community_tmsf_hz_list_loudong
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.detailUrl != null" >
+        detail_url = #{record.detailUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loudong != null" >
+        loudong = #{record.loudong,jdbcType=VARCHAR},
+      </if>
+      <if test="record.houseName != null" >
+        house_name = #{record.houseName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.houseUrl != null" >
+        house_url = #{record.houseUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.batchId != null" >
+        batch_id = #{record.batchId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.source != null" >
+        source = #{record.source,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update community_tmsf_hz_list_loudong
+    set id = #{record.id,jdbcType=VARCHAR},
+      detail_url = #{record.detailUrl,jdbcType=VARCHAR},
+      loudong = #{record.loudong,jdbcType=VARCHAR},
+      house_name = #{record.houseName,jdbcType=VARCHAR},
+      house_url = #{record.houseUrl,jdbcType=VARCHAR},
+      batch_id = #{record.batchId,jdbcType=VARCHAR},
+      source = #{record.source,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tt.entity.CommunityTmsfHzListLoudong" >
+    update community_tmsf_hz_list_loudong
+    <set >
+      <if test="detailUrl != null" >
+        detail_url = #{detailUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="loudong != null" >
+        loudong = #{loudong,jdbcType=VARCHAR},
+      </if>
+      <if test="houseName != null" >
+        house_name = #{houseName,jdbcType=VARCHAR},
+      </if>
+      <if test="houseUrl != null" >
+        house_url = #{houseUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="batchId != null" >
+        batch_id = #{batchId,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        source = #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tt.entity.CommunityTmsfHzListLoudong" >
+    update community_tmsf_hz_list_loudong
+    set detail_url = #{detailUrl,jdbcType=VARCHAR},
+      loudong = #{loudong,jdbcType=VARCHAR},
+      house_name = #{houseName,jdbcType=VARCHAR},
+      house_url = #{houseUrl,jdbcType=VARCHAR},
+      batch_id = #{batchId,jdbcType=VARCHAR},
+      source = #{source,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

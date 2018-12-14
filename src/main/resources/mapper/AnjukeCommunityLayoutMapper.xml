@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tt.dao.AnjukeCommunityLayoutMapper" >
+  <resultMap id="BaseResultMap" type="com.tt.entity.AnjukeCommunityLayout" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="fang_id" property="fangId" jdbcType="VARCHAR" />
+    <result column="detail_url" property="detailUrl" jdbcType="VARCHAR" />
+    <result column="layout_url" property="layoutUrl" jdbcType="VARCHAR" />
+    <result column="roomType" property="roomtype" jdbcType="VARCHAR" />
+    <result column="room" property="room" jdbcType="VARCHAR" />
+    <result column="pic_src" property="picSrc" jdbcType="VARCHAR" />
+    <result column="pic_url" property="picUrl" jdbcType="VARCHAR" />
+    <result column="area" property="area" jdbcType="VARCHAR" />
+    <result column="towards" property="towards" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="batch_id" property="batchId" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, fang_id, detail_url, layout_url, roomType, room, pic_src, pic_url, area, towards, 
+    status, batch_id, create_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tt.entity.AnjukeCommunityLayoutExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from anjuke_community_layout
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from anjuke_community_layout
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from anjuke_community_layout
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tt.entity.AnjukeCommunityLayoutExample" >
+    delete from anjuke_community_layout
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tt.entity.AnjukeCommunityLayout" >
+    insert into anjuke_community_layout (id, fang_id, detail_url, 
+      layout_url, roomType, room, 
+      pic_src, pic_url, area, 
+      towards, status, batch_id, 
+      create_time)
+    values (#{id,jdbcType=VARCHAR}, #{fangId,jdbcType=VARCHAR}, #{detailUrl,jdbcType=VARCHAR}, 
+      #{layoutUrl,jdbcType=VARCHAR}, #{roomtype,jdbcType=VARCHAR}, #{room,jdbcType=VARCHAR}, 
+      #{picSrc,jdbcType=VARCHAR}, #{picUrl,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR}, 
+      #{towards,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{batchId,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tt.entity.AnjukeCommunityLayout" >
+    insert into anjuke_community_layout
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="fangId != null" >
+        fang_id,
+      </if>
+      <if test="detailUrl != null" >
+        detail_url,
+      </if>
+      <if test="layoutUrl != null" >
+        layout_url,
+      </if>
+      <if test="roomtype != null" >
+        roomType,
+      </if>
+      <if test="room != null" >
+        room,
+      </if>
+      <if test="picSrc != null" >
+        pic_src,
+      </if>
+      <if test="picUrl != null" >
+        pic_url,
+      </if>
+      <if test="area != null" >
+        area,
+      </if>
+      <if test="towards != null" >
+        towards,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="batchId != null" >
+        batch_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="fangId != null" >
+        #{fangId,jdbcType=VARCHAR},
+      </if>
+      <if test="detailUrl != null" >
+        #{detailUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="layoutUrl != null" >
+        #{layoutUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="roomtype != null" >
+        #{roomtype,jdbcType=VARCHAR},
+      </if>
+      <if test="room != null" >
+        #{room,jdbcType=VARCHAR},
+      </if>
+      <if test="picSrc != null" >
+        #{picSrc,jdbcType=VARCHAR},
+      </if>
+      <if test="picUrl != null" >
+        #{picUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="towards != null" >
+        #{towards,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="batchId != null" >
+        #{batchId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tt.entity.AnjukeCommunityLayoutExample" resultType="java.lang.Integer" >
+    select count(*) from anjuke_community_layout
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update anjuke_community_layout
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fangId != null" >
+        fang_id = #{record.fangId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.detailUrl != null" >
+        detail_url = #{record.detailUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.layoutUrl != null" >
+        layout_url = #{record.layoutUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roomtype != null" >
+        roomType = #{record.roomtype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.room != null" >
+        room = #{record.room,jdbcType=VARCHAR},
+      </if>
+      <if test="record.picSrc != null" >
+        pic_src = #{record.picSrc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.picUrl != null" >
+        pic_url = #{record.picUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.area != null" >
+        area = #{record.area,jdbcType=VARCHAR},
+      </if>
+      <if test="record.towards != null" >
+        towards = #{record.towards,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.batchId != null" >
+        batch_id = #{record.batchId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update anjuke_community_layout
+    set id = #{record.id,jdbcType=VARCHAR},
+      fang_id = #{record.fangId,jdbcType=VARCHAR},
+      detail_url = #{record.detailUrl,jdbcType=VARCHAR},
+      layout_url = #{record.layoutUrl,jdbcType=VARCHAR},
+      roomType = #{record.roomtype,jdbcType=VARCHAR},
+      room = #{record.room,jdbcType=VARCHAR},
+      pic_src = #{record.picSrc,jdbcType=VARCHAR},
+      pic_url = #{record.picUrl,jdbcType=VARCHAR},
+      area = #{record.area,jdbcType=VARCHAR},
+      towards = #{record.towards,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      batch_id = #{record.batchId,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tt.entity.AnjukeCommunityLayout" >
+    update anjuke_community_layout
+    <set >
+      <if test="fangId != null" >
+        fang_id = #{fangId,jdbcType=VARCHAR},
+      </if>
+      <if test="detailUrl != null" >
+        detail_url = #{detailUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="layoutUrl != null" >
+        layout_url = #{layoutUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="roomtype != null" >
+        roomType = #{roomtype,jdbcType=VARCHAR},
+      </if>
+      <if test="room != null" >
+        room = #{room,jdbcType=VARCHAR},
+      </if>
+      <if test="picSrc != null" >
+        pic_src = #{picSrc,jdbcType=VARCHAR},
+      </if>
+      <if test="picUrl != null" >
+        pic_url = #{picUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        area = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="towards != null" >
+        towards = #{towards,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="batchId != null" >
+        batch_id = #{batchId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tt.entity.AnjukeCommunityLayout" >
+    update anjuke_community_layout
+    set fang_id = #{fangId,jdbcType=VARCHAR},
+      detail_url = #{detailUrl,jdbcType=VARCHAR},
+      layout_url = #{layoutUrl,jdbcType=VARCHAR},
+      roomType = #{roomtype,jdbcType=VARCHAR},
+      room = #{room,jdbcType=VARCHAR},
+      pic_src = #{picSrc,jdbcType=VARCHAR},
+      pic_url = #{picUrl,jdbcType=VARCHAR},
+      area = #{area,jdbcType=VARCHAR},
+      towards = #{towards,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      batch_id = #{batchId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

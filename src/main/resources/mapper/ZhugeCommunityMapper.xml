@@ -1,0 +1,590 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tt.dao.ZhugeCommunityMapper" >
+  <resultMap id="BaseResultMap" type="com.tt.entity.ZhugeCommunity" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="detail_url" property="detailUrl" jdbcType="VARCHAR" />
+    <result column="title_id" property="titleId" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="region" property="region" jdbcType="VARCHAR" />
+    <result column="plate" property="plate" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="build_year" property="buildYear" jdbcType="VARCHAR" />
+    <result column="property_year" property="propertyYear" jdbcType="VARCHAR" />
+    <result column="plot_rate" property="plotRate" jdbcType="VARCHAR" />
+    <result column="green_rate" property="greenRate" jdbcType="VARCHAR" />
+    <result column="loudong_num" property="loudongNum" jdbcType="VARCHAR" />
+    <result column="home_total" property="homeTotal" jdbcType="VARCHAR" />
+    <result column="property_price" property="propertyPrice" jdbcType="VARCHAR" />
+    <result column="property_company" property="propertyCompany" jdbcType="VARCHAR" />
+    <result column="build_developers" property="buildDevelopers" jdbcType="VARCHAR" />
+    <result column="build_type" property="buildType" jdbcType="VARCHAR" />
+    <result column="build_area" property="buildArea" jdbcType="VARCHAR" />
+    <result column="floor_area" property="floorArea" jdbcType="VARCHAR" />
+    <result column="heating" property="heating" jdbcType="VARCHAR" />
+    <result column="gas" property="gas" jdbcType="VARCHAR" />
+    <result column="park_num" property="parkNum" jdbcType="VARCHAR" />
+    <result column="elevator" property="elevator" jdbcType="VARCHAR" />
+    <result column="average_price_trend" property="averagePriceTrend" jdbcType="VARCHAR" />
+    <result column="jiaoyi_num" property="jiaoyiNum" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="batch_id" property="batchId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, detail_url, title_id, title, city, region, plate, address, build_year, property_year, 
+    plot_rate, green_rate, loudong_num, home_total, property_price, property_company, 
+    build_developers, build_type, build_area, floor_area, heating, gas, park_num, elevator, 
+    average_price_trend, jiaoyi_num, status, createtime, batch_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tt.entity.ZhugeCommunityExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from zhuge_community
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from zhuge_community
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from zhuge_community
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tt.entity.ZhugeCommunityExample" >
+    delete from zhuge_community
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tt.entity.ZhugeCommunity" >
+    insert into zhuge_community (id, detail_url, title_id, 
+      title, city, region, 
+      plate, address, build_year, 
+      property_year, plot_rate, green_rate, 
+      loudong_num, home_total, property_price, 
+      property_company, build_developers, build_type, 
+      build_area, floor_area, heating, 
+      gas, park_num, elevator, 
+      average_price_trend, jiaoyi_num, status, 
+      createtime, batch_id)
+    values (#{id,jdbcType=VARCHAR}, #{detailUrl,jdbcType=VARCHAR}, #{titleId,jdbcType=VARCHAR}, 
+      #{title,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{region,jdbcType=VARCHAR}, 
+      #{plate,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{buildYear,jdbcType=VARCHAR}, 
+      #{propertyYear,jdbcType=VARCHAR}, #{plotRate,jdbcType=VARCHAR}, #{greenRate,jdbcType=VARCHAR}, 
+      #{loudongNum,jdbcType=VARCHAR}, #{homeTotal,jdbcType=VARCHAR}, #{propertyPrice,jdbcType=VARCHAR}, 
+      #{propertyCompany,jdbcType=VARCHAR}, #{buildDevelopers,jdbcType=VARCHAR}, #{buildType,jdbcType=VARCHAR}, 
+      #{buildArea,jdbcType=VARCHAR}, #{floorArea,jdbcType=VARCHAR}, #{heating,jdbcType=VARCHAR}, 
+      #{gas,jdbcType=VARCHAR}, #{parkNum,jdbcType=VARCHAR}, #{elevator,jdbcType=VARCHAR}, 
+      #{averagePriceTrend,jdbcType=VARCHAR}, #{jiaoyiNum,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{batchId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tt.entity.ZhugeCommunity" >
+    insert into zhuge_community
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="detailUrl != null" >
+        detail_url,
+      </if>
+      <if test="titleId != null" >
+        title_id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="region != null" >
+        region,
+      </if>
+      <if test="plate != null" >
+        plate,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="buildYear != null" >
+        build_year,
+      </if>
+      <if test="propertyYear != null" >
+        property_year,
+      </if>
+      <if test="plotRate != null" >
+        plot_rate,
+      </if>
+      <if test="greenRate != null" >
+        green_rate,
+      </if>
+      <if test="loudongNum != null" >
+        loudong_num,
+      </if>
+      <if test="homeTotal != null" >
+        home_total,
+      </if>
+      <if test="propertyPrice != null" >
+        property_price,
+      </if>
+      <if test="propertyCompany != null" >
+        property_company,
+      </if>
+      <if test="buildDevelopers != null" >
+        build_developers,
+      </if>
+      <if test="buildType != null" >
+        build_type,
+      </if>
+      <if test="buildArea != null" >
+        build_area,
+      </if>
+      <if test="floorArea != null" >
+        floor_area,
+      </if>
+      <if test="heating != null" >
+        heating,
+      </if>
+      <if test="gas != null" >
+        gas,
+      </if>
+      <if test="parkNum != null" >
+        park_num,
+      </if>
+      <if test="elevator != null" >
+        elevator,
+      </if>
+      <if test="averagePriceTrend != null" >
+        average_price_trend,
+      </if>
+      <if test="jiaoyiNum != null" >
+        jiaoyi_num,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="batchId != null" >
+        batch_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="detailUrl != null" >
+        #{detailUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="titleId != null" >
+        #{titleId,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="region != null" >
+        #{region,jdbcType=VARCHAR},
+      </if>
+      <if test="plate != null" >
+        #{plate,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="buildYear != null" >
+        #{buildYear,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyYear != null" >
+        #{propertyYear,jdbcType=VARCHAR},
+      </if>
+      <if test="plotRate != null" >
+        #{plotRate,jdbcType=VARCHAR},
+      </if>
+      <if test="greenRate != null" >
+        #{greenRate,jdbcType=VARCHAR},
+      </if>
+      <if test="loudongNum != null" >
+        #{loudongNum,jdbcType=VARCHAR},
+      </if>
+      <if test="homeTotal != null" >
+        #{homeTotal,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyPrice != null" >
+        #{propertyPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyCompany != null" >
+        #{propertyCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="buildDevelopers != null" >
+        #{buildDevelopers,jdbcType=VARCHAR},
+      </if>
+      <if test="buildType != null" >
+        #{buildType,jdbcType=VARCHAR},
+      </if>
+      <if test="buildArea != null" >
+        #{buildArea,jdbcType=VARCHAR},
+      </if>
+      <if test="floorArea != null" >
+        #{floorArea,jdbcType=VARCHAR},
+      </if>
+      <if test="heating != null" >
+        #{heating,jdbcType=VARCHAR},
+      </if>
+      <if test="gas != null" >
+        #{gas,jdbcType=VARCHAR},
+      </if>
+      <if test="parkNum != null" >
+        #{parkNum,jdbcType=VARCHAR},
+      </if>
+      <if test="elevator != null" >
+        #{elevator,jdbcType=VARCHAR},
+      </if>
+      <if test="averagePriceTrend != null" >
+        #{averagePriceTrend,jdbcType=VARCHAR},
+      </if>
+      <if test="jiaoyiNum != null" >
+        #{jiaoyiNum,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="batchId != null" >
+        #{batchId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tt.entity.ZhugeCommunityExample" resultType="java.lang.Integer" >
+    select count(*) from zhuge_community
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update zhuge_community
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.detailUrl != null" >
+        detail_url = #{record.detailUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.titleId != null" >
+        title_id = #{record.titleId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.city != null" >
+        city = #{record.city,jdbcType=VARCHAR},
+      </if>
+      <if test="record.region != null" >
+        region = #{record.region,jdbcType=VARCHAR},
+      </if>
+      <if test="record.plate != null" >
+        plate = #{record.plate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildYear != null" >
+        build_year = #{record.buildYear,jdbcType=VARCHAR},
+      </if>
+      <if test="record.propertyYear != null" >
+        property_year = #{record.propertyYear,jdbcType=VARCHAR},
+      </if>
+      <if test="record.plotRate != null" >
+        plot_rate = #{record.plotRate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.greenRate != null" >
+        green_rate = #{record.greenRate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loudongNum != null" >
+        loudong_num = #{record.loudongNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.homeTotal != null" >
+        home_total = #{record.homeTotal,jdbcType=VARCHAR},
+      </if>
+      <if test="record.propertyPrice != null" >
+        property_price = #{record.propertyPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.propertyCompany != null" >
+        property_company = #{record.propertyCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildDevelopers != null" >
+        build_developers = #{record.buildDevelopers,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildType != null" >
+        build_type = #{record.buildType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildArea != null" >
+        build_area = #{record.buildArea,jdbcType=VARCHAR},
+      </if>
+      <if test="record.floorArea != null" >
+        floor_area = #{record.floorArea,jdbcType=VARCHAR},
+      </if>
+      <if test="record.heating != null" >
+        heating = #{record.heating,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gas != null" >
+        gas = #{record.gas,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parkNum != null" >
+        park_num = #{record.parkNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.elevator != null" >
+        elevator = #{record.elevator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.averagePriceTrend != null" >
+        average_price_trend = #{record.averagePriceTrend,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jiaoyiNum != null" >
+        jiaoyi_num = #{record.jiaoyiNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createtime != null" >
+        createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.batchId != null" >
+        batch_id = #{record.batchId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update zhuge_community
+    set id = #{record.id,jdbcType=VARCHAR},
+      detail_url = #{record.detailUrl,jdbcType=VARCHAR},
+      title_id = #{record.titleId,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      city = #{record.city,jdbcType=VARCHAR},
+      region = #{record.region,jdbcType=VARCHAR},
+      plate = #{record.plate,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      build_year = #{record.buildYear,jdbcType=VARCHAR},
+      property_year = #{record.propertyYear,jdbcType=VARCHAR},
+      plot_rate = #{record.plotRate,jdbcType=VARCHAR},
+      green_rate = #{record.greenRate,jdbcType=VARCHAR},
+      loudong_num = #{record.loudongNum,jdbcType=VARCHAR},
+      home_total = #{record.homeTotal,jdbcType=VARCHAR},
+      property_price = #{record.propertyPrice,jdbcType=VARCHAR},
+      property_company = #{record.propertyCompany,jdbcType=VARCHAR},
+      build_developers = #{record.buildDevelopers,jdbcType=VARCHAR},
+      build_type = #{record.buildType,jdbcType=VARCHAR},
+      build_area = #{record.buildArea,jdbcType=VARCHAR},
+      floor_area = #{record.floorArea,jdbcType=VARCHAR},
+      heating = #{record.heating,jdbcType=VARCHAR},
+      gas = #{record.gas,jdbcType=VARCHAR},
+      park_num = #{record.parkNum,jdbcType=VARCHAR},
+      elevator = #{record.elevator,jdbcType=VARCHAR},
+      average_price_trend = #{record.averagePriceTrend,jdbcType=VARCHAR},
+      jiaoyi_num = #{record.jiaoyiNum,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      batch_id = #{record.batchId,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tt.entity.ZhugeCommunity" >
+    update zhuge_community
+    <set >
+      <if test="detailUrl != null" >
+        detail_url = #{detailUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="titleId != null" >
+        title_id = #{titleId,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="region != null" >
+        region = #{region,jdbcType=VARCHAR},
+      </if>
+      <if test="plate != null" >
+        plate = #{plate,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="buildYear != null" >
+        build_year = #{buildYear,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyYear != null" >
+        property_year = #{propertyYear,jdbcType=VARCHAR},
+      </if>
+      <if test="plotRate != null" >
+        plot_rate = #{plotRate,jdbcType=VARCHAR},
+      </if>
+      <if test="greenRate != null" >
+        green_rate = #{greenRate,jdbcType=VARCHAR},
+      </if>
+      <if test="loudongNum != null" >
+        loudong_num = #{loudongNum,jdbcType=VARCHAR},
+      </if>
+      <if test="homeTotal != null" >
+        home_total = #{homeTotal,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyPrice != null" >
+        property_price = #{propertyPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyCompany != null" >
+        property_company = #{propertyCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="buildDevelopers != null" >
+        build_developers = #{buildDevelopers,jdbcType=VARCHAR},
+      </if>
+      <if test="buildType != null" >
+        build_type = #{buildType,jdbcType=VARCHAR},
+      </if>
+      <if test="buildArea != null" >
+        build_area = #{buildArea,jdbcType=VARCHAR},
+      </if>
+      <if test="floorArea != null" >
+        floor_area = #{floorArea,jdbcType=VARCHAR},
+      </if>
+      <if test="heating != null" >
+        heating = #{heating,jdbcType=VARCHAR},
+      </if>
+      <if test="gas != null" >
+        gas = #{gas,jdbcType=VARCHAR},
+      </if>
+      <if test="parkNum != null" >
+        park_num = #{parkNum,jdbcType=VARCHAR},
+      </if>
+      <if test="elevator != null" >
+        elevator = #{elevator,jdbcType=VARCHAR},
+      </if>
+      <if test="averagePriceTrend != null" >
+        average_price_trend = #{averagePriceTrend,jdbcType=VARCHAR},
+      </if>
+      <if test="jiaoyiNum != null" >
+        jiaoyi_num = #{jiaoyiNum,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="batchId != null" >
+        batch_id = #{batchId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tt.entity.ZhugeCommunity" >
+    update zhuge_community
+    set detail_url = #{detailUrl,jdbcType=VARCHAR},
+      title_id = #{titleId,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      region = #{region,jdbcType=VARCHAR},
+      plate = #{plate,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      build_year = #{buildYear,jdbcType=VARCHAR},
+      property_year = #{propertyYear,jdbcType=VARCHAR},
+      plot_rate = #{plotRate,jdbcType=VARCHAR},
+      green_rate = #{greenRate,jdbcType=VARCHAR},
+      loudong_num = #{loudongNum,jdbcType=VARCHAR},
+      home_total = #{homeTotal,jdbcType=VARCHAR},
+      property_price = #{propertyPrice,jdbcType=VARCHAR},
+      property_company = #{propertyCompany,jdbcType=VARCHAR},
+      build_developers = #{buildDevelopers,jdbcType=VARCHAR},
+      build_type = #{buildType,jdbcType=VARCHAR},
+      build_area = #{buildArea,jdbcType=VARCHAR},
+      floor_area = #{floorArea,jdbcType=VARCHAR},
+      heating = #{heating,jdbcType=VARCHAR},
+      gas = #{gas,jdbcType=VARCHAR},
+      park_num = #{parkNum,jdbcType=VARCHAR},
+      elevator = #{elevator,jdbcType=VARCHAR},
+      average_price_trend = #{averagePriceTrend,jdbcType=VARCHAR},
+      jiaoyi_num = #{jiaoyiNum,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      batch_id = #{batchId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

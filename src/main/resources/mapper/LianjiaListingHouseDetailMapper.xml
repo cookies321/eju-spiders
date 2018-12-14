@@ -1,0 +1,1125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tt.dao.LianjiaListingHouseDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.tt.entity.LianjiaListingHouseDetail" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="detail_url" property="detailUrl" jdbcType="VARCHAR" />
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="goods_id" property="goodsId" jdbcType="VARCHAR" />
+    <result column="goods_des" property="goodsDes" jdbcType="VARCHAR" />
+    <result column="total_price" property="totalPrice" jdbcType="VARCHAR" />
+    <result column="avg_price" property="avgPrice" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="title_id" property="titleId" jdbcType="VARCHAR" />
+    <result column="region" property="region" jdbcType="VARCHAR" />
+    <result column="plate" property="plate" jdbcType="VARCHAR" />
+    <result column="loop_position" property="loopPosition" jdbcType="VARCHAR" />
+    <result column="subway" property="subway" jdbcType="VARCHAR" />
+    <result column="watch_description" property="watchDescription" jdbcType="VARCHAR" />
+    <result column="layout" property="layout" jdbcType="VARCHAR" />
+    <result column="floor_height" property="floorHeight" jdbcType="VARCHAR" />
+    <result column="total_floor" property="totalFloor" jdbcType="VARCHAR" />
+    <result column="area" property="area" jdbcType="VARCHAR" />
+    <result column="dwelling_floor_space" property="dwellingFloorSpace" jdbcType="VARCHAR" />
+    <result column="build_type" property="buildType" jdbcType="VARCHAR" />
+    <result column="build_str" property="buildStr" jdbcType="VARCHAR" />
+    <result column="orientation" property="orientation" jdbcType="VARCHAR" />
+    <result column="layout_str" property="layoutStr" jdbcType="VARCHAR" />
+    <result column="decoration" property="decoration" jdbcType="VARCHAR" />
+    <result column="build_year" property="buildYear" jdbcType="VARCHAR" />
+    <result column="heating" property="heating" jdbcType="VARCHAR" />
+    <result column="property_year" property="propertyYear" jdbcType="VARCHAR" />
+    <result column="elevator" property="elevator" jdbcType="VARCHAR" />
+    <result column="ladder_ratio" property="ladderRatio" jdbcType="VARCHAR" />
+    <result column="housing_years" property="housingYears" jdbcType="VARCHAR" />
+    <result column="mortgage_information" property="mortgageInformation" jdbcType="VARCHAR" />
+    <result column="trading_rights" property="tradingRights" jdbcType="VARCHAR" />
+    <result column="property_type" property="propertyType" jdbcType="VARCHAR" />
+    <result column="property_ownership" property="propertyOwnership" jdbcType="VARCHAR" />
+    <result column="is_certificate" property="isCertificate" jdbcType="VARCHAR" />
+    <result column="goods_pubtime" property="goodsPubtime" jdbcType="VARCHAR" />
+    <result column="goods_lastselltime" property="goodsLastselltime" jdbcType="VARCHAR" />
+    <result column="apartment_src" property="apartmentSrc" jdbcType="VARCHAR" />
+    <result column="apartment_url" property="apartmentUrl" jdbcType="VARCHAR" />
+    <result column="view_count" property="viewCount" jdbcType="VARCHAR" />
+    <result column="view_count_7days" property="viewCount7days" jdbcType="VARCHAR" />
+    <result column="view_count_30days" property="viewCount30days" jdbcType="VARCHAR" />
+    <result column="concern_count" property="concernCount" jdbcType="VARCHAR" />
+    <result column="sole_housing" property="soleHousing" jdbcType="VARCHAR" />
+    <result column="down_payment" property="downPayment" jdbcType="VARCHAR" />
+    <result column="monthly_payment" property="monthlyPayment" jdbcType="VARCHAR" />
+    <result column="batch_id" property="batchId" jdbcType="VARCHAR" />
+    <result column="batch_description" property="batchDescription" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="creat_user" property="creatUser" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.tt.entity.LianjiaListingHouseDetail" extends="BaseResultMap" >
+    <result column="apartment_division" property="apartmentDivision" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, detail_url, goods_name, goods_id, goods_des, total_price, avg_price, title, title_id, 
+    region, plate, loop_position, subway, watch_description, layout, floor_height, total_floor, 
+    area, dwelling_floor_space, build_type, build_str, orientation, layout_str, decoration, 
+    build_year, heating, property_year, elevator, ladder_ratio, housing_years, mortgage_information, 
+    trading_rights, property_type, property_ownership, is_certificate, goods_pubtime, 
+    goods_lastselltime, apartment_src, apartment_url, view_count, view_count_7days, view_count_30days, 
+    concern_count, sole_housing, down_payment, monthly_payment, batch_id, batch_description, 
+    status, creat_user, create_time, update_user, update_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    apartment_division
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.tt.entity.LianjiaListingHouseDetailExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from lianjia_listing_house_detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tt.entity.LianjiaListingHouseDetailExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from lianjia_listing_house_detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from lianjia_listing_house_detail
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from lianjia_listing_house_detail
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tt.entity.LianjiaListingHouseDetailExample" >
+    delete from lianjia_listing_house_detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tt.entity.LianjiaListingHouseDetail" >
+    insert into lianjia_listing_house_detail (id, detail_url, goods_name, 
+      goods_id, goods_des, total_price, 
+      avg_price, title, title_id, 
+      region, plate, loop_position, 
+      subway, watch_description, layout, 
+      floor_height, total_floor, area, 
+      dwelling_floor_space, build_type, build_str, 
+      orientation, layout_str, decoration, 
+      build_year, heating, property_year, 
+      elevator, ladder_ratio, housing_years, 
+      mortgage_information, trading_rights, property_type, 
+      property_ownership, is_certificate, goods_pubtime, 
+      goods_lastselltime, apartment_src, apartment_url, 
+      view_count, view_count_7days, view_count_30days, 
+      concern_count, sole_housing, down_payment, 
+      monthly_payment, batch_id, batch_description, 
+      status, creat_user, create_time, 
+      update_user, update_time, apartment_division
+      )
+    values (#{id,jdbcType=VARCHAR}, #{detailUrl,jdbcType=VARCHAR}, #{goodsName,jdbcType=VARCHAR}, 
+      #{goodsId,jdbcType=VARCHAR}, #{goodsDes,jdbcType=VARCHAR}, #{totalPrice,jdbcType=VARCHAR}, 
+      #{avgPrice,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{titleId,jdbcType=VARCHAR}, 
+      #{region,jdbcType=VARCHAR}, #{plate,jdbcType=VARCHAR}, #{loopPosition,jdbcType=VARCHAR}, 
+      #{subway,jdbcType=VARCHAR}, #{watchDescription,jdbcType=VARCHAR}, #{layout,jdbcType=VARCHAR}, 
+      #{floorHeight,jdbcType=VARCHAR}, #{totalFloor,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR}, 
+      #{dwellingFloorSpace,jdbcType=VARCHAR}, #{buildType,jdbcType=VARCHAR}, #{buildStr,jdbcType=VARCHAR}, 
+      #{orientation,jdbcType=VARCHAR}, #{layoutStr,jdbcType=VARCHAR}, #{decoration,jdbcType=VARCHAR}, 
+      #{buildYear,jdbcType=VARCHAR}, #{heating,jdbcType=VARCHAR}, #{propertyYear,jdbcType=VARCHAR}, 
+      #{elevator,jdbcType=VARCHAR}, #{ladderRatio,jdbcType=VARCHAR}, #{housingYears,jdbcType=VARCHAR}, 
+      #{mortgageInformation,jdbcType=VARCHAR}, #{tradingRights,jdbcType=VARCHAR}, #{propertyType,jdbcType=VARCHAR}, 
+      #{propertyOwnership,jdbcType=VARCHAR}, #{isCertificate,jdbcType=VARCHAR}, #{goodsPubtime,jdbcType=VARCHAR}, 
+      #{goodsLastselltime,jdbcType=VARCHAR}, #{apartmentSrc,jdbcType=VARCHAR}, #{apartmentUrl,jdbcType=VARCHAR}, 
+      #{viewCount,jdbcType=VARCHAR}, #{viewCount7days,jdbcType=VARCHAR}, #{viewCount30days,jdbcType=VARCHAR}, 
+      #{concernCount,jdbcType=VARCHAR}, #{soleHousing,jdbcType=VARCHAR}, #{downPayment,jdbcType=VARCHAR}, 
+      #{monthlyPayment,jdbcType=VARCHAR}, #{batchId,jdbcType=VARCHAR}, #{batchDescription,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{creatUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateUser,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{apartmentDivision,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tt.entity.LianjiaListingHouseDetail" >
+    insert into lianjia_listing_house_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="detailUrl != null" >
+        detail_url,
+      </if>
+      <if test="goodsName != null" >
+        goods_name,
+      </if>
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="goodsDes != null" >
+        goods_des,
+      </if>
+      <if test="totalPrice != null" >
+        total_price,
+      </if>
+      <if test="avgPrice != null" >
+        avg_price,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="titleId != null" >
+        title_id,
+      </if>
+      <if test="region != null" >
+        region,
+      </if>
+      <if test="plate != null" >
+        plate,
+      </if>
+      <if test="loopPosition != null" >
+        loop_position,
+      </if>
+      <if test="subway != null" >
+        subway,
+      </if>
+      <if test="watchDescription != null" >
+        watch_description,
+      </if>
+      <if test="layout != null" >
+        layout,
+      </if>
+      <if test="floorHeight != null" >
+        floor_height,
+      </if>
+      <if test="totalFloor != null" >
+        total_floor,
+      </if>
+      <if test="area != null" >
+        area,
+      </if>
+      <if test="dwellingFloorSpace != null" >
+        dwelling_floor_space,
+      </if>
+      <if test="buildType != null" >
+        build_type,
+      </if>
+      <if test="buildStr != null" >
+        build_str,
+      </if>
+      <if test="orientation != null" >
+        orientation,
+      </if>
+      <if test="layoutStr != null" >
+        layout_str,
+      </if>
+      <if test="decoration != null" >
+        decoration,
+      </if>
+      <if test="buildYear != null" >
+        build_year,
+      </if>
+      <if test="heating != null" >
+        heating,
+      </if>
+      <if test="propertyYear != null" >
+        property_year,
+      </if>
+      <if test="elevator != null" >
+        elevator,
+      </if>
+      <if test="ladderRatio != null" >
+        ladder_ratio,
+      </if>
+      <if test="housingYears != null" >
+        housing_years,
+      </if>
+      <if test="mortgageInformation != null" >
+        mortgage_information,
+      </if>
+      <if test="tradingRights != null" >
+        trading_rights,
+      </if>
+      <if test="propertyType != null" >
+        property_type,
+      </if>
+      <if test="propertyOwnership != null" >
+        property_ownership,
+      </if>
+      <if test="isCertificate != null" >
+        is_certificate,
+      </if>
+      <if test="goodsPubtime != null" >
+        goods_pubtime,
+      </if>
+      <if test="goodsLastselltime != null" >
+        goods_lastselltime,
+      </if>
+      <if test="apartmentSrc != null" >
+        apartment_src,
+      </if>
+      <if test="apartmentUrl != null" >
+        apartment_url,
+      </if>
+      <if test="viewCount != null" >
+        view_count,
+      </if>
+      <if test="viewCount7days != null" >
+        view_count_7days,
+      </if>
+      <if test="viewCount30days != null" >
+        view_count_30days,
+      </if>
+      <if test="concernCount != null" >
+        concern_count,
+      </if>
+      <if test="soleHousing != null" >
+        sole_housing,
+      </if>
+      <if test="downPayment != null" >
+        down_payment,
+      </if>
+      <if test="monthlyPayment != null" >
+        monthly_payment,
+      </if>
+      <if test="batchId != null" >
+        batch_id,
+      </if>
+      <if test="batchDescription != null" >
+        batch_description,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="creatUser != null" >
+        creat_user,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateUser != null" >
+        update_user,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="apartmentDivision != null" >
+        apartment_division,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="detailUrl != null" >
+        #{detailUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsName != null" >
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsDes != null" >
+        #{goodsDes,jdbcType=VARCHAR},
+      </if>
+      <if test="totalPrice != null" >
+        #{totalPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="avgPrice != null" >
+        #{avgPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="titleId != null" >
+        #{titleId,jdbcType=VARCHAR},
+      </if>
+      <if test="region != null" >
+        #{region,jdbcType=VARCHAR},
+      </if>
+      <if test="plate != null" >
+        #{plate,jdbcType=VARCHAR},
+      </if>
+      <if test="loopPosition != null" >
+        #{loopPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="subway != null" >
+        #{subway,jdbcType=VARCHAR},
+      </if>
+      <if test="watchDescription != null" >
+        #{watchDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="layout != null" >
+        #{layout,jdbcType=VARCHAR},
+      </if>
+      <if test="floorHeight != null" >
+        #{floorHeight,jdbcType=VARCHAR},
+      </if>
+      <if test="totalFloor != null" >
+        #{totalFloor,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="dwellingFloorSpace != null" >
+        #{dwellingFloorSpace,jdbcType=VARCHAR},
+      </if>
+      <if test="buildType != null" >
+        #{buildType,jdbcType=VARCHAR},
+      </if>
+      <if test="buildStr != null" >
+        #{buildStr,jdbcType=VARCHAR},
+      </if>
+      <if test="orientation != null" >
+        #{orientation,jdbcType=VARCHAR},
+      </if>
+      <if test="layoutStr != null" >
+        #{layoutStr,jdbcType=VARCHAR},
+      </if>
+      <if test="decoration != null" >
+        #{decoration,jdbcType=VARCHAR},
+      </if>
+      <if test="buildYear != null" >
+        #{buildYear,jdbcType=VARCHAR},
+      </if>
+      <if test="heating != null" >
+        #{heating,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyYear != null" >
+        #{propertyYear,jdbcType=VARCHAR},
+      </if>
+      <if test="elevator != null" >
+        #{elevator,jdbcType=VARCHAR},
+      </if>
+      <if test="ladderRatio != null" >
+        #{ladderRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="housingYears != null" >
+        #{housingYears,jdbcType=VARCHAR},
+      </if>
+      <if test="mortgageInformation != null" >
+        #{mortgageInformation,jdbcType=VARCHAR},
+      </if>
+      <if test="tradingRights != null" >
+        #{tradingRights,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyType != null" >
+        #{propertyType,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyOwnership != null" >
+        #{propertyOwnership,jdbcType=VARCHAR},
+      </if>
+      <if test="isCertificate != null" >
+        #{isCertificate,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsPubtime != null" >
+        #{goodsPubtime,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsLastselltime != null" >
+        #{goodsLastselltime,jdbcType=VARCHAR},
+      </if>
+      <if test="apartmentSrc != null" >
+        #{apartmentSrc,jdbcType=VARCHAR},
+      </if>
+      <if test="apartmentUrl != null" >
+        #{apartmentUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="viewCount != null" >
+        #{viewCount,jdbcType=VARCHAR},
+      </if>
+      <if test="viewCount7days != null" >
+        #{viewCount7days,jdbcType=VARCHAR},
+      </if>
+      <if test="viewCount30days != null" >
+        #{viewCount30days,jdbcType=VARCHAR},
+      </if>
+      <if test="concernCount != null" >
+        #{concernCount,jdbcType=VARCHAR},
+      </if>
+      <if test="soleHousing != null" >
+        #{soleHousing,jdbcType=VARCHAR},
+      </if>
+      <if test="downPayment != null" >
+        #{downPayment,jdbcType=VARCHAR},
+      </if>
+      <if test="monthlyPayment != null" >
+        #{monthlyPayment,jdbcType=VARCHAR},
+      </if>
+      <if test="batchId != null" >
+        #{batchId,jdbcType=VARCHAR},
+      </if>
+      <if test="batchDescription != null" >
+        #{batchDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="creatUser != null" >
+        #{creatUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="apartmentDivision != null" >
+        #{apartmentDivision,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tt.entity.LianjiaListingHouseDetailExample" resultType="java.lang.Integer" >
+    select count(*) from lianjia_listing_house_detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update lianjia_listing_house_detail
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.detailUrl != null" >
+        detail_url = #{record.detailUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsName != null" >
+        goods_name = #{record.goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsId != null" >
+        goods_id = #{record.goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsDes != null" >
+        goods_des = #{record.goodsDes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.totalPrice != null" >
+        total_price = #{record.totalPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.avgPrice != null" >
+        avg_price = #{record.avgPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.titleId != null" >
+        title_id = #{record.titleId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.region != null" >
+        region = #{record.region,jdbcType=VARCHAR},
+      </if>
+      <if test="record.plate != null" >
+        plate = #{record.plate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loopPosition != null" >
+        loop_position = #{record.loopPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subway != null" >
+        subway = #{record.subway,jdbcType=VARCHAR},
+      </if>
+      <if test="record.watchDescription != null" >
+        watch_description = #{record.watchDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="record.layout != null" >
+        layout = #{record.layout,jdbcType=VARCHAR},
+      </if>
+      <if test="record.floorHeight != null" >
+        floor_height = #{record.floorHeight,jdbcType=VARCHAR},
+      </if>
+      <if test="record.totalFloor != null" >
+        total_floor = #{record.totalFloor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.area != null" >
+        area = #{record.area,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dwellingFloorSpace != null" >
+        dwelling_floor_space = #{record.dwellingFloorSpace,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildType != null" >
+        build_type = #{record.buildType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildStr != null" >
+        build_str = #{record.buildStr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orientation != null" >
+        orientation = #{record.orientation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.layoutStr != null" >
+        layout_str = #{record.layoutStr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.decoration != null" >
+        decoration = #{record.decoration,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildYear != null" >
+        build_year = #{record.buildYear,jdbcType=VARCHAR},
+      </if>
+      <if test="record.heating != null" >
+        heating = #{record.heating,jdbcType=VARCHAR},
+      </if>
+      <if test="record.propertyYear != null" >
+        property_year = #{record.propertyYear,jdbcType=VARCHAR},
+      </if>
+      <if test="record.elevator != null" >
+        elevator = #{record.elevator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ladderRatio != null" >
+        ladder_ratio = #{record.ladderRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="record.housingYears != null" >
+        housing_years = #{record.housingYears,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mortgageInformation != null" >
+        mortgage_information = #{record.mortgageInformation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tradingRights != null" >
+        trading_rights = #{record.tradingRights,jdbcType=VARCHAR},
+      </if>
+      <if test="record.propertyType != null" >
+        property_type = #{record.propertyType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.propertyOwnership != null" >
+        property_ownership = #{record.propertyOwnership,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isCertificate != null" >
+        is_certificate = #{record.isCertificate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsPubtime != null" >
+        goods_pubtime = #{record.goodsPubtime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsLastselltime != null" >
+        goods_lastselltime = #{record.goodsLastselltime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.apartmentSrc != null" >
+        apartment_src = #{record.apartmentSrc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.apartmentUrl != null" >
+        apartment_url = #{record.apartmentUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.viewCount != null" >
+        view_count = #{record.viewCount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.viewCount7days != null" >
+        view_count_7days = #{record.viewCount7days,jdbcType=VARCHAR},
+      </if>
+      <if test="record.viewCount30days != null" >
+        view_count_30days = #{record.viewCount30days,jdbcType=VARCHAR},
+      </if>
+      <if test="record.concernCount != null" >
+        concern_count = #{record.concernCount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.soleHousing != null" >
+        sole_housing = #{record.soleHousing,jdbcType=VARCHAR},
+      </if>
+      <if test="record.downPayment != null" >
+        down_payment = #{record.downPayment,jdbcType=VARCHAR},
+      </if>
+      <if test="record.monthlyPayment != null" >
+        monthly_payment = #{record.monthlyPayment,jdbcType=VARCHAR},
+      </if>
+      <if test="record.batchId != null" >
+        batch_id = #{record.batchId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.batchDescription != null" >
+        batch_description = #{record.batchDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creatUser != null" >
+        creat_user = #{record.creatUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null" >
+        update_user = #{record.updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.apartmentDivision != null" >
+        apartment_division = #{record.apartmentDivision,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update lianjia_listing_house_detail
+    set id = #{record.id,jdbcType=VARCHAR},
+      detail_url = #{record.detailUrl,jdbcType=VARCHAR},
+      goods_name = #{record.goodsName,jdbcType=VARCHAR},
+      goods_id = #{record.goodsId,jdbcType=VARCHAR},
+      goods_des = #{record.goodsDes,jdbcType=VARCHAR},
+      total_price = #{record.totalPrice,jdbcType=VARCHAR},
+      avg_price = #{record.avgPrice,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      title_id = #{record.titleId,jdbcType=VARCHAR},
+      region = #{record.region,jdbcType=VARCHAR},
+      plate = #{record.plate,jdbcType=VARCHAR},
+      loop_position = #{record.loopPosition,jdbcType=VARCHAR},
+      subway = #{record.subway,jdbcType=VARCHAR},
+      watch_description = #{record.watchDescription,jdbcType=VARCHAR},
+      layout = #{record.layout,jdbcType=VARCHAR},
+      floor_height = #{record.floorHeight,jdbcType=VARCHAR},
+      total_floor = #{record.totalFloor,jdbcType=VARCHAR},
+      area = #{record.area,jdbcType=VARCHAR},
+      dwelling_floor_space = #{record.dwellingFloorSpace,jdbcType=VARCHAR},
+      build_type = #{record.buildType,jdbcType=VARCHAR},
+      build_str = #{record.buildStr,jdbcType=VARCHAR},
+      orientation = #{record.orientation,jdbcType=VARCHAR},
+      layout_str = #{record.layoutStr,jdbcType=VARCHAR},
+      decoration = #{record.decoration,jdbcType=VARCHAR},
+      build_year = #{record.buildYear,jdbcType=VARCHAR},
+      heating = #{record.heating,jdbcType=VARCHAR},
+      property_year = #{record.propertyYear,jdbcType=VARCHAR},
+      elevator = #{record.elevator,jdbcType=VARCHAR},
+      ladder_ratio = #{record.ladderRatio,jdbcType=VARCHAR},
+      housing_years = #{record.housingYears,jdbcType=VARCHAR},
+      mortgage_information = #{record.mortgageInformation,jdbcType=VARCHAR},
+      trading_rights = #{record.tradingRights,jdbcType=VARCHAR},
+      property_type = #{record.propertyType,jdbcType=VARCHAR},
+      property_ownership = #{record.propertyOwnership,jdbcType=VARCHAR},
+      is_certificate = #{record.isCertificate,jdbcType=VARCHAR},
+      goods_pubtime = #{record.goodsPubtime,jdbcType=VARCHAR},
+      goods_lastselltime = #{record.goodsLastselltime,jdbcType=VARCHAR},
+      apartment_src = #{record.apartmentSrc,jdbcType=VARCHAR},
+      apartment_url = #{record.apartmentUrl,jdbcType=VARCHAR},
+      view_count = #{record.viewCount,jdbcType=VARCHAR},
+      view_count_7days = #{record.viewCount7days,jdbcType=VARCHAR},
+      view_count_30days = #{record.viewCount30days,jdbcType=VARCHAR},
+      concern_count = #{record.concernCount,jdbcType=VARCHAR},
+      sole_housing = #{record.soleHousing,jdbcType=VARCHAR},
+      down_payment = #{record.downPayment,jdbcType=VARCHAR},
+      monthly_payment = #{record.monthlyPayment,jdbcType=VARCHAR},
+      batch_id = #{record.batchId,jdbcType=VARCHAR},
+      batch_description = #{record.batchDescription,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      creat_user = #{record.creatUser,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=VARCHAR},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      apartment_division = #{record.apartmentDivision,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update lianjia_listing_house_detail
+    set id = #{record.id,jdbcType=VARCHAR},
+      detail_url = #{record.detailUrl,jdbcType=VARCHAR},
+      goods_name = #{record.goodsName,jdbcType=VARCHAR},
+      goods_id = #{record.goodsId,jdbcType=VARCHAR},
+      goods_des = #{record.goodsDes,jdbcType=VARCHAR},
+      total_price = #{record.totalPrice,jdbcType=VARCHAR},
+      avg_price = #{record.avgPrice,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      title_id = #{record.titleId,jdbcType=VARCHAR},
+      region = #{record.region,jdbcType=VARCHAR},
+      plate = #{record.plate,jdbcType=VARCHAR},
+      loop_position = #{record.loopPosition,jdbcType=VARCHAR},
+      subway = #{record.subway,jdbcType=VARCHAR},
+      watch_description = #{record.watchDescription,jdbcType=VARCHAR},
+      layout = #{record.layout,jdbcType=VARCHAR},
+      floor_height = #{record.floorHeight,jdbcType=VARCHAR},
+      total_floor = #{record.totalFloor,jdbcType=VARCHAR},
+      area = #{record.area,jdbcType=VARCHAR},
+      dwelling_floor_space = #{record.dwellingFloorSpace,jdbcType=VARCHAR},
+      build_type = #{record.buildType,jdbcType=VARCHAR},
+      build_str = #{record.buildStr,jdbcType=VARCHAR},
+      orientation = #{record.orientation,jdbcType=VARCHAR},
+      layout_str = #{record.layoutStr,jdbcType=VARCHAR},
+      decoration = #{record.decoration,jdbcType=VARCHAR},
+      build_year = #{record.buildYear,jdbcType=VARCHAR},
+      heating = #{record.heating,jdbcType=VARCHAR},
+      property_year = #{record.propertyYear,jdbcType=VARCHAR},
+      elevator = #{record.elevator,jdbcType=VARCHAR},
+      ladder_ratio = #{record.ladderRatio,jdbcType=VARCHAR},
+      housing_years = #{record.housingYears,jdbcType=VARCHAR},
+      mortgage_information = #{record.mortgageInformation,jdbcType=VARCHAR},
+      trading_rights = #{record.tradingRights,jdbcType=VARCHAR},
+      property_type = #{record.propertyType,jdbcType=VARCHAR},
+      property_ownership = #{record.propertyOwnership,jdbcType=VARCHAR},
+      is_certificate = #{record.isCertificate,jdbcType=VARCHAR},
+      goods_pubtime = #{record.goodsPubtime,jdbcType=VARCHAR},
+      goods_lastselltime = #{record.goodsLastselltime,jdbcType=VARCHAR},
+      apartment_src = #{record.apartmentSrc,jdbcType=VARCHAR},
+      apartment_url = #{record.apartmentUrl,jdbcType=VARCHAR},
+      view_count = #{record.viewCount,jdbcType=VARCHAR},
+      view_count_7days = #{record.viewCount7days,jdbcType=VARCHAR},
+      view_count_30days = #{record.viewCount30days,jdbcType=VARCHAR},
+      concern_count = #{record.concernCount,jdbcType=VARCHAR},
+      sole_housing = #{record.soleHousing,jdbcType=VARCHAR},
+      down_payment = #{record.downPayment,jdbcType=VARCHAR},
+      monthly_payment = #{record.monthlyPayment,jdbcType=VARCHAR},
+      batch_id = #{record.batchId,jdbcType=VARCHAR},
+      batch_description = #{record.batchDescription,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      creat_user = #{record.creatUser,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=VARCHAR},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tt.entity.LianjiaListingHouseDetail" >
+    update lianjia_listing_house_detail
+    <set >
+      <if test="detailUrl != null" >
+        detail_url = #{detailUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsName != null" >
+        goods_name = #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null" >
+        goods_id = #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsDes != null" >
+        goods_des = #{goodsDes,jdbcType=VARCHAR},
+      </if>
+      <if test="totalPrice != null" >
+        total_price = #{totalPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="avgPrice != null" >
+        avg_price = #{avgPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="titleId != null" >
+        title_id = #{titleId,jdbcType=VARCHAR},
+      </if>
+      <if test="region != null" >
+        region = #{region,jdbcType=VARCHAR},
+      </if>
+      <if test="plate != null" >
+        plate = #{plate,jdbcType=VARCHAR},
+      </if>
+      <if test="loopPosition != null" >
+        loop_position = #{loopPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="subway != null" >
+        subway = #{subway,jdbcType=VARCHAR},
+      </if>
+      <if test="watchDescription != null" >
+        watch_description = #{watchDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="layout != null" >
+        layout = #{layout,jdbcType=VARCHAR},
+      </if>
+      <if test="floorHeight != null" >
+        floor_height = #{floorHeight,jdbcType=VARCHAR},
+      </if>
+      <if test="totalFloor != null" >
+        total_floor = #{totalFloor,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        area = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="dwellingFloorSpace != null" >
+        dwelling_floor_space = #{dwellingFloorSpace,jdbcType=VARCHAR},
+      </if>
+      <if test="buildType != null" >
+        build_type = #{buildType,jdbcType=VARCHAR},
+      </if>
+      <if test="buildStr != null" >
+        build_str = #{buildStr,jdbcType=VARCHAR},
+      </if>
+      <if test="orientation != null" >
+        orientation = #{orientation,jdbcType=VARCHAR},
+      </if>
+      <if test="layoutStr != null" >
+        layout_str = #{layoutStr,jdbcType=VARCHAR},
+      </if>
+      <if test="decoration != null" >
+        decoration = #{decoration,jdbcType=VARCHAR},
+      </if>
+      <if test="buildYear != null" >
+        build_year = #{buildYear,jdbcType=VARCHAR},
+      </if>
+      <if test="heating != null" >
+        heating = #{heating,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyYear != null" >
+        property_year = #{propertyYear,jdbcType=VARCHAR},
+      </if>
+      <if test="elevator != null" >
+        elevator = #{elevator,jdbcType=VARCHAR},
+      </if>
+      <if test="ladderRatio != null" >
+        ladder_ratio = #{ladderRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="housingYears != null" >
+        housing_years = #{housingYears,jdbcType=VARCHAR},
+      </if>
+      <if test="mortgageInformation != null" >
+        mortgage_information = #{mortgageInformation,jdbcType=VARCHAR},
+      </if>
+      <if test="tradingRights != null" >
+        trading_rights = #{tradingRights,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyType != null" >
+        property_type = #{propertyType,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyOwnership != null" >
+        property_ownership = #{propertyOwnership,jdbcType=VARCHAR},
+      </if>
+      <if test="isCertificate != null" >
+        is_certificate = #{isCertificate,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsPubtime != null" >
+        goods_pubtime = #{goodsPubtime,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsLastselltime != null" >
+        goods_lastselltime = #{goodsLastselltime,jdbcType=VARCHAR},
+      </if>
+      <if test="apartmentSrc != null" >
+        apartment_src = #{apartmentSrc,jdbcType=VARCHAR},
+      </if>
+      <if test="apartmentUrl != null" >
+        apartment_url = #{apartmentUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="viewCount != null" >
+        view_count = #{viewCount,jdbcType=VARCHAR},
+      </if>
+      <if test="viewCount7days != null" >
+        view_count_7days = #{viewCount7days,jdbcType=VARCHAR},
+      </if>
+      <if test="viewCount30days != null" >
+        view_count_30days = #{viewCount30days,jdbcType=VARCHAR},
+      </if>
+      <if test="concernCount != null" >
+        concern_count = #{concernCount,jdbcType=VARCHAR},
+      </if>
+      <if test="soleHousing != null" >
+        sole_housing = #{soleHousing,jdbcType=VARCHAR},
+      </if>
+      <if test="downPayment != null" >
+        down_payment = #{downPayment,jdbcType=VARCHAR},
+      </if>
+      <if test="monthlyPayment != null" >
+        monthly_payment = #{monthlyPayment,jdbcType=VARCHAR},
+      </if>
+      <if test="batchId != null" >
+        batch_id = #{batchId,jdbcType=VARCHAR},
+      </if>
+      <if test="batchDescription != null" >
+        batch_description = #{batchDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="creatUser != null" >
+        creat_user = #{creatUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="apartmentDivision != null" >
+        apartment_division = #{apartmentDivision,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.tt.entity.LianjiaListingHouseDetail" >
+    update lianjia_listing_house_detail
+    set detail_url = #{detailUrl,jdbcType=VARCHAR},
+      goods_name = #{goodsName,jdbcType=VARCHAR},
+      goods_id = #{goodsId,jdbcType=VARCHAR},
+      goods_des = #{goodsDes,jdbcType=VARCHAR},
+      total_price = #{totalPrice,jdbcType=VARCHAR},
+      avg_price = #{avgPrice,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      title_id = #{titleId,jdbcType=VARCHAR},
+      region = #{region,jdbcType=VARCHAR},
+      plate = #{plate,jdbcType=VARCHAR},
+      loop_position = #{loopPosition,jdbcType=VARCHAR},
+      subway = #{subway,jdbcType=VARCHAR},
+      watch_description = #{watchDescription,jdbcType=VARCHAR},
+      layout = #{layout,jdbcType=VARCHAR},
+      floor_height = #{floorHeight,jdbcType=VARCHAR},
+      total_floor = #{totalFloor,jdbcType=VARCHAR},
+      area = #{area,jdbcType=VARCHAR},
+      dwelling_floor_space = #{dwellingFloorSpace,jdbcType=VARCHAR},
+      build_type = #{buildType,jdbcType=VARCHAR},
+      build_str = #{buildStr,jdbcType=VARCHAR},
+      orientation = #{orientation,jdbcType=VARCHAR},
+      layout_str = #{layoutStr,jdbcType=VARCHAR},
+      decoration = #{decoration,jdbcType=VARCHAR},
+      build_year = #{buildYear,jdbcType=VARCHAR},
+      heating = #{heating,jdbcType=VARCHAR},
+      property_year = #{propertyYear,jdbcType=VARCHAR},
+      elevator = #{elevator,jdbcType=VARCHAR},
+      ladder_ratio = #{ladderRatio,jdbcType=VARCHAR},
+      housing_years = #{housingYears,jdbcType=VARCHAR},
+      mortgage_information = #{mortgageInformation,jdbcType=VARCHAR},
+      trading_rights = #{tradingRights,jdbcType=VARCHAR},
+      property_type = #{propertyType,jdbcType=VARCHAR},
+      property_ownership = #{propertyOwnership,jdbcType=VARCHAR},
+      is_certificate = #{isCertificate,jdbcType=VARCHAR},
+      goods_pubtime = #{goodsPubtime,jdbcType=VARCHAR},
+      goods_lastselltime = #{goodsLastselltime,jdbcType=VARCHAR},
+      apartment_src = #{apartmentSrc,jdbcType=VARCHAR},
+      apartment_url = #{apartmentUrl,jdbcType=VARCHAR},
+      view_count = #{viewCount,jdbcType=VARCHAR},
+      view_count_7days = #{viewCount7days,jdbcType=VARCHAR},
+      view_count_30days = #{viewCount30days,jdbcType=VARCHAR},
+      concern_count = #{concernCount,jdbcType=VARCHAR},
+      sole_housing = #{soleHousing,jdbcType=VARCHAR},
+      down_payment = #{downPayment,jdbcType=VARCHAR},
+      monthly_payment = #{monthlyPayment,jdbcType=VARCHAR},
+      batch_id = #{batchId,jdbcType=VARCHAR},
+      batch_description = #{batchDescription,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      creat_user = #{creatUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      apartment_division = #{apartmentDivision,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tt.entity.LianjiaListingHouseDetail" >
+    update lianjia_listing_house_detail
+    set detail_url = #{detailUrl,jdbcType=VARCHAR},
+      goods_name = #{goodsName,jdbcType=VARCHAR},
+      goods_id = #{goodsId,jdbcType=VARCHAR},
+      goods_des = #{goodsDes,jdbcType=VARCHAR},
+      total_price = #{totalPrice,jdbcType=VARCHAR},
+      avg_price = #{avgPrice,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      title_id = #{titleId,jdbcType=VARCHAR},
+      region = #{region,jdbcType=VARCHAR},
+      plate = #{plate,jdbcType=VARCHAR},
+      loop_position = #{loopPosition,jdbcType=VARCHAR},
+      subway = #{subway,jdbcType=VARCHAR},
+      watch_description = #{watchDescription,jdbcType=VARCHAR},
+      layout = #{layout,jdbcType=VARCHAR},
+      floor_height = #{floorHeight,jdbcType=VARCHAR},
+      total_floor = #{totalFloor,jdbcType=VARCHAR},
+      area = #{area,jdbcType=VARCHAR},
+      dwelling_floor_space = #{dwellingFloorSpace,jdbcType=VARCHAR},
+      build_type = #{buildType,jdbcType=VARCHAR},
+      build_str = #{buildStr,jdbcType=VARCHAR},
+      orientation = #{orientation,jdbcType=VARCHAR},
+      layout_str = #{layoutStr,jdbcType=VARCHAR},
+      decoration = #{decoration,jdbcType=VARCHAR},
+      build_year = #{buildYear,jdbcType=VARCHAR},
+      heating = #{heating,jdbcType=VARCHAR},
+      property_year = #{propertyYear,jdbcType=VARCHAR},
+      elevator = #{elevator,jdbcType=VARCHAR},
+      ladder_ratio = #{ladderRatio,jdbcType=VARCHAR},
+      housing_years = #{housingYears,jdbcType=VARCHAR},
+      mortgage_information = #{mortgageInformation,jdbcType=VARCHAR},
+      trading_rights = #{tradingRights,jdbcType=VARCHAR},
+      property_type = #{propertyType,jdbcType=VARCHAR},
+      property_ownership = #{propertyOwnership,jdbcType=VARCHAR},
+      is_certificate = #{isCertificate,jdbcType=VARCHAR},
+      goods_pubtime = #{goodsPubtime,jdbcType=VARCHAR},
+      goods_lastselltime = #{goodsLastselltime,jdbcType=VARCHAR},
+      apartment_src = #{apartmentSrc,jdbcType=VARCHAR},
+      apartment_url = #{apartmentUrl,jdbcType=VARCHAR},
+      view_count = #{viewCount,jdbcType=VARCHAR},
+      view_count_7days = #{viewCount7days,jdbcType=VARCHAR},
+      view_count_30days = #{viewCount30days,jdbcType=VARCHAR},
+      concern_count = #{concernCount,jdbcType=VARCHAR},
+      sole_housing = #{soleHousing,jdbcType=VARCHAR},
+      down_payment = #{downPayment,jdbcType=VARCHAR},
+      monthly_payment = #{monthlyPayment,jdbcType=VARCHAR},
+      batch_id = #{batchId,jdbcType=VARCHAR},
+      batch_description = #{batchDescription,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      creat_user = #{creatUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

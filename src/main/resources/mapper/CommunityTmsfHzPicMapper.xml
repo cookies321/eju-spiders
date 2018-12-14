@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tt.dao.CommunityTmsfHzPicMapper" >
+  <resultMap id="BaseResultMap" type="com.tt.entity.CommunityTmsfHzPic" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="detail_url" property="detailUrl" jdbcType="VARCHAR" />
+    <result column="pic_src" property="picSrc" jdbcType="VARCHAR" />
+    <result column="pic_url" property="picUrl" jdbcType="VARCHAR" />
+    <result column="pic_title" property="picTitle" jdbcType="VARCHAR" />
+    <result column="pic_time" property="picTime" jdbcType="VARCHAR" />
+    <result column="pic_type" property="picType" jdbcType="VARCHAR" />
+    <result column="batch_id" property="batchId" jdbcType="VARCHAR" />
+    <result column="source" property="source" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, detail_url, pic_src, pic_url, pic_title, pic_time, pic_type, batch_id, source, 
+    status, create_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tt.entity.CommunityTmsfHzPicExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from community_tmsf_hz_pic
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from community_tmsf_hz_pic
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from community_tmsf_hz_pic
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tt.entity.CommunityTmsfHzPicExample" >
+    delete from community_tmsf_hz_pic
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tt.entity.CommunityTmsfHzPic" >
+    insert into community_tmsf_hz_pic (id, detail_url, pic_src, 
+      pic_url, pic_title, pic_time, 
+      pic_type, batch_id, source, 
+      status, create_time)
+    values (#{id,jdbcType=VARCHAR}, #{detailUrl,jdbcType=VARCHAR}, #{picSrc,jdbcType=VARCHAR}, 
+      #{picUrl,jdbcType=VARCHAR}, #{picTitle,jdbcType=VARCHAR}, #{picTime,jdbcType=VARCHAR}, 
+      #{picType,jdbcType=VARCHAR}, #{batchId,jdbcType=VARCHAR}, #{source,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tt.entity.CommunityTmsfHzPic" >
+    insert into community_tmsf_hz_pic
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="detailUrl != null" >
+        detail_url,
+      </if>
+      <if test="picSrc != null" >
+        pic_src,
+      </if>
+      <if test="picUrl != null" >
+        pic_url,
+      </if>
+      <if test="picTitle != null" >
+        pic_title,
+      </if>
+      <if test="picTime != null" >
+        pic_time,
+      </if>
+      <if test="picType != null" >
+        pic_type,
+      </if>
+      <if test="batchId != null" >
+        batch_id,
+      </if>
+      <if test="source != null" >
+        source,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="detailUrl != null" >
+        #{detailUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="picSrc != null" >
+        #{picSrc,jdbcType=VARCHAR},
+      </if>
+      <if test="picUrl != null" >
+        #{picUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="picTitle != null" >
+        #{picTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="picTime != null" >
+        #{picTime,jdbcType=VARCHAR},
+      </if>
+      <if test="picType != null" >
+        #{picType,jdbcType=VARCHAR},
+      </if>
+      <if test="batchId != null" >
+        #{batchId,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tt.entity.CommunityTmsfHzPicExample" resultType="java.lang.Integer" >
+    select count(*) from community_tmsf_hz_pic
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update community_tmsf_hz_pic
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.detailUrl != null" >
+        detail_url = #{record.detailUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.picSrc != null" >
+        pic_src = #{record.picSrc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.picUrl != null" >
+        pic_url = #{record.picUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.picTitle != null" >
+        pic_title = #{record.picTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.picTime != null" >
+        pic_time = #{record.picTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.picType != null" >
+        pic_type = #{record.picType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.batchId != null" >
+        batch_id = #{record.batchId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.source != null" >
+        source = #{record.source,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update community_tmsf_hz_pic
+    set id = #{record.id,jdbcType=VARCHAR},
+      detail_url = #{record.detailUrl,jdbcType=VARCHAR},
+      pic_src = #{record.picSrc,jdbcType=VARCHAR},
+      pic_url = #{record.picUrl,jdbcType=VARCHAR},
+      pic_title = #{record.picTitle,jdbcType=VARCHAR},
+      pic_time = #{record.picTime,jdbcType=VARCHAR},
+      pic_type = #{record.picType,jdbcType=VARCHAR},
+      batch_id = #{record.batchId,jdbcType=VARCHAR},
+      source = #{record.source,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tt.entity.CommunityTmsfHzPic" >
+    update community_tmsf_hz_pic
+    <set >
+      <if test="detailUrl != null" >
+        detail_url = #{detailUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="picSrc != null" >
+        pic_src = #{picSrc,jdbcType=VARCHAR},
+      </if>
+      <if test="picUrl != null" >
+        pic_url = #{picUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="picTitle != null" >
+        pic_title = #{picTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="picTime != null" >
+        pic_time = #{picTime,jdbcType=VARCHAR},
+      </if>
+      <if test="picType != null" >
+        pic_type = #{picType,jdbcType=VARCHAR},
+      </if>
+      <if test="batchId != null" >
+        batch_id = #{batchId,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        source = #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tt.entity.CommunityTmsfHzPic" >
+    update community_tmsf_hz_pic
+    set detail_url = #{detailUrl,jdbcType=VARCHAR},
+      pic_src = #{picSrc,jdbcType=VARCHAR},
+      pic_url = #{picUrl,jdbcType=VARCHAR},
+      pic_title = #{picTitle,jdbcType=VARCHAR},
+      pic_time = #{picTime,jdbcType=VARCHAR},
+      pic_type = #{picType,jdbcType=VARCHAR},
+      batch_id = #{batchId,jdbcType=VARCHAR},
+      source = #{source,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,483 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tt.dao.FangXfLoupangBuildingMapper" >
+  <resultMap id="BaseResultMap" type="com.tt.entity.FangXfLoupangBuilding" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="building" property="building" jdbcType="VARCHAR" />
+    <result column="building_id" property="buildingId" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="detail_pc" property="detailPc" jdbcType="VARCHAR" />
+    <result column="period" property="period" jdbcType="VARCHAR" />
+    <result column="open_time" property="openTime" jdbcType="VARCHAR" />
+    <result column="roomtime" property="roomtime" jdbcType="VARCHAR" />
+    <result column="elevator" property="elevator" jdbcType="VARCHAR" />
+    <result column="unit_num" property="unitNum" jdbcType="VARCHAR" />
+    <result column="chushou_num" property="chushouNum" jdbcType="VARCHAR" />
+    <result column="home_total" property="homeTotal" jdbcType="VARCHAR" />
+    <result column="frame_num" property="frameNum" jdbcType="VARCHAR" />
+    <result column="build_type" property="buildType" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="batch_id" property="batchId" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.tt.entity.FangXfLoupangBuilding" extends="BaseResultMap" >
+    <result column="layout" property="layout" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, building, building_id, title, detail_pc, period, open_time, roomtime, elevator, 
+    unit_num, chushou_num, home_total, frame_num, build_type, status, createtime, batch_id
+  </sql>
+  <sql id="Blob_Column_List" >
+    layout
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.tt.entity.FangXfLoupangBuildingExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from fang_xf_loupang_building
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tt.entity.FangXfLoupangBuildingExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from fang_xf_loupang_building
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from fang_xf_loupang_building
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from fang_xf_loupang_building
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tt.entity.FangXfLoupangBuildingExample" >
+    delete from fang_xf_loupang_building
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tt.entity.FangXfLoupangBuilding" >
+    insert into fang_xf_loupang_building (id, building, building_id, 
+      title, detail_pc, period, 
+      open_time, roomtime, elevator, 
+      unit_num, chushou_num, home_total, 
+      frame_num, build_type, status, 
+      createtime, batch_id, layout
+      )
+    values (#{id,jdbcType=VARCHAR}, #{building,jdbcType=VARCHAR}, #{buildingId,jdbcType=VARCHAR}, 
+      #{title,jdbcType=VARCHAR}, #{detailPc,jdbcType=VARCHAR}, #{period,jdbcType=VARCHAR}, 
+      #{openTime,jdbcType=VARCHAR}, #{roomtime,jdbcType=VARCHAR}, #{elevator,jdbcType=VARCHAR}, 
+      #{unitNum,jdbcType=VARCHAR}, #{chushouNum,jdbcType=VARCHAR}, #{homeTotal,jdbcType=VARCHAR}, 
+      #{frameNum,jdbcType=VARCHAR}, #{buildType,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{batchId,jdbcType=VARCHAR}, #{layout,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tt.entity.FangXfLoupangBuilding" >
+    insert into fang_xf_loupang_building
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="building != null" >
+        building,
+      </if>
+      <if test="buildingId != null" >
+        building_id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="detailPc != null" >
+        detail_pc,
+      </if>
+      <if test="period != null" >
+        period,
+      </if>
+      <if test="openTime != null" >
+        open_time,
+      </if>
+      <if test="roomtime != null" >
+        roomtime,
+      </if>
+      <if test="elevator != null" >
+        elevator,
+      </if>
+      <if test="unitNum != null" >
+        unit_num,
+      </if>
+      <if test="chushouNum != null" >
+        chushou_num,
+      </if>
+      <if test="homeTotal != null" >
+        home_total,
+      </if>
+      <if test="frameNum != null" >
+        frame_num,
+      </if>
+      <if test="buildType != null" >
+        build_type,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="batchId != null" >
+        batch_id,
+      </if>
+      <if test="layout != null" >
+        layout,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="building != null" >
+        #{building,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingId != null" >
+        #{buildingId,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="detailPc != null" >
+        #{detailPc,jdbcType=VARCHAR},
+      </if>
+      <if test="period != null" >
+        #{period,jdbcType=VARCHAR},
+      </if>
+      <if test="openTime != null" >
+        #{openTime,jdbcType=VARCHAR},
+      </if>
+      <if test="roomtime != null" >
+        #{roomtime,jdbcType=VARCHAR},
+      </if>
+      <if test="elevator != null" >
+        #{elevator,jdbcType=VARCHAR},
+      </if>
+      <if test="unitNum != null" >
+        #{unitNum,jdbcType=VARCHAR},
+      </if>
+      <if test="chushouNum != null" >
+        #{chushouNum,jdbcType=VARCHAR},
+      </if>
+      <if test="homeTotal != null" >
+        #{homeTotal,jdbcType=VARCHAR},
+      </if>
+      <if test="frameNum != null" >
+        #{frameNum,jdbcType=VARCHAR},
+      </if>
+      <if test="buildType != null" >
+        #{buildType,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="batchId != null" >
+        #{batchId,jdbcType=VARCHAR},
+      </if>
+      <if test="layout != null" >
+        #{layout,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tt.entity.FangXfLoupangBuildingExample" resultType="java.lang.Integer" >
+    select count(*) from fang_xf_loupang_building
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update fang_xf_loupang_building
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.building != null" >
+        building = #{record.building,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildingId != null" >
+        building_id = #{record.buildingId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.detailPc != null" >
+        detail_pc = #{record.detailPc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.period != null" >
+        period = #{record.period,jdbcType=VARCHAR},
+      </if>
+      <if test="record.openTime != null" >
+        open_time = #{record.openTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roomtime != null" >
+        roomtime = #{record.roomtime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.elevator != null" >
+        elevator = #{record.elevator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unitNum != null" >
+        unit_num = #{record.unitNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chushouNum != null" >
+        chushou_num = #{record.chushouNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.homeTotal != null" >
+        home_total = #{record.homeTotal,jdbcType=VARCHAR},
+      </if>
+      <if test="record.frameNum != null" >
+        frame_num = #{record.frameNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildType != null" >
+        build_type = #{record.buildType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createtime != null" >
+        createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.batchId != null" >
+        batch_id = #{record.batchId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.layout != null" >
+        layout = #{record.layout,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update fang_xf_loupang_building
+    set id = #{record.id,jdbcType=VARCHAR},
+      building = #{record.building,jdbcType=VARCHAR},
+      building_id = #{record.buildingId,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      detail_pc = #{record.detailPc,jdbcType=VARCHAR},
+      period = #{record.period,jdbcType=VARCHAR},
+      open_time = #{record.openTime,jdbcType=VARCHAR},
+      roomtime = #{record.roomtime,jdbcType=VARCHAR},
+      elevator = #{record.elevator,jdbcType=VARCHAR},
+      unit_num = #{record.unitNum,jdbcType=VARCHAR},
+      chushou_num = #{record.chushouNum,jdbcType=VARCHAR},
+      home_total = #{record.homeTotal,jdbcType=VARCHAR},
+      frame_num = #{record.frameNum,jdbcType=VARCHAR},
+      build_type = #{record.buildType,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      batch_id = #{record.batchId,jdbcType=VARCHAR},
+      layout = #{record.layout,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update fang_xf_loupang_building
+    set id = #{record.id,jdbcType=VARCHAR},
+      building = #{record.building,jdbcType=VARCHAR},
+      building_id = #{record.buildingId,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      detail_pc = #{record.detailPc,jdbcType=VARCHAR},
+      period = #{record.period,jdbcType=VARCHAR},
+      open_time = #{record.openTime,jdbcType=VARCHAR},
+      roomtime = #{record.roomtime,jdbcType=VARCHAR},
+      elevator = #{record.elevator,jdbcType=VARCHAR},
+      unit_num = #{record.unitNum,jdbcType=VARCHAR},
+      chushou_num = #{record.chushouNum,jdbcType=VARCHAR},
+      home_total = #{record.homeTotal,jdbcType=VARCHAR},
+      frame_num = #{record.frameNum,jdbcType=VARCHAR},
+      build_type = #{record.buildType,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      batch_id = #{record.batchId,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tt.entity.FangXfLoupangBuilding" >
+    update fang_xf_loupang_building
+    <set >
+      <if test="building != null" >
+        building = #{building,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingId != null" >
+        building_id = #{buildingId,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="detailPc != null" >
+        detail_pc = #{detailPc,jdbcType=VARCHAR},
+      </if>
+      <if test="period != null" >
+        period = #{period,jdbcType=VARCHAR},
+      </if>
+      <if test="openTime != null" >
+        open_time = #{openTime,jdbcType=VARCHAR},
+      </if>
+      <if test="roomtime != null" >
+        roomtime = #{roomtime,jdbcType=VARCHAR},
+      </if>
+      <if test="elevator != null" >
+        elevator = #{elevator,jdbcType=VARCHAR},
+      </if>
+      <if test="unitNum != null" >
+        unit_num = #{unitNum,jdbcType=VARCHAR},
+      </if>
+      <if test="chushouNum != null" >
+        chushou_num = #{chushouNum,jdbcType=VARCHAR},
+      </if>
+      <if test="homeTotal != null" >
+        home_total = #{homeTotal,jdbcType=VARCHAR},
+      </if>
+      <if test="frameNum != null" >
+        frame_num = #{frameNum,jdbcType=VARCHAR},
+      </if>
+      <if test="buildType != null" >
+        build_type = #{buildType,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="batchId != null" >
+        batch_id = #{batchId,jdbcType=VARCHAR},
+      </if>
+      <if test="layout != null" >
+        layout = #{layout,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.tt.entity.FangXfLoupangBuilding" >
+    update fang_xf_loupang_building
+    set building = #{building,jdbcType=VARCHAR},
+      building_id = #{buildingId,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      detail_pc = #{detailPc,jdbcType=VARCHAR},
+      period = #{period,jdbcType=VARCHAR},
+      open_time = #{openTime,jdbcType=VARCHAR},
+      roomtime = #{roomtime,jdbcType=VARCHAR},
+      elevator = #{elevator,jdbcType=VARCHAR},
+      unit_num = #{unitNum,jdbcType=VARCHAR},
+      chushou_num = #{chushouNum,jdbcType=VARCHAR},
+      home_total = #{homeTotal,jdbcType=VARCHAR},
+      frame_num = #{frameNum,jdbcType=VARCHAR},
+      build_type = #{buildType,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      batch_id = #{batchId,jdbcType=VARCHAR},
+      layout = #{layout,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tt.entity.FangXfLoupangBuilding" >
+    update fang_xf_loupang_building
+    set building = #{building,jdbcType=VARCHAR},
+      building_id = #{buildingId,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      detail_pc = #{detailPc,jdbcType=VARCHAR},
+      period = #{period,jdbcType=VARCHAR},
+      open_time = #{openTime,jdbcType=VARCHAR},
+      roomtime = #{roomtime,jdbcType=VARCHAR},
+      elevator = #{elevator,jdbcType=VARCHAR},
+      unit_num = #{unitNum,jdbcType=VARCHAR},
+      chushou_num = #{chushouNum,jdbcType=VARCHAR},
+      home_total = #{homeTotal,jdbcType=VARCHAR},
+      frame_num = #{frameNum,jdbcType=VARCHAR},
+      build_type = #{buildType,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      batch_id = #{batchId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

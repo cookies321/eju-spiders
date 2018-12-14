@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tt.dao.QFangLoudongMapper" >
+  <resultMap id="BaseResultMap" type="com.tt.entity.QFangLoudong" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="q_id" property="qId" jdbcType="VARCHAR" />
+    <result column="internal_id" property="internalId" jdbcType="VARCHAR" />
+    <result column="build_id" property="buildId" jdbcType="VARCHAR" />
+    <result column="build_name" property="buildName" jdbcType="VARCHAR" />
+    <result column="build_register_name" property="buildRegisterName" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="source" property="source" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, q_id, internal_id, build_id, build_name, build_register_name, status, source
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tt.entity.QFangLoudongExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from q_fang_loudong
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from q_fang_loudong
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from q_fang_loudong
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tt.entity.QFangLoudongExample" >
+    delete from q_fang_loudong
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tt.entity.QFangLoudong" >
+    insert into q_fang_loudong (id, q_id, internal_id, 
+      build_id, build_name, build_register_name, 
+      status, source)
+    values (#{id,jdbcType=BIGINT}, #{qId,jdbcType=VARCHAR}, #{internalId,jdbcType=VARCHAR}, 
+      #{buildId,jdbcType=VARCHAR}, #{buildName,jdbcType=VARCHAR}, #{buildRegisterName,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{source,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tt.entity.QFangLoudong" >
+    insert into q_fang_loudong
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="qId != null" >
+        q_id,
+      </if>
+      <if test="internalId != null" >
+        internal_id,
+      </if>
+      <if test="buildId != null" >
+        build_id,
+      </if>
+      <if test="buildName != null" >
+        build_name,
+      </if>
+      <if test="buildRegisterName != null" >
+        build_register_name,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="source != null" >
+        source,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="qId != null" >
+        #{qId,jdbcType=VARCHAR},
+      </if>
+      <if test="internalId != null" >
+        #{internalId,jdbcType=VARCHAR},
+      </if>
+      <if test="buildId != null" >
+        #{buildId,jdbcType=VARCHAR},
+      </if>
+      <if test="buildName != null" >
+        #{buildName,jdbcType=VARCHAR},
+      </if>
+      <if test="buildRegisterName != null" >
+        #{buildRegisterName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        #{source,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tt.entity.QFangLoudongExample" resultType="java.lang.Integer" >
+    select count(*) from q_fang_loudong
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update q_fang_loudong
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.qId != null" >
+        q_id = #{record.qId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.internalId != null" >
+        internal_id = #{record.internalId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildId != null" >
+        build_id = #{record.buildId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildName != null" >
+        build_name = #{record.buildName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildRegisterName != null" >
+        build_register_name = #{record.buildRegisterName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.source != null" >
+        source = #{record.source,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update q_fang_loudong
+    set id = #{record.id,jdbcType=BIGINT},
+      q_id = #{record.qId,jdbcType=VARCHAR},
+      internal_id = #{record.internalId,jdbcType=VARCHAR},
+      build_id = #{record.buildId,jdbcType=VARCHAR},
+      build_name = #{record.buildName,jdbcType=VARCHAR},
+      build_register_name = #{record.buildRegisterName,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      source = #{record.source,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tt.entity.QFangLoudong" >
+    update q_fang_loudong
+    <set >
+      <if test="qId != null" >
+        q_id = #{qId,jdbcType=VARCHAR},
+      </if>
+      <if test="internalId != null" >
+        internal_id = #{internalId,jdbcType=VARCHAR},
+      </if>
+      <if test="buildId != null" >
+        build_id = #{buildId,jdbcType=VARCHAR},
+      </if>
+      <if test="buildName != null" >
+        build_name = #{buildName,jdbcType=VARCHAR},
+      </if>
+      <if test="buildRegisterName != null" >
+        build_register_name = #{buildRegisterName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        source = #{source,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tt.entity.QFangLoudong" >
+    update q_fang_loudong
+    set q_id = #{qId,jdbcType=VARCHAR},
+      internal_id = #{internalId,jdbcType=VARCHAR},
+      build_id = #{buildId,jdbcType=VARCHAR},
+      build_name = #{buildName,jdbcType=VARCHAR},
+      build_register_name = #{buildRegisterName,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      source = #{source,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

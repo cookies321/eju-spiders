@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tt.dao.CommunityFdHzHouseMapper" >
+  <resultMap id="BaseResultMap" type="com.tt.entity.CommunityFdHzHouse" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="detail_url" property="detailUrl" jdbcType="VARCHAR" />
+    <result column="building" property="building" jdbcType="VARCHAR" />
+    <result column="unit_num" property="unitNum" jdbcType="VARCHAR" />
+    <result column="house_name" property="houseName" jdbcType="VARCHAR" />
+    <result column="layout" property="layout" jdbcType="VARCHAR" />
+    <result column="real_floor" property="realFloor" jdbcType="VARCHAR" />
+    <result column="predicted_area" property="predictedArea" jdbcType="VARCHAR" />
+    <result column="dwelling_floor_space" property="dwellingFloorSpace" jdbcType="VARCHAR" />
+    <result column="shared_building_area" property="sharedBuildingArea" jdbcType="VARCHAR" />
+    <result column="maopi_price" property="maopiPrice" jdbcType="VARCHAR" />
+    <result column="renovation_price" property="renovationPrice" jdbcType="VARCHAR" />
+    <result column="sale_price" property="salePrice" jdbcType="VARCHAR" />
+    <result column="total_price" property="totalPrice" jdbcType="VARCHAR" />
+    <result column="property_company" property="propertyCompany" jdbcType="VARCHAR" />
+    <result column="batch_id" property="batchId" jdbcType="VARCHAR" />
+    <result column="source" property="source" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, detail_url, building, unit_num, house_name, layout, real_floor, predicted_area, 
+    dwelling_floor_space, shared_building_area, maopi_price, renovation_price, sale_price, 
+    total_price, property_company, batch_id, source, status, create_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tt.entity.CommunityFdHzHouseExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from community_fd_hz_house
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from community_fd_hz_house
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from community_fd_hz_house
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tt.entity.CommunityFdHzHouseExample" >
+    delete from community_fd_hz_house
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tt.entity.CommunityFdHzHouse" >
+    insert into community_fd_hz_house (id, detail_url, building, 
+      unit_num, house_name, layout, 
+      real_floor, predicted_area, dwelling_floor_space, 
+      shared_building_area, maopi_price, renovation_price, 
+      sale_price, total_price, property_company, 
+      batch_id, source, status, 
+      create_time)
+    values (#{id,jdbcType=VARCHAR}, #{detailUrl,jdbcType=VARCHAR}, #{building,jdbcType=VARCHAR}, 
+      #{unitNum,jdbcType=VARCHAR}, #{houseName,jdbcType=VARCHAR}, #{layout,jdbcType=VARCHAR}, 
+      #{realFloor,jdbcType=VARCHAR}, #{predictedArea,jdbcType=VARCHAR}, #{dwellingFloorSpace,jdbcType=VARCHAR}, 
+      #{sharedBuildingArea,jdbcType=VARCHAR}, #{maopiPrice,jdbcType=VARCHAR}, #{renovationPrice,jdbcType=VARCHAR}, 
+      #{salePrice,jdbcType=VARCHAR}, #{totalPrice,jdbcType=VARCHAR}, #{propertyCompany,jdbcType=VARCHAR}, 
+      #{batchId,jdbcType=VARCHAR}, #{source,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tt.entity.CommunityFdHzHouse" >
+    insert into community_fd_hz_house
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="detailUrl != null" >
+        detail_url,
+      </if>
+      <if test="building != null" >
+        building,
+      </if>
+      <if test="unitNum != null" >
+        unit_num,
+      </if>
+      <if test="houseName != null" >
+        house_name,
+      </if>
+      <if test="layout != null" >
+        layout,
+      </if>
+      <if test="realFloor != null" >
+        real_floor,
+      </if>
+      <if test="predictedArea != null" >
+        predicted_area,
+      </if>
+      <if test="dwellingFloorSpace != null" >
+        dwelling_floor_space,
+      </if>
+      <if test="sharedBuildingArea != null" >
+        shared_building_area,
+      </if>
+      <if test="maopiPrice != null" >
+        maopi_price,
+      </if>
+      <if test="renovationPrice != null" >
+        renovation_price,
+      </if>
+      <if test="salePrice != null" >
+        sale_price,
+      </if>
+      <if test="totalPrice != null" >
+        total_price,
+      </if>
+      <if test="propertyCompany != null" >
+        property_company,
+      </if>
+      <if test="batchId != null" >
+        batch_id,
+      </if>
+      <if test="source != null" >
+        source,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="detailUrl != null" >
+        #{detailUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="building != null" >
+        #{building,jdbcType=VARCHAR},
+      </if>
+      <if test="unitNum != null" >
+        #{unitNum,jdbcType=VARCHAR},
+      </if>
+      <if test="houseName != null" >
+        #{houseName,jdbcType=VARCHAR},
+      </if>
+      <if test="layout != null" >
+        #{layout,jdbcType=VARCHAR},
+      </if>
+      <if test="realFloor != null" >
+        #{realFloor,jdbcType=VARCHAR},
+      </if>
+      <if test="predictedArea != null" >
+        #{predictedArea,jdbcType=VARCHAR},
+      </if>
+      <if test="dwellingFloorSpace != null" >
+        #{dwellingFloorSpace,jdbcType=VARCHAR},
+      </if>
+      <if test="sharedBuildingArea != null" >
+        #{sharedBuildingArea,jdbcType=VARCHAR},
+      </if>
+      <if test="maopiPrice != null" >
+        #{maopiPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="renovationPrice != null" >
+        #{renovationPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="salePrice != null" >
+        #{salePrice,jdbcType=VARCHAR},
+      </if>
+      <if test="totalPrice != null" >
+        #{totalPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyCompany != null" >
+        #{propertyCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="batchId != null" >
+        #{batchId,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tt.entity.CommunityFdHzHouseExample" resultType="java.lang.Integer" >
+    select count(*) from community_fd_hz_house
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update community_fd_hz_house
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.detailUrl != null" >
+        detail_url = #{record.detailUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.building != null" >
+        building = #{record.building,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unitNum != null" >
+        unit_num = #{record.unitNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.houseName != null" >
+        house_name = #{record.houseName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.layout != null" >
+        layout = #{record.layout,jdbcType=VARCHAR},
+      </if>
+      <if test="record.realFloor != null" >
+        real_floor = #{record.realFloor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.predictedArea != null" >
+        predicted_area = #{record.predictedArea,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dwellingFloorSpace != null" >
+        dwelling_floor_space = #{record.dwellingFloorSpace,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sharedBuildingArea != null" >
+        shared_building_area = #{record.sharedBuildingArea,jdbcType=VARCHAR},
+      </if>
+      <if test="record.maopiPrice != null" >
+        maopi_price = #{record.maopiPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.renovationPrice != null" >
+        renovation_price = #{record.renovationPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.salePrice != null" >
+        sale_price = #{record.salePrice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.totalPrice != null" >
+        total_price = #{record.totalPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.propertyCompany != null" >
+        property_company = #{record.propertyCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="record.batchId != null" >
+        batch_id = #{record.batchId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.source != null" >
+        source = #{record.source,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update community_fd_hz_house
+    set id = #{record.id,jdbcType=VARCHAR},
+      detail_url = #{record.detailUrl,jdbcType=VARCHAR},
+      building = #{record.building,jdbcType=VARCHAR},
+      unit_num = #{record.unitNum,jdbcType=VARCHAR},
+      house_name = #{record.houseName,jdbcType=VARCHAR},
+      layout = #{record.layout,jdbcType=VARCHAR},
+      real_floor = #{record.realFloor,jdbcType=VARCHAR},
+      predicted_area = #{record.predictedArea,jdbcType=VARCHAR},
+      dwelling_floor_space = #{record.dwellingFloorSpace,jdbcType=VARCHAR},
+      shared_building_area = #{record.sharedBuildingArea,jdbcType=VARCHAR},
+      maopi_price = #{record.maopiPrice,jdbcType=VARCHAR},
+      renovation_price = #{record.renovationPrice,jdbcType=VARCHAR},
+      sale_price = #{record.salePrice,jdbcType=VARCHAR},
+      total_price = #{record.totalPrice,jdbcType=VARCHAR},
+      property_company = #{record.propertyCompany,jdbcType=VARCHAR},
+      batch_id = #{record.batchId,jdbcType=VARCHAR},
+      source = #{record.source,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tt.entity.CommunityFdHzHouse" >
+    update community_fd_hz_house
+    <set >
+      <if test="detailUrl != null" >
+        detail_url = #{detailUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="building != null" >
+        building = #{building,jdbcType=VARCHAR},
+      </if>
+      <if test="unitNum != null" >
+        unit_num = #{unitNum,jdbcType=VARCHAR},
+      </if>
+      <if test="houseName != null" >
+        house_name = #{houseName,jdbcType=VARCHAR},
+      </if>
+      <if test="layout != null" >
+        layout = #{layout,jdbcType=VARCHAR},
+      </if>
+      <if test="realFloor != null" >
+        real_floor = #{realFloor,jdbcType=VARCHAR},
+      </if>
+      <if test="predictedArea != null" >
+        predicted_area = #{predictedArea,jdbcType=VARCHAR},
+      </if>
+      <if test="dwellingFloorSpace != null" >
+        dwelling_floor_space = #{dwellingFloorSpace,jdbcType=VARCHAR},
+      </if>
+      <if test="sharedBuildingArea != null" >
+        shared_building_area = #{sharedBuildingArea,jdbcType=VARCHAR},
+      </if>
+      <if test="maopiPrice != null" >
+        maopi_price = #{maopiPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="renovationPrice != null" >
+        renovation_price = #{renovationPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="salePrice != null" >
+        sale_price = #{salePrice,jdbcType=VARCHAR},
+      </if>
+      <if test="totalPrice != null" >
+        total_price = #{totalPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyCompany != null" >
+        property_company = #{propertyCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="batchId != null" >
+        batch_id = #{batchId,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        source = #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tt.entity.CommunityFdHzHouse" >
+    update community_fd_hz_house
+    set detail_url = #{detailUrl,jdbcType=VARCHAR},
+      building = #{building,jdbcType=VARCHAR},
+      unit_num = #{unitNum,jdbcType=VARCHAR},
+      house_name = #{houseName,jdbcType=VARCHAR},
+      layout = #{layout,jdbcType=VARCHAR},
+      real_floor = #{realFloor,jdbcType=VARCHAR},
+      predicted_area = #{predictedArea,jdbcType=VARCHAR},
+      dwelling_floor_space = #{dwellingFloorSpace,jdbcType=VARCHAR},
+      shared_building_area = #{sharedBuildingArea,jdbcType=VARCHAR},
+      maopi_price = #{maopiPrice,jdbcType=VARCHAR},
+      renovation_price = #{renovationPrice,jdbcType=VARCHAR},
+      sale_price = #{salePrice,jdbcType=VARCHAR},
+      total_price = #{totalPrice,jdbcType=VARCHAR},
+      property_company = #{propertyCompany,jdbcType=VARCHAR},
+      batch_id = #{batchId,jdbcType=VARCHAR},
+      source = #{source,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

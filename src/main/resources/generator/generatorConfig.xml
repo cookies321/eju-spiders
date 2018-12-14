@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <properties resource="db.properties"></properties>
+    <classPathEntry
+            location="${jdbc.driverLocation}"/>
+
+
+    <context id="testTables" targetRuntime="MyBatis3">
+        <!--自动实现序列化接口-->
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
+        <commentGenerator>
+            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
+        <!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
+        <jdbcConnection driverClass="${jdbc.driver}"
+                        connectionURL="${jdbc.url}"
+                        userId="${jdbc.username}"
+                        password="${jdbc.password}"/>
+        <!--<jdbcConnection
+                driverClass="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+                connectionURL="jdbc:sqlserver://192.168.0.146:1433;DatabaseName=TravelAssistant"
+                userId="sa"
+                password="sdgl#123">
+        </jdbcConnection>-->
+
+        <!-- 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer，为 true时把JDBC DECIMAL 和
+            NUMERIC 类型解析为java.math.BigDecimal -->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+
+        <javaModelGenerator targetPackage="com.tt.entity"
+                            targetProject="src/main/java">
+            <!-- enableSubPackages:是否让schema作为包的后缀 -->
+            <property name="enableSubPackages" value="false" />
+            <!-- 从数据库返回的值被清理前后的空格 -->
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+        <!-- targetProject:mapper映射文件生成的位置 -->
+        <sqlMapGenerator targetPackage="mapper"
+                         targetProject="src/main/resources">
+            <!-- enableSubPackages:是否让schema作为包的后缀 -->
+            <property name="enableSubPackages" value="false" />
+        </sqlMapGenerator>
+        <!-- targetPackage：mapper接口生成的位置 -->
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="com.tt.dao"
+                             targetProject="src/main/java">
+            <!-- enableSubPackages:是否让schema作为包的后缀 -->
+            <property name="enableSubPackages" value="false" />
+        </javaClientGenerator>
+
+        <!-- 指定数据库表 -->
+        <!--<table schema="" tableName="fang_agent" domainObjectName="FangAgent"></table>-->
+        <!--<table schema="" tableName="community_ke_detail" domainObjectName="CommunityKeDetail"></table>
+        <table schema="" tableName="ke_loudong" domainObjectName="KeLoudong"></table>-->
+       <!-- <table schema="" tableName="q_fang_xiaoqu" domainObjectName=""></table>-->
+        <!--<table schema="" tableName="q_fang_loudong" domainObjectName="QFangLoudong"></table>-->
+        <!--<table schema="" tableName="ke_layout" domainObjectName="KeLayout"></table>-->
+       <!-- <table schema="" tableName="community_ke_detail_ReleaseHouse" domainObjectName="CommunityKeDetailReleaseHouse"></table>
+        <table schema="" tableName="ke_loudong_ReleaseHouse" domainObjectName="KeLoudongReleaseHouse"></table>-->
+        <!--<table schema="" tableName="community_ke_detail_baidu_address" domainObjectName="CommunityKeDetailBaiduAddress"></table>-->
+        <!--<table schema="" tableName="anjuke_community_bei" domainObjectName="AnjukeCommunityBei"></table>-->
+        <!--<table schema="" tableName="dianping_intermediary" domainObjectName="DianpingIntermediary"></table>-->
+        <!--<table schema="" tableName="anjuke_broker_list" domainObjectName="AnjukeBrokerList"></table>-->
+        <!--<table schema="" tableName="anjuke_broker_esfgoods_detail" domainObjectName="AnjukeBrokerEsfgoodsDetail"></table>-->
+        <!--<table schema="" tableName="anjuke_jjr_esfgoods_pic" domainObjectName="AnjukeJjrEsfgoodsPic"></table>-->
+       <!-- <table schema="" tableName="fang_xf_loupang_list" domainObjectName="FangXfLoupangList"></table>-->
+        <!--<table schema="" tableName="fang_xf_loupang_building" domainObjectName="FangXfLoupangBuilding"></table>-->
+        <!--<table schema="" tableName="fang_xf_loupang_buildinglayout" domainObjectName="FangXfLoupangBuildinglayout"></table>-->
+        <!--<table schema="" tableName="zhuge_community" domainObjectName="ZhugeCommunity"></table>-->
+        <!--<table schema="" tableName="community_tmsf_hz_detail" domainObjectName="CommunityTmsfHzDetail"></table>-->
+       <!-- <table schema="" tableName="community_tmsf_hz_list_forhouse" domainObjectName="CommunityTmsfHzForhouse"></table>
+        <table schema="" tableName="community_tmsf_hz_list_loudong" domainObjectName="CommunityTmsfHzListLoudong"></table>-->
+
+        <table schema="" tableName="lianjia_listing_house_detail" domainObjectName="LianjiaListingHouseDetail"></table>
+        <table schema="" tableName="lianjia_listing_house_pic" domainObjectName="LianjiaListingHousePic"></table>
+    </context>
+</generatorConfiguration>

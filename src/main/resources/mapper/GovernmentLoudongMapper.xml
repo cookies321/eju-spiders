@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tt.dao.GovernmentLoudongMapper" >
+  <resultMap id="BaseResultMap" type="com.tt.entity.GovernmentLoudong" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="title_id" property="titleId" jdbcType="VARCHAR" />
+    <result column="sales_no" property="salesNo" jdbcType="VARCHAR" />
+    <result column="title_relation" property="titleRelation" jdbcType="VARCHAR" />
+    <result column="building" property="building" jdbcType="VARCHAR" />
+    <result column="building_id" property="buildingId" jdbcType="VARCHAR" />
+    <result column="sale_house" property="saleHouse" jdbcType="VARCHAR" />
+    <result column="sale_nothouse" property="saleNothouse" jdbcType="VARCHAR" />
+    <result column="loudong_url" property="loudongUrl" jdbcType="VARCHAR" />
+    <result column="real_floor" property="realFloor" jdbcType="VARCHAR" />
+    <result column="nominal_floor" property="nominalFloor" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="batch_id" property="batchId" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, title, title_id, sales_no, title_relation, building, building_id, sale_house, 
+    sale_nothouse, loudong_url, real_floor, nominal_floor, status, batch_id, create_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tt.entity.GovernmentLoudongExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from government_loudong
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from government_loudong
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from government_loudong
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tt.entity.GovernmentLoudongExample" >
+    delete from government_loudong
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tt.entity.GovernmentLoudong" >
+    insert into government_loudong (id, title, title_id, 
+      sales_no, title_relation, building, 
+      building_id, sale_house, sale_nothouse, 
+      loudong_url, real_floor, nominal_floor, 
+      status, batch_id, create_time
+      )
+    values (#{id,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{titleId,jdbcType=VARCHAR}, 
+      #{salesNo,jdbcType=VARCHAR}, #{titleRelation,jdbcType=VARCHAR}, #{building,jdbcType=VARCHAR}, 
+      #{buildingId,jdbcType=VARCHAR}, #{saleHouse,jdbcType=VARCHAR}, #{saleNothouse,jdbcType=VARCHAR}, 
+      #{loudongUrl,jdbcType=VARCHAR}, #{realFloor,jdbcType=VARCHAR}, #{nominalFloor,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{batchId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tt.entity.GovernmentLoudong" >
+    insert into government_loudong
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="titleId != null" >
+        title_id,
+      </if>
+      <if test="salesNo != null" >
+        sales_no,
+      </if>
+      <if test="titleRelation != null" >
+        title_relation,
+      </if>
+      <if test="building != null" >
+        building,
+      </if>
+      <if test="buildingId != null" >
+        building_id,
+      </if>
+      <if test="saleHouse != null" >
+        sale_house,
+      </if>
+      <if test="saleNothouse != null" >
+        sale_nothouse,
+      </if>
+      <if test="loudongUrl != null" >
+        loudong_url,
+      </if>
+      <if test="realFloor != null" >
+        real_floor,
+      </if>
+      <if test="nominalFloor != null" >
+        nominal_floor,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="batchId != null" >
+        batch_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="titleId != null" >
+        #{titleId,jdbcType=VARCHAR},
+      </if>
+      <if test="salesNo != null" >
+        #{salesNo,jdbcType=VARCHAR},
+      </if>
+      <if test="titleRelation != null" >
+        #{titleRelation,jdbcType=VARCHAR},
+      </if>
+      <if test="building != null" >
+        #{building,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingId != null" >
+        #{buildingId,jdbcType=VARCHAR},
+      </if>
+      <if test="saleHouse != null" >
+        #{saleHouse,jdbcType=VARCHAR},
+      </if>
+      <if test="saleNothouse != null" >
+        #{saleNothouse,jdbcType=VARCHAR},
+      </if>
+      <if test="loudongUrl != null" >
+        #{loudongUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="realFloor != null" >
+        #{realFloor,jdbcType=VARCHAR},
+      </if>
+      <if test="nominalFloor != null" >
+        #{nominalFloor,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="batchId != null" >
+        #{batchId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tt.entity.GovernmentLoudongExample" resultType="java.lang.Integer" >
+    select count(*) from government_loudong
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update government_loudong
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.titleId != null" >
+        title_id = #{record.titleId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.salesNo != null" >
+        sales_no = #{record.salesNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.titleRelation != null" >
+        title_relation = #{record.titleRelation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.building != null" >
+        building = #{record.building,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildingId != null" >
+        building_id = #{record.buildingId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.saleHouse != null" >
+        sale_house = #{record.saleHouse,jdbcType=VARCHAR},
+      </if>
+      <if test="record.saleNothouse != null" >
+        sale_nothouse = #{record.saleNothouse,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loudongUrl != null" >
+        loudong_url = #{record.loudongUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.realFloor != null" >
+        real_floor = #{record.realFloor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nominalFloor != null" >
+        nominal_floor = #{record.nominalFloor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.batchId != null" >
+        batch_id = #{record.batchId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update government_loudong
+    set id = #{record.id,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      title_id = #{record.titleId,jdbcType=VARCHAR},
+      sales_no = #{record.salesNo,jdbcType=VARCHAR},
+      title_relation = #{record.titleRelation,jdbcType=VARCHAR},
+      building = #{record.building,jdbcType=VARCHAR},
+      building_id = #{record.buildingId,jdbcType=VARCHAR},
+      sale_house = #{record.saleHouse,jdbcType=VARCHAR},
+      sale_nothouse = #{record.saleNothouse,jdbcType=VARCHAR},
+      loudong_url = #{record.loudongUrl,jdbcType=VARCHAR},
+      real_floor = #{record.realFloor,jdbcType=VARCHAR},
+      nominal_floor = #{record.nominalFloor,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      batch_id = #{record.batchId,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tt.entity.GovernmentLoudong" >
+    update government_loudong
+    <set >
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="titleId != null" >
+        title_id = #{titleId,jdbcType=VARCHAR},
+      </if>
+      <if test="salesNo != null" >
+        sales_no = #{salesNo,jdbcType=VARCHAR},
+      </if>
+      <if test="titleRelation != null" >
+        title_relation = #{titleRelation,jdbcType=VARCHAR},
+      </if>
+      <if test="building != null" >
+        building = #{building,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingId != null" >
+        building_id = #{buildingId,jdbcType=VARCHAR},
+      </if>
+      <if test="saleHouse != null" >
+        sale_house = #{saleHouse,jdbcType=VARCHAR},
+      </if>
+      <if test="saleNothouse != null" >
+        sale_nothouse = #{saleNothouse,jdbcType=VARCHAR},
+      </if>
+      <if test="loudongUrl != null" >
+        loudong_url = #{loudongUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="realFloor != null" >
+        real_floor = #{realFloor,jdbcType=VARCHAR},
+      </if>
+      <if test="nominalFloor != null" >
+        nominal_floor = #{nominalFloor,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="batchId != null" >
+        batch_id = #{batchId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tt.entity.GovernmentLoudong" >
+    update government_loudong
+    set title = #{title,jdbcType=VARCHAR},
+      title_id = #{titleId,jdbcType=VARCHAR},
+      sales_no = #{salesNo,jdbcType=VARCHAR},
+      title_relation = #{titleRelation,jdbcType=VARCHAR},
+      building = #{building,jdbcType=VARCHAR},
+      building_id = #{buildingId,jdbcType=VARCHAR},
+      sale_house = #{saleHouse,jdbcType=VARCHAR},
+      sale_nothouse = #{saleNothouse,jdbcType=VARCHAR},
+      loudong_url = #{loudongUrl,jdbcType=VARCHAR},
+      real_floor = #{realFloor,jdbcType=VARCHAR},
+      nominal_floor = #{nominalFloor,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      batch_id = #{batchId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

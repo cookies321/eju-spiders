@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tt.dao.CommunityTmsfHzDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.tt.entity.CommunityTmsfHzDetail" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="detail_url" property="detailUrl" jdbcType="VARCHAR" />
+    <result column="title_id" property="titleId" jdbcType="VARCHAR" />
+    <result column="property_type" property="propertyType" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="home_total" property="homeTotal" jdbcType="VARCHAR" />
+    <result column="main_layout" property="mainLayout" jdbcType="VARCHAR" />
+    <result column="decoration" property="decoration" jdbcType="VARCHAR" />
+    <result column="build_type" property="buildType" jdbcType="VARCHAR" />
+    <result column="build_developers" property="buildDevelopers" jdbcType="VARCHAR" />
+    <result column="plot_rate" property="plotRate" jdbcType="VARCHAR" />
+    <result column="green_rate" property="greenRate" jdbcType="VARCHAR" />
+    <result column="floor_area" property="floorArea" jdbcType="VARCHAR" />
+    <result column="build_area" property="buildArea" jdbcType="VARCHAR" />
+    <result column="build_year" property="buildYear" jdbcType="VARCHAR" />
+    <result column="property_year" property="propertyYear" jdbcType="VARCHAR" />
+    <result column="parking" property="parking" jdbcType="VARCHAR" />
+    <result column="property_price" property="propertyPrice" jdbcType="VARCHAR" />
+    <result column="property_company" property="propertyCompany" jdbcType="VARCHAR" />
+    <result column="lead_time" property="leadTime" jdbcType="VARCHAR" />
+    <result column="batch_id" property="batchId" jdbcType="VARCHAR" />
+    <result column="source" property="source" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, detail_url, title_id, property_type, address, home_total, main_layout, decoration, 
+    build_type, build_developers, plot_rate, green_rate, floor_area, build_area, build_year, 
+    property_year, parking, property_price, property_company, lead_time, batch_id, source, 
+    status, create_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tt.entity.CommunityTmsfHzDetailExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from community_tmsf_hz_detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from community_tmsf_hz_detail
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from community_tmsf_hz_detail
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tt.entity.CommunityTmsfHzDetailExample" >
+    delete from community_tmsf_hz_detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tt.entity.CommunityTmsfHzDetail" >
+    insert into community_tmsf_hz_detail (id, detail_url, title_id, 
+      property_type, address, home_total, 
+      main_layout, decoration, build_type, 
+      build_developers, plot_rate, green_rate, 
+      floor_area, build_area, build_year, 
+      property_year, parking, property_price, 
+      property_company, lead_time, batch_id, 
+      source, status, create_time
+      )
+    values (#{id,jdbcType=VARCHAR}, #{detailUrl,jdbcType=VARCHAR}, #{titleId,jdbcType=VARCHAR}, 
+      #{propertyType,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{homeTotal,jdbcType=VARCHAR}, 
+      #{mainLayout,jdbcType=VARCHAR}, #{decoration,jdbcType=VARCHAR}, #{buildType,jdbcType=VARCHAR}, 
+      #{buildDevelopers,jdbcType=VARCHAR}, #{plotRate,jdbcType=VARCHAR}, #{greenRate,jdbcType=VARCHAR}, 
+      #{floorArea,jdbcType=VARCHAR}, #{buildArea,jdbcType=VARCHAR}, #{buildYear,jdbcType=VARCHAR}, 
+      #{propertyYear,jdbcType=VARCHAR}, #{parking,jdbcType=VARCHAR}, #{propertyPrice,jdbcType=VARCHAR}, 
+      #{propertyCompany,jdbcType=VARCHAR}, #{leadTime,jdbcType=VARCHAR}, #{batchId,jdbcType=VARCHAR}, 
+      #{source,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tt.entity.CommunityTmsfHzDetail" >
+    insert into community_tmsf_hz_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="detailUrl != null" >
+        detail_url,
+      </if>
+      <if test="titleId != null" >
+        title_id,
+      </if>
+      <if test="propertyType != null" >
+        property_type,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="homeTotal != null" >
+        home_total,
+      </if>
+      <if test="mainLayout != null" >
+        main_layout,
+      </if>
+      <if test="decoration != null" >
+        decoration,
+      </if>
+      <if test="buildType != null" >
+        build_type,
+      </if>
+      <if test="buildDevelopers != null" >
+        build_developers,
+      </if>
+      <if test="plotRate != null" >
+        plot_rate,
+      </if>
+      <if test="greenRate != null" >
+        green_rate,
+      </if>
+      <if test="floorArea != null" >
+        floor_area,
+      </if>
+      <if test="buildArea != null" >
+        build_area,
+      </if>
+      <if test="buildYear != null" >
+        build_year,
+      </if>
+      <if test="propertyYear != null" >
+        property_year,
+      </if>
+      <if test="parking != null" >
+        parking,
+      </if>
+      <if test="propertyPrice != null" >
+        property_price,
+      </if>
+      <if test="propertyCompany != null" >
+        property_company,
+      </if>
+      <if test="leadTime != null" >
+        lead_time,
+      </if>
+      <if test="batchId != null" >
+        batch_id,
+      </if>
+      <if test="source != null" >
+        source,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="detailUrl != null" >
+        #{detailUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="titleId != null" >
+        #{titleId,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyType != null" >
+        #{propertyType,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="homeTotal != null" >
+        #{homeTotal,jdbcType=VARCHAR},
+      </if>
+      <if test="mainLayout != null" >
+        #{mainLayout,jdbcType=VARCHAR},
+      </if>
+      <if test="decoration != null" >
+        #{decoration,jdbcType=VARCHAR},
+      </if>
+      <if test="buildType != null" >
+        #{buildType,jdbcType=VARCHAR},
+      </if>
+      <if test="buildDevelopers != null" >
+        #{buildDevelopers,jdbcType=VARCHAR},
+      </if>
+      <if test="plotRate != null" >
+        #{plotRate,jdbcType=VARCHAR},
+      </if>
+      <if test="greenRate != null" >
+        #{greenRate,jdbcType=VARCHAR},
+      </if>
+      <if test="floorArea != null" >
+        #{floorArea,jdbcType=VARCHAR},
+      </if>
+      <if test="buildArea != null" >
+        #{buildArea,jdbcType=VARCHAR},
+      </if>
+      <if test="buildYear != null" >
+        #{buildYear,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyYear != null" >
+        #{propertyYear,jdbcType=VARCHAR},
+      </if>
+      <if test="parking != null" >
+        #{parking,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyPrice != null" >
+        #{propertyPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyCompany != null" >
+        #{propertyCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="leadTime != null" >
+        #{leadTime,jdbcType=VARCHAR},
+      </if>
+      <if test="batchId != null" >
+        #{batchId,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tt.entity.CommunityTmsfHzDetailExample" resultType="java.lang.Integer" >
+    select count(*) from community_tmsf_hz_detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update community_tmsf_hz_detail
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.detailUrl != null" >
+        detail_url = #{record.detailUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.titleId != null" >
+        title_id = #{record.titleId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.propertyType != null" >
+        property_type = #{record.propertyType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.homeTotal != null" >
+        home_total = #{record.homeTotal,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mainLayout != null" >
+        main_layout = #{record.mainLayout,jdbcType=VARCHAR},
+      </if>
+      <if test="record.decoration != null" >
+        decoration = #{record.decoration,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildType != null" >
+        build_type = #{record.buildType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildDevelopers != null" >
+        build_developers = #{record.buildDevelopers,jdbcType=VARCHAR},
+      </if>
+      <if test="record.plotRate != null" >
+        plot_rate = #{record.plotRate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.greenRate != null" >
+        green_rate = #{record.greenRate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.floorArea != null" >
+        floor_area = #{record.floorArea,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildArea != null" >
+        build_area = #{record.buildArea,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildYear != null" >
+        build_year = #{record.buildYear,jdbcType=VARCHAR},
+      </if>
+      <if test="record.propertyYear != null" >
+        property_year = #{record.propertyYear,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parking != null" >
+        parking = #{record.parking,jdbcType=VARCHAR},
+      </if>
+      <if test="record.propertyPrice != null" >
+        property_price = #{record.propertyPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.propertyCompany != null" >
+        property_company = #{record.propertyCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="record.leadTime != null" >
+        lead_time = #{record.leadTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.batchId != null" >
+        batch_id = #{record.batchId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.source != null" >
+        source = #{record.source,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update community_tmsf_hz_detail
+    set id = #{record.id,jdbcType=VARCHAR},
+      detail_url = #{record.detailUrl,jdbcType=VARCHAR},
+      title_id = #{record.titleId,jdbcType=VARCHAR},
+      property_type = #{record.propertyType,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      home_total = #{record.homeTotal,jdbcType=VARCHAR},
+      main_layout = #{record.mainLayout,jdbcType=VARCHAR},
+      decoration = #{record.decoration,jdbcType=VARCHAR},
+      build_type = #{record.buildType,jdbcType=VARCHAR},
+      build_developers = #{record.buildDevelopers,jdbcType=VARCHAR},
+      plot_rate = #{record.plotRate,jdbcType=VARCHAR},
+      green_rate = #{record.greenRate,jdbcType=VARCHAR},
+      floor_area = #{record.floorArea,jdbcType=VARCHAR},
+      build_area = #{record.buildArea,jdbcType=VARCHAR},
+      build_year = #{record.buildYear,jdbcType=VARCHAR},
+      property_year = #{record.propertyYear,jdbcType=VARCHAR},
+      parking = #{record.parking,jdbcType=VARCHAR},
+      property_price = #{record.propertyPrice,jdbcType=VARCHAR},
+      property_company = #{record.propertyCompany,jdbcType=VARCHAR},
+      lead_time = #{record.leadTime,jdbcType=VARCHAR},
+      batch_id = #{record.batchId,jdbcType=VARCHAR},
+      source = #{record.source,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tt.entity.CommunityTmsfHzDetail" >
+    update community_tmsf_hz_detail
+    <set >
+      <if test="detailUrl != null" >
+        detail_url = #{detailUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="titleId != null" >
+        title_id = #{titleId,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyType != null" >
+        property_type = #{propertyType,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="homeTotal != null" >
+        home_total = #{homeTotal,jdbcType=VARCHAR},
+      </if>
+      <if test="mainLayout != null" >
+        main_layout = #{mainLayout,jdbcType=VARCHAR},
+      </if>
+      <if test="decoration != null" >
+        decoration = #{decoration,jdbcType=VARCHAR},
+      </if>
+      <if test="buildType != null" >
+        build_type = #{buildType,jdbcType=VARCHAR},
+      </if>
+      <if test="buildDevelopers != null" >
+        build_developers = #{buildDevelopers,jdbcType=VARCHAR},
+      </if>
+      <if test="plotRate != null" >
+        plot_rate = #{plotRate,jdbcType=VARCHAR},
+      </if>
+      <if test="greenRate != null" >
+        green_rate = #{greenRate,jdbcType=VARCHAR},
+      </if>
+      <if test="floorArea != null" >
+        floor_area = #{floorArea,jdbcType=VARCHAR},
+      </if>
+      <if test="buildArea != null" >
+        build_area = #{buildArea,jdbcType=VARCHAR},
+      </if>
+      <if test="buildYear != null" >
+        build_year = #{buildYear,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyYear != null" >
+        property_year = #{propertyYear,jdbcType=VARCHAR},
+      </if>
+      <if test="parking != null" >
+        parking = #{parking,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyPrice != null" >
+        property_price = #{propertyPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyCompany != null" >
+        property_company = #{propertyCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="leadTime != null" >
+        lead_time = #{leadTime,jdbcType=VARCHAR},
+      </if>
+      <if test="batchId != null" >
+        batch_id = #{batchId,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        source = #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tt.entity.CommunityTmsfHzDetail" >
+    update community_tmsf_hz_detail
+    set detail_url = #{detailUrl,jdbcType=VARCHAR},
+      title_id = #{titleId,jdbcType=VARCHAR},
+      property_type = #{propertyType,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      home_total = #{homeTotal,jdbcType=VARCHAR},
+      main_layout = #{mainLayout,jdbcType=VARCHAR},
+      decoration = #{decoration,jdbcType=VARCHAR},
+      build_type = #{buildType,jdbcType=VARCHAR},
+      build_developers = #{buildDevelopers,jdbcType=VARCHAR},
+      plot_rate = #{plotRate,jdbcType=VARCHAR},
+      green_rate = #{greenRate,jdbcType=VARCHAR},
+      floor_area = #{floorArea,jdbcType=VARCHAR},
+      build_area = #{buildArea,jdbcType=VARCHAR},
+      build_year = #{buildYear,jdbcType=VARCHAR},
+      property_year = #{propertyYear,jdbcType=VARCHAR},
+      parking = #{parking,jdbcType=VARCHAR},
+      property_price = #{propertyPrice,jdbcType=VARCHAR},
+      property_company = #{propertyCompany,jdbcType=VARCHAR},
+      lead_time = #{leadTime,jdbcType=VARCHAR},
+      batch_id = #{batchId,jdbcType=VARCHAR},
+      source = #{source,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

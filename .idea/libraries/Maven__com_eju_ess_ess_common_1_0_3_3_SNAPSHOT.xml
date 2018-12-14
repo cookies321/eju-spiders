@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.eju.ess:ess-common:1.0.3.3-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/eju/ess/ess-common/1.0.3.3-SNAPSHOT/ess-common-1.0.3.3-20161226.040234-1.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/eju/ess/ess-common/1.0.3.3-SNAPSHOT/ess-common-1.0.3.3-20161226.040234-1-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/eju/ess/ess-common/1.0.3.3-SNAPSHOT/ess-common-1.0.3.3-20161226.040234-1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

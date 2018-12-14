@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tt.dao.KeLoudongReleaseHouseMapper" >
+  <resultMap id="BaseResultMap" type="com.tt.entity.KeLoudongReleaseHouse" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="title_id" property="titleId" jdbcType="VARCHAR" />
+    <result column="building" property="building" jdbcType="VARCHAR" />
+    <result column="building_id" property="buildingId" jdbcType="VARCHAR" />
+    <result column="elevator" property="elevator" jdbcType="VARCHAR" />
+    <result column="frame_num" property="frameNum" jdbcType="VARCHAR" />
+    <result column="build_year" property="buildYear" jdbcType="VARCHAR" />
+    <result column="build_type" property="buildType" jdbcType="VARCHAR" />
+    <result column="unit_num" property="unitNum" jdbcType="VARCHAR" />
+    <result column="point_lat" property="pointLat" jdbcType="VARCHAR" />
+    <result column="point_lng" property="pointLng" jdbcType="VARCHAR" />
+    <result column="distance" property="distance" jdbcType="VARCHAR" />
+    <result column="ladder_ratio" property="ladderRatio" jdbcType="VARCHAR" />
+    <result column="source" property="source" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, title_id, building, building_id, elevator, frame_num, build_year, build_type, 
+    unit_num, point_lat, point_lng, distance, ladder_ratio, source
+  </sql>
+  <!--新增方法-->
+<select id="selectQueShao" resultMap="BaseResultMap">
+SELECT *, COUNT(DISTINCT a.title_id) from ke_loudong a
+LEFT join ke_loudong_releasehouse b
+on a.title_id = b.title_id
+where a.title_id in
+(select distinct c.title_id from community_ke_detail c
+where cast(LEFT(c.build_year,4) as signed)>2013)
+and b.title_id IS null
+GROUP BY a.title_id
+</select>
+
+
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tt.entity.KeLoudongReleaseHouseExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ke_loudong_releasehouse
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ke_loudong_releasehouse
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ke_loudong_releasehouse
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tt.entity.KeLoudongReleaseHouseExample" >
+    delete from ke_loudong_releasehouse
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tt.entity.KeLoudongReleaseHouse" >
+    insert into ke_loudong_releasehouse (id, title_id, building, 
+      building_id, elevator, frame_num, 
+      build_year, build_type, unit_num, 
+      point_lat, point_lng, distance, 
+      ladder_ratio, source)
+    values (#{id,jdbcType=VARCHAR}, #{titleId,jdbcType=VARCHAR}, #{building,jdbcType=VARCHAR}, 
+      #{buildingId,jdbcType=VARCHAR}, #{elevator,jdbcType=VARCHAR}, #{frameNum,jdbcType=VARCHAR}, 
+      #{buildYear,jdbcType=VARCHAR}, #{buildType,jdbcType=VARCHAR}, #{unitNum,jdbcType=VARCHAR}, 
+      #{pointLat,jdbcType=VARCHAR}, #{pointLng,jdbcType=VARCHAR}, #{distance,jdbcType=VARCHAR}, 
+      #{ladderRatio,jdbcType=VARCHAR}, #{source,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tt.entity.KeLoudongReleaseHouse" >
+    insert into ke_loudong_releasehouse
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="titleId != null" >
+        title_id,
+      </if>
+      <if test="building != null" >
+        building,
+      </if>
+      <if test="buildingId != null" >
+        building_id,
+      </if>
+      <if test="elevator != null" >
+        elevator,
+      </if>
+      <if test="frameNum != null" >
+        frame_num,
+      </if>
+      <if test="buildYear != null" >
+        build_year,
+      </if>
+      <if test="buildType != null" >
+        build_type,
+      </if>
+      <if test="unitNum != null" >
+        unit_num,
+      </if>
+      <if test="pointLat != null" >
+        point_lat,
+      </if>
+      <if test="pointLng != null" >
+        point_lng,
+      </if>
+      <if test="distance != null" >
+        distance,
+      </if>
+      <if test="ladderRatio != null" >
+        ladder_ratio,
+      </if>
+      <if test="source != null" >
+        source,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="titleId != null" >
+        #{titleId,jdbcType=VARCHAR},
+      </if>
+      <if test="building != null" >
+        #{building,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingId != null" >
+        #{buildingId,jdbcType=VARCHAR},
+      </if>
+      <if test="elevator != null" >
+        #{elevator,jdbcType=VARCHAR},
+      </if>
+      <if test="frameNum != null" >
+        #{frameNum,jdbcType=VARCHAR},
+      </if>
+      <if test="buildYear != null" >
+        #{buildYear,jdbcType=VARCHAR},
+      </if>
+      <if test="buildType != null" >
+        #{buildType,jdbcType=VARCHAR},
+      </if>
+      <if test="unitNum != null" >
+        #{unitNum,jdbcType=VARCHAR},
+      </if>
+      <if test="pointLat != null" >
+        #{pointLat,jdbcType=VARCHAR},
+      </if>
+      <if test="pointLng != null" >
+        #{pointLng,jdbcType=VARCHAR},
+      </if>
+      <if test="distance != null" >
+        #{distance,jdbcType=VARCHAR},
+      </if>
+      <if test="ladderRatio != null" >
+        #{ladderRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        #{source,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tt.entity.KeLoudongReleaseHouseExample" resultType="java.lang.Integer" >
+    select count(*) from ke_loudong_releasehouse
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ke_loudong_releasehouse
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.titleId != null" >
+        title_id = #{record.titleId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.building != null" >
+        building = #{record.building,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildingId != null" >
+        building_id = #{record.buildingId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.elevator != null" >
+        elevator = #{record.elevator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.frameNum != null" >
+        frame_num = #{record.frameNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildYear != null" >
+        build_year = #{record.buildYear,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildType != null" >
+        build_type = #{record.buildType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unitNum != null" >
+        unit_num = #{record.unitNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pointLat != null" >
+        point_lat = #{record.pointLat,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pointLng != null" >
+        point_lng = #{record.pointLng,jdbcType=VARCHAR},
+      </if>
+      <if test="record.distance != null" >
+        distance = #{record.distance,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ladderRatio != null" >
+        ladder_ratio = #{record.ladderRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="record.source != null" >
+        source = #{record.source,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ke_loudong_releasehouse
+    set id = #{record.id,jdbcType=VARCHAR},
+      title_id = #{record.titleId,jdbcType=VARCHAR},
+      building = #{record.building,jdbcType=VARCHAR},
+      building_id = #{record.buildingId,jdbcType=VARCHAR},
+      elevator = #{record.elevator,jdbcType=VARCHAR},
+      frame_num = #{record.frameNum,jdbcType=VARCHAR},
+      build_year = #{record.buildYear,jdbcType=VARCHAR},
+      build_type = #{record.buildType,jdbcType=VARCHAR},
+      unit_num = #{record.unitNum,jdbcType=VARCHAR},
+      point_lat = #{record.pointLat,jdbcType=VARCHAR},
+      point_lng = #{record.pointLng,jdbcType=VARCHAR},
+      distance = #{record.distance,jdbcType=VARCHAR},
+      ladder_ratio = #{record.ladderRatio,jdbcType=VARCHAR},
+      source = #{record.source,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tt.entity.KeLoudongReleaseHouse" >
+    update ke_loudong_releasehouse
+    <set >
+      <if test="titleId != null" >
+        title_id = #{titleId,jdbcType=VARCHAR},
+      </if>
+      <if test="building != null" >
+        building = #{building,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingId != null" >
+        building_id = #{buildingId,jdbcType=VARCHAR},
+      </if>
+      <if test="elevator != null" >
+        elevator = #{elevator,jdbcType=VARCHAR},
+      </if>
+      <if test="frameNum != null" >
+        frame_num = #{frameNum,jdbcType=VARCHAR},
+      </if>
+      <if test="buildYear != null" >
+        build_year = #{buildYear,jdbcType=VARCHAR},
+      </if>
+      <if test="buildType != null" >
+        build_type = #{buildType,jdbcType=VARCHAR},
+      </if>
+      <if test="unitNum != null" >
+        unit_num = #{unitNum,jdbcType=VARCHAR},
+      </if>
+      <if test="pointLat != null" >
+        point_lat = #{pointLat,jdbcType=VARCHAR},
+      </if>
+      <if test="pointLng != null" >
+        point_lng = #{pointLng,jdbcType=VARCHAR},
+      </if>
+      <if test="distance != null" >
+        distance = #{distance,jdbcType=VARCHAR},
+      </if>
+      <if test="ladderRatio != null" >
+        ladder_ratio = #{ladderRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        source = #{source,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tt.entity.KeLoudongReleaseHouse" >
+    update ke_loudong_releasehouse
+    set title_id = #{titleId,jdbcType=VARCHAR},
+      building = #{building,jdbcType=VARCHAR},
+      building_id = #{buildingId,jdbcType=VARCHAR},
+      elevator = #{elevator,jdbcType=VARCHAR},
+      frame_num = #{frameNum,jdbcType=VARCHAR},
+      build_year = #{buildYear,jdbcType=VARCHAR},
+      build_type = #{buildType,jdbcType=VARCHAR},
+      unit_num = #{unitNum,jdbcType=VARCHAR},
+      point_lat = #{pointLat,jdbcType=VARCHAR},
+      point_lng = #{pointLng,jdbcType=VARCHAR},
+      distance = #{distance,jdbcType=VARCHAR},
+      ladder_ratio = #{ladderRatio,jdbcType=VARCHAR},
+      source = #{source,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

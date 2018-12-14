@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tt.dao.KeLayoutMapper" >
+  <resultMap id="BaseResultMap" type="com.tt.entity.KeLayout" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="title_id" property="titleId" jdbcType="VARCHAR" />
+    <result column="gid" property="gid" jdbcType="VARCHAR" />
+    <result column="fid" property="fid" jdbcType="VARCHAR" />
+    <result column="huxing_type" property="huxingType" jdbcType="VARCHAR" />
+    <result column="huxing_name" property="huxingName" jdbcType="VARCHAR" />
+    <result column="frame_image" property="frameImage" jdbcType="VARCHAR" />
+    <result column="frame_url" property="frameUrl" jdbcType="VARCHAR" />
+    <result column="bedroom_num" property="bedroomNum" jdbcType="VARCHAR" />
+    <result column="hall_num" property="hallNum" jdbcType="VARCHAR" />
+    <result column="current_area" property="currentArea" jdbcType="VARCHAR" />
+    <result column="building_dist" property="buildingDist" jdbcType="VARCHAR" />
+    <result column="tag" property="tag" jdbcType="VARCHAR" />
+    <result column="frame_orientation" property="frameOrientation" jdbcType="VARCHAR" />
+    <result column="is_hot" property="isHot" jdbcType="VARCHAR" />
+    <result column="house_sell_cnt" property="houseSellCnt" jdbcType="VARCHAR" />
+    <result column="house_sold_cnt" property="houseSoldCnt" jdbcType="VARCHAR" />
+    <result column="house_cnt" property="houseCnt" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="source" property="source" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, title_id, gid, fid, huxing_type, huxing_name, frame_image, frame_url, bedroom_num, 
+    hall_num, current_area, building_dist, tag, frame_orientation, is_hot, house_sell_cnt, 
+    house_sold_cnt, house_cnt, status, source
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tt.entity.KeLayoutExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ke_layout
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ke_layout
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ke_layout
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tt.entity.KeLayoutExample" >
+    delete from ke_layout
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tt.entity.KeLayout" >
+    insert into ke_layout (id, title_id, gid, 
+      fid, huxing_type, huxing_name, 
+      frame_image, frame_url, bedroom_num, 
+      hall_num, current_area, building_dist, 
+      tag, frame_orientation, is_hot, 
+      house_sell_cnt, house_sold_cnt, house_cnt, 
+      status, source)
+    values (#{id,jdbcType=VARCHAR}, #{titleId,jdbcType=VARCHAR}, #{gid,jdbcType=VARCHAR}, 
+      #{fid,jdbcType=VARCHAR}, #{huxingType,jdbcType=VARCHAR}, #{huxingName,jdbcType=VARCHAR}, 
+      #{frameImage,jdbcType=VARCHAR}, #{frameUrl,jdbcType=VARCHAR}, #{bedroomNum,jdbcType=VARCHAR}, 
+      #{hallNum,jdbcType=VARCHAR}, #{currentArea,jdbcType=VARCHAR}, #{buildingDist,jdbcType=VARCHAR}, 
+      #{tag,jdbcType=VARCHAR}, #{frameOrientation,jdbcType=VARCHAR}, #{isHot,jdbcType=VARCHAR}, 
+      #{houseSellCnt,jdbcType=VARCHAR}, #{houseSoldCnt,jdbcType=VARCHAR}, #{houseCnt,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{source,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tt.entity.KeLayout" >
+    insert into ke_layout
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="titleId != null" >
+        title_id,
+      </if>
+      <if test="gid != null" >
+        gid,
+      </if>
+      <if test="fid != null" >
+        fid,
+      </if>
+      <if test="huxingType != null" >
+        huxing_type,
+      </if>
+      <if test="huxingName != null" >
+        huxing_name,
+      </if>
+      <if test="frameImage != null" >
+        frame_image,
+      </if>
+      <if test="frameUrl != null" >
+        frame_url,
+      </if>
+      <if test="bedroomNum != null" >
+        bedroom_num,
+      </if>
+      <if test="hallNum != null" >
+        hall_num,
+      </if>
+      <if test="currentArea != null" >
+        current_area,
+      </if>
+      <if test="buildingDist != null" >
+        building_dist,
+      </if>
+      <if test="tag != null" >
+        tag,
+      </if>
+      <if test="frameOrientation != null" >
+        frame_orientation,
+      </if>
+      <if test="isHot != null" >
+        is_hot,
+      </if>
+      <if test="houseSellCnt != null" >
+        house_sell_cnt,
+      </if>
+      <if test="houseSoldCnt != null" >
+        house_sold_cnt,
+      </if>
+      <if test="houseCnt != null" >
+        house_cnt,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="source != null" >
+        source,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="titleId != null" >
+        #{titleId,jdbcType=VARCHAR},
+      </if>
+      <if test="gid != null" >
+        #{gid,jdbcType=VARCHAR},
+      </if>
+      <if test="fid != null" >
+        #{fid,jdbcType=VARCHAR},
+      </if>
+      <if test="huxingType != null" >
+        #{huxingType,jdbcType=VARCHAR},
+      </if>
+      <if test="huxingName != null" >
+        #{huxingName,jdbcType=VARCHAR},
+      </if>
+      <if test="frameImage != null" >
+        #{frameImage,jdbcType=VARCHAR},
+      </if>
+      <if test="frameUrl != null" >
+        #{frameUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="bedroomNum != null" >
+        #{bedroomNum,jdbcType=VARCHAR},
+      </if>
+      <if test="hallNum != null" >
+        #{hallNum,jdbcType=VARCHAR},
+      </if>
+      <if test="currentArea != null" >
+        #{currentArea,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingDist != null" >
+        #{buildingDist,jdbcType=VARCHAR},
+      </if>
+      <if test="tag != null" >
+        #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="frameOrientation != null" >
+        #{frameOrientation,jdbcType=VARCHAR},
+      </if>
+      <if test="isHot != null" >
+        #{isHot,jdbcType=VARCHAR},
+      </if>
+      <if test="houseSellCnt != null" >
+        #{houseSellCnt,jdbcType=VARCHAR},
+      </if>
+      <if test="houseSoldCnt != null" >
+        #{houseSoldCnt,jdbcType=VARCHAR},
+      </if>
+      <if test="houseCnt != null" >
+        #{houseCnt,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        #{source,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tt.entity.KeLayoutExample" resultType="java.lang.Integer" >
+    select count(*) from ke_layout
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ke_layout
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.titleId != null" >
+        title_id = #{record.titleId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gid != null" >
+        gid = #{record.gid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fid != null" >
+        fid = #{record.fid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.huxingType != null" >
+        huxing_type = #{record.huxingType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.huxingName != null" >
+        huxing_name = #{record.huxingName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.frameImage != null" >
+        frame_image = #{record.frameImage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.frameUrl != null" >
+        frame_url = #{record.frameUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bedroomNum != null" >
+        bedroom_num = #{record.bedroomNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hallNum != null" >
+        hall_num = #{record.hallNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.currentArea != null" >
+        current_area = #{record.currentArea,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildingDist != null" >
+        building_dist = #{record.buildingDist,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tag != null" >
+        tag = #{record.tag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.frameOrientation != null" >
+        frame_orientation = #{record.frameOrientation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isHot != null" >
+        is_hot = #{record.isHot,jdbcType=VARCHAR},
+      </if>
+      <if test="record.houseSellCnt != null" >
+        house_sell_cnt = #{record.houseSellCnt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.houseSoldCnt != null" >
+        house_sold_cnt = #{record.houseSoldCnt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.houseCnt != null" >
+        house_cnt = #{record.houseCnt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.source != null" >
+        source = #{record.source,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ke_layout
+    set id = #{record.id,jdbcType=VARCHAR},
+      title_id = #{record.titleId,jdbcType=VARCHAR},
+      gid = #{record.gid,jdbcType=VARCHAR},
+      fid = #{record.fid,jdbcType=VARCHAR},
+      huxing_type = #{record.huxingType,jdbcType=VARCHAR},
+      huxing_name = #{record.huxingName,jdbcType=VARCHAR},
+      frame_image = #{record.frameImage,jdbcType=VARCHAR},
+      frame_url = #{record.frameUrl,jdbcType=VARCHAR},
+      bedroom_num = #{record.bedroomNum,jdbcType=VARCHAR},
+      hall_num = #{record.hallNum,jdbcType=VARCHAR},
+      current_area = #{record.currentArea,jdbcType=VARCHAR},
+      building_dist = #{record.buildingDist,jdbcType=VARCHAR},
+      tag = #{record.tag,jdbcType=VARCHAR},
+      frame_orientation = #{record.frameOrientation,jdbcType=VARCHAR},
+      is_hot = #{record.isHot,jdbcType=VARCHAR},
+      house_sell_cnt = #{record.houseSellCnt,jdbcType=VARCHAR},
+      house_sold_cnt = #{record.houseSoldCnt,jdbcType=VARCHAR},
+      house_cnt = #{record.houseCnt,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      source = #{record.source,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tt.entity.KeLayout" >
+    update ke_layout
+    <set >
+      <if test="titleId != null" >
+        title_id = #{titleId,jdbcType=VARCHAR},
+      </if>
+      <if test="gid != null" >
+        gid = #{gid,jdbcType=VARCHAR},
+      </if>
+      <if test="fid != null" >
+        fid = #{fid,jdbcType=VARCHAR},
+      </if>
+      <if test="huxingType != null" >
+        huxing_type = #{huxingType,jdbcType=VARCHAR},
+      </if>
+      <if test="huxingName != null" >
+        huxing_name = #{huxingName,jdbcType=VARCHAR},
+      </if>
+      <if test="frameImage != null" >
+        frame_image = #{frameImage,jdbcType=VARCHAR},
+      </if>
+      <if test="frameUrl != null" >
+        frame_url = #{frameUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="bedroomNum != null" >
+        bedroom_num = #{bedroomNum,jdbcType=VARCHAR},
+      </if>
+      <if test="hallNum != null" >
+        hall_num = #{hallNum,jdbcType=VARCHAR},
+      </if>
+      <if test="currentArea != null" >
+        current_area = #{currentArea,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingDist != null" >
+        building_dist = #{buildingDist,jdbcType=VARCHAR},
+      </if>
+      <if test="tag != null" >
+        tag = #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="frameOrientation != null" >
+        frame_orientation = #{frameOrientation,jdbcType=VARCHAR},
+      </if>
+      <if test="isHot != null" >
+        is_hot = #{isHot,jdbcType=VARCHAR},
+      </if>
+      <if test="houseSellCnt != null" >
+        house_sell_cnt = #{houseSellCnt,jdbcType=VARCHAR},
+      </if>
+      <if test="houseSoldCnt != null" >
+        house_sold_cnt = #{houseSoldCnt,jdbcType=VARCHAR},
+      </if>
+      <if test="houseCnt != null" >
+        house_cnt = #{houseCnt,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        source = #{source,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tt.entity.KeLayout" >
+    update ke_layout
+    set title_id = #{titleId,jdbcType=VARCHAR},
+      gid = #{gid,jdbcType=VARCHAR},
+      fid = #{fid,jdbcType=VARCHAR},
+      huxing_type = #{huxingType,jdbcType=VARCHAR},
+      huxing_name = #{huxingName,jdbcType=VARCHAR},
+      frame_image = #{frameImage,jdbcType=VARCHAR},
+      frame_url = #{frameUrl,jdbcType=VARCHAR},
+      bedroom_num = #{bedroomNum,jdbcType=VARCHAR},
+      hall_num = #{hallNum,jdbcType=VARCHAR},
+      current_area = #{currentArea,jdbcType=VARCHAR},
+      building_dist = #{buildingDist,jdbcType=VARCHAR},
+      tag = #{tag,jdbcType=VARCHAR},
+      frame_orientation = #{frameOrientation,jdbcType=VARCHAR},
+      is_hot = #{isHot,jdbcType=VARCHAR},
+      house_sell_cnt = #{houseSellCnt,jdbcType=VARCHAR},
+      house_sold_cnt = #{houseSoldCnt,jdbcType=VARCHAR},
+      house_cnt = #{houseCnt,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      source = #{source,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

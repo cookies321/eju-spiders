@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tt.dao.AnjukeBrokerListMapper" >
+  <resultMap id="BaseResultMap" type="com.tt.entity.AnjukeBrokerList" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="broker_id" property="brokerId" jdbcType="VARCHAR" />
+    <result column="broker_image" property="brokerImage" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="company" property="company" jdbcType="VARCHAR" />
+    <result column="store" property="store" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="region" property="region" jdbcType="VARCHAR" />
+    <result column="plate" property="plate" jdbcType="VARCHAR" />
+    <result column="community" property="community" jdbcType="VARCHAR" />
+    <result column="tag" property="tag" jdbcType="VARCHAR" />
+    <result column="work_year" property="workYear" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="ceatetime" property="ceatetime" jdbcType="TIMESTAMP" />
+    <result column="batch_id" property="batchId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, url, broker_id, broker_image, name, company, store, city, region, plate, community, 
+    tag, work_year, description, ceatetime, batch_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tt.entity.AnjukeBrokerListExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from anjuke_broker_list
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from anjuke_broker_list
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from anjuke_broker_list
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tt.entity.AnjukeBrokerListExample" >
+    delete from anjuke_broker_list
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tt.entity.AnjukeBrokerList" >
+    insert into anjuke_broker_list (id, url, broker_id, 
+      broker_image, name, company, 
+      store, city, region, 
+      plate, community, tag, 
+      work_year, description, ceatetime, 
+      batch_id)
+    values (#{id,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{brokerId,jdbcType=VARCHAR}, 
+      #{brokerImage,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{company,jdbcType=VARCHAR}, 
+      #{store,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{region,jdbcType=VARCHAR}, 
+      #{plate,jdbcType=VARCHAR}, #{community,jdbcType=VARCHAR}, #{tag,jdbcType=VARCHAR}, 
+      #{workYear,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{ceatetime,jdbcType=TIMESTAMP}, 
+      #{batchId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tt.entity.AnjukeBrokerList" >
+    insert into anjuke_broker_list
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="brokerId != null" >
+        broker_id,
+      </if>
+      <if test="brokerImage != null" >
+        broker_image,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="company != null" >
+        company,
+      </if>
+      <if test="store != null" >
+        store,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="region != null" >
+        region,
+      </if>
+      <if test="plate != null" >
+        plate,
+      </if>
+      <if test="community != null" >
+        community,
+      </if>
+      <if test="tag != null" >
+        tag,
+      </if>
+      <if test="workYear != null" >
+        work_year,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="ceatetime != null" >
+        ceatetime,
+      </if>
+      <if test="batchId != null" >
+        batch_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="brokerId != null" >
+        #{brokerId,jdbcType=VARCHAR},
+      </if>
+      <if test="brokerImage != null" >
+        #{brokerImage,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null" >
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="store != null" >
+        #{store,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="region != null" >
+        #{region,jdbcType=VARCHAR},
+      </if>
+      <if test="plate != null" >
+        #{plate,jdbcType=VARCHAR},
+      </if>
+      <if test="community != null" >
+        #{community,jdbcType=VARCHAR},
+      </if>
+      <if test="tag != null" >
+        #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="workYear != null" >
+        #{workYear,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="ceatetime != null" >
+        #{ceatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="batchId != null" >
+        #{batchId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tt.entity.AnjukeBrokerListExample" resultType="java.lang.Integer" >
+    select count(*) from anjuke_broker_list
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update anjuke_broker_list
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.url != null" >
+        url = #{record.url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.brokerId != null" >
+        broker_id = #{record.brokerId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.brokerImage != null" >
+        broker_image = #{record.brokerImage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.company != null" >
+        company = #{record.company,jdbcType=VARCHAR},
+      </if>
+      <if test="record.store != null" >
+        store = #{record.store,jdbcType=VARCHAR},
+      </if>
+      <if test="record.city != null" >
+        city = #{record.city,jdbcType=VARCHAR},
+      </if>
+      <if test="record.region != null" >
+        region = #{record.region,jdbcType=VARCHAR},
+      </if>
+      <if test="record.plate != null" >
+        plate = #{record.plate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.community != null" >
+        community = #{record.community,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tag != null" >
+        tag = #{record.tag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workYear != null" >
+        work_year = #{record.workYear,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ceatetime != null" >
+        ceatetime = #{record.ceatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.batchId != null" >
+        batch_id = #{record.batchId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update anjuke_broker_list
+    set id = #{record.id,jdbcType=VARCHAR},
+      url = #{record.url,jdbcType=VARCHAR},
+      broker_id = #{record.brokerId,jdbcType=VARCHAR},
+      broker_image = #{record.brokerImage,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      company = #{record.company,jdbcType=VARCHAR},
+      store = #{record.store,jdbcType=VARCHAR},
+      city = #{record.city,jdbcType=VARCHAR},
+      region = #{record.region,jdbcType=VARCHAR},
+      plate = #{record.plate,jdbcType=VARCHAR},
+      community = #{record.community,jdbcType=VARCHAR},
+      tag = #{record.tag,jdbcType=VARCHAR},
+      work_year = #{record.workYear,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      ceatetime = #{record.ceatetime,jdbcType=TIMESTAMP},
+      batch_id = #{record.batchId,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tt.entity.AnjukeBrokerList" >
+    update anjuke_broker_list
+    <set >
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="brokerId != null" >
+        broker_id = #{brokerId,jdbcType=VARCHAR},
+      </if>
+      <if test="brokerImage != null" >
+        broker_image = #{brokerImage,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null" >
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="store != null" >
+        store = #{store,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="region != null" >
+        region = #{region,jdbcType=VARCHAR},
+      </if>
+      <if test="plate != null" >
+        plate = #{plate,jdbcType=VARCHAR},
+      </if>
+      <if test="community != null" >
+        community = #{community,jdbcType=VARCHAR},
+      </if>
+      <if test="tag != null" >
+        tag = #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="workYear != null" >
+        work_year = #{workYear,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="ceatetime != null" >
+        ceatetime = #{ceatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="batchId != null" >
+        batch_id = #{batchId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tt.entity.AnjukeBrokerList" >
+    update anjuke_broker_list
+    set url = #{url,jdbcType=VARCHAR},
+      broker_id = #{brokerId,jdbcType=VARCHAR},
+      broker_image = #{brokerImage,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      company = #{company,jdbcType=VARCHAR},
+      store = #{store,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      region = #{region,jdbcType=VARCHAR},
+      plate = #{plate,jdbcType=VARCHAR},
+      community = #{community,jdbcType=VARCHAR},
+      tag = #{tag,jdbcType=VARCHAR},
+      work_year = #{workYear,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      ceatetime = #{ceatetime,jdbcType=TIMESTAMP},
+      batch_id = #{batchId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

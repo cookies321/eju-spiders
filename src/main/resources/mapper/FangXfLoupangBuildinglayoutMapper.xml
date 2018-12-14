@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tt.dao.FangXfLoupangBuildinglayoutMapper" >
+  <resultMap id="BaseResultMap" type="com.tt.entity.FangXfLoupangBuildinglayout" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="period" property="period" jdbcType="VARCHAR" />
+    <result column="title_id" property="titleId" jdbcType="VARCHAR" />
+    <result column="detail_pc" property="detailPc" jdbcType="VARCHAR" />
+    <result column="building" property="building" jdbcType="VARCHAR" />
+    <result column="building_id" property="buildingId" jdbcType="VARCHAR" />
+    <result column="huxing_url" property="huxingUrl" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="batch_id" property="batchId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, title, period, title_id, detail_pc, building, building_id, huxing_url, createtime, 
+    status, batch_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tt.entity.FangXfLoupangBuildinglayoutExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from fang_xf_loupang_buildinglayout_dis
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from fang_xf_loupang_buildinglayout
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from fang_xf_loupang_buildinglayout
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tt.entity.FangXfLoupangBuildinglayoutExample" >
+    delete from fang_xf_loupang_buildinglayout
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tt.entity.FangXfLoupangBuildinglayout" >
+    insert into fang_xf_loupang_buildinglayout (id, title, period, 
+      title_id, detail_pc, building, 
+      building_id, huxing_url, createtime, 
+      status, batch_id)
+    values (#{id,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{period,jdbcType=VARCHAR}, 
+      #{titleId,jdbcType=VARCHAR}, #{detailPc,jdbcType=VARCHAR}, #{building,jdbcType=VARCHAR}, 
+      #{buildingId,jdbcType=VARCHAR}, #{huxingUrl,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=VARCHAR}, #{batchId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tt.entity.FangXfLoupangBuildinglayout" >
+    insert into fang_xf_loupang_buildinglayout
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="period != null" >
+        period,
+      </if>
+      <if test="titleId != null" >
+        title_id,
+      </if>
+      <if test="detailPc != null" >
+        detail_pc,
+      </if>
+      <if test="building != null" >
+        building,
+      </if>
+      <if test="buildingId != null" >
+        building_id,
+      </if>
+      <if test="huxingUrl != null" >
+        huxing_url,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="batchId != null" >
+        batch_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="period != null" >
+        #{period,jdbcType=VARCHAR},
+      </if>
+      <if test="titleId != null" >
+        #{titleId,jdbcType=VARCHAR},
+      </if>
+      <if test="detailPc != null" >
+        #{detailPc,jdbcType=VARCHAR},
+      </if>
+      <if test="building != null" >
+        #{building,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingId != null" >
+        #{buildingId,jdbcType=VARCHAR},
+      </if>
+      <if test="huxingUrl != null" >
+        #{huxingUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="batchId != null" >
+        #{batchId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tt.entity.FangXfLoupangBuildinglayoutExample" resultType="java.lang.Integer" >
+    select count(*) from fang_xf_loupang_buildinglayout
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update fang_xf_loupang_buildinglayout
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.period != null" >
+        period = #{record.period,jdbcType=VARCHAR},
+      </if>
+      <if test="record.titleId != null" >
+        title_id = #{record.titleId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.detailPc != null" >
+        detail_pc = #{record.detailPc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.building != null" >
+        building = #{record.building,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildingId != null" >
+        building_id = #{record.buildingId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.huxingUrl != null" >
+        huxing_url = #{record.huxingUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createtime != null" >
+        createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.batchId != null" >
+        batch_id = #{record.batchId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update fang_xf_loupang_buildinglayout
+    set id = #{record.id,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      period = #{record.period,jdbcType=VARCHAR},
+      title_id = #{record.titleId,jdbcType=VARCHAR},
+      detail_pc = #{record.detailPc,jdbcType=VARCHAR},
+      building = #{record.building,jdbcType=VARCHAR},
+      building_id = #{record.buildingId,jdbcType=VARCHAR},
+      huxing_url = #{record.huxingUrl,jdbcType=VARCHAR},
+      createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=VARCHAR},
+      batch_id = #{record.batchId,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tt.entity.FangXfLoupangBuildinglayout" >
+    update fang_xf_loupang_buildinglayout_dis
+    <set >
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="period != null" >
+        period = #{period,jdbcType=VARCHAR},
+      </if>
+      <if test="titleId != null" >
+        title_id = #{titleId,jdbcType=VARCHAR},
+      </if>
+      <if test="detailPc != null" >
+        detail_pc = #{detailPc,jdbcType=VARCHAR},
+      </if>
+      <if test="building != null" >
+        building = #{building,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingId != null" >
+        building_id = #{buildingId,jdbcType=VARCHAR},
+      </if>
+      <if test="huxingUrl != null" >
+        huxing_url = #{huxingUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="batchId != null" >
+        batch_id = #{batchId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tt.entity.FangXfLoupangBuildinglayout" >
+    update fang_xf_loupang_buildinglayout
+    set title = #{title,jdbcType=VARCHAR},
+      period = #{period,jdbcType=VARCHAR},
+      title_id = #{titleId,jdbcType=VARCHAR},
+      detail_pc = #{detailPc,jdbcType=VARCHAR},
+      building = #{building,jdbcType=VARCHAR},
+      building_id = #{buildingId,jdbcType=VARCHAR},
+      huxing_url = #{huxingUrl,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=VARCHAR},
+      batch_id = #{batchId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tt.dao.QfangXiaoquNotFiveYearMapper" >
+  <resultMap id="BaseResultMap" type="com.tt.entity.QfangXiaoquNotFiveYear" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="q_id" property="qId" jdbcType="VARCHAR" />
+    <result column="internal_id" property="internalId" jdbcType="VARCHAR" />
+    <result column="home_name" property="homeName" jdbcType="VARCHAR" />
+    <result column="search_name" property="searchName" jdbcType="VARCHAR" />
+    <result column="alias" property="alias" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="region" property="region" jdbcType="VARCHAR" />
+    <result column="plate" property="plate" jdbcType="VARCHAR" />
+    <result column="build_year" property="buildYear" jdbcType="VARCHAR" />
+    <result column="average_price" property="averagePrice" jdbcType="VARCHAR" />
+    <result column="thumb_url" property="thumbUrl" jdbcType="VARCHAR" />
+    <result column="detail_url" property="detailUrl" jdbcType="VARCHAR" />
+    <result column="build_type" property="buildType" jdbcType="VARCHAR" />
+    <result column="property_type" property="propertyType" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="source" property="source" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, q_id, internal_id, home_name, search_name, alias, address, city, region, plate, 
+    build_year, average_price, thumb_url, detail_url, build_type, property_type, status, 
+    source
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tt.entity.QfangXiaoquNotFiveYearExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from q_fang_xiaoqu_not_five_year
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from q_fang_xiaoqu_not_five_year
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from q_fang_xiaoqu_not_five_year
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tt.entity.QfangXiaoquNotFiveYearExample" >
+    delete from q_fang_xiaoqu_not_five_year
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tt.entity.QfangXiaoquNotFiveYear" >
+    insert into q_fang_xiaoqu_not_five_year (id, q_id, internal_id, 
+      home_name, search_name, alias, 
+      address, city, region, 
+      plate, build_year, average_price, 
+      thumb_url, detail_url, build_type, 
+      property_type, status, source
+      )
+    values (#{id,jdbcType=BIGINT}, #{qId,jdbcType=VARCHAR}, #{internalId,jdbcType=VARCHAR}, 
+      #{homeName,jdbcType=VARCHAR}, #{searchName,jdbcType=VARCHAR}, #{alias,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{region,jdbcType=VARCHAR}, 
+      #{plate,jdbcType=VARCHAR}, #{buildYear,jdbcType=VARCHAR}, #{averagePrice,jdbcType=VARCHAR}, 
+      #{thumbUrl,jdbcType=VARCHAR}, #{detailUrl,jdbcType=VARCHAR}, #{buildType,jdbcType=VARCHAR}, 
+      #{propertyType,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{source,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tt.entity.QfangXiaoquNotFiveYear" >
+    insert into q_fang_xiaoqu_not_five_year
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="qId != null" >
+        q_id,
+      </if>
+      <if test="internalId != null" >
+        internal_id,
+      </if>
+      <if test="homeName != null" >
+        home_name,
+      </if>
+      <if test="searchName != null" >
+        search_name,
+      </if>
+      <if test="alias != null" >
+        alias,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="region != null" >
+        region,
+      </if>
+      <if test="plate != null" >
+        plate,
+      </if>
+      <if test="buildYear != null" >
+        build_year,
+      </if>
+      <if test="averagePrice != null" >
+        average_price,
+      </if>
+      <if test="thumbUrl != null" >
+        thumb_url,
+      </if>
+      <if test="detailUrl != null" >
+        detail_url,
+      </if>
+      <if test="buildType != null" >
+        build_type,
+      </if>
+      <if test="propertyType != null" >
+        property_type,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="source != null" >
+        source,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="qId != null" >
+        #{qId,jdbcType=VARCHAR},
+      </if>
+      <if test="internalId != null" >
+        #{internalId,jdbcType=VARCHAR},
+      </if>
+      <if test="homeName != null" >
+        #{homeName,jdbcType=VARCHAR},
+      </if>
+      <if test="searchName != null" >
+        #{searchName,jdbcType=VARCHAR},
+      </if>
+      <if test="alias != null" >
+        #{alias,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="region != null" >
+        #{region,jdbcType=VARCHAR},
+      </if>
+      <if test="plate != null" >
+        #{plate,jdbcType=VARCHAR},
+      </if>
+      <if test="buildYear != null" >
+        #{buildYear,jdbcType=VARCHAR},
+      </if>
+      <if test="averagePrice != null" >
+        #{averagePrice,jdbcType=VARCHAR},
+      </if>
+      <if test="thumbUrl != null" >
+        #{thumbUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="detailUrl != null" >
+        #{detailUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="buildType != null" >
+        #{buildType,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyType != null" >
+        #{propertyType,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        #{source,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tt.entity.QfangXiaoquNotFiveYearExample" resultType="java.lang.Integer" >
+    select count(*) from q_fang_xiaoqu_not_five_year
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update q_fang_xiaoqu_not_five_year
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.qId != null" >
+        q_id = #{record.qId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.internalId != null" >
+        internal_id = #{record.internalId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.homeName != null" >
+        home_name = #{record.homeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.searchName != null" >
+        search_name = #{record.searchName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.alias != null" >
+        alias = #{record.alias,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.city != null" >
+        city = #{record.city,jdbcType=VARCHAR},
+      </if>
+      <if test="record.region != null" >
+        region = #{record.region,jdbcType=VARCHAR},
+      </if>
+      <if test="record.plate != null" >
+        plate = #{record.plate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildYear != null" >
+        build_year = #{record.buildYear,jdbcType=VARCHAR},
+      </if>
+      <if test="record.averagePrice != null" >
+        average_price = #{record.averagePrice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.thumbUrl != null" >
+        thumb_url = #{record.thumbUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.detailUrl != null" >
+        detail_url = #{record.detailUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildType != null" >
+        build_type = #{record.buildType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.propertyType != null" >
+        property_type = #{record.propertyType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.source != null" >
+        source = #{record.source,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update q_fang_xiaoqu_not_five_year
+    set id = #{record.id,jdbcType=BIGINT},
+      q_id = #{record.qId,jdbcType=VARCHAR},
+      internal_id = #{record.internalId,jdbcType=VARCHAR},
+      home_name = #{record.homeName,jdbcType=VARCHAR},
+      search_name = #{record.searchName,jdbcType=VARCHAR},
+      alias = #{record.alias,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      city = #{record.city,jdbcType=VARCHAR},
+      region = #{record.region,jdbcType=VARCHAR},
+      plate = #{record.plate,jdbcType=VARCHAR},
+      build_year = #{record.buildYear,jdbcType=VARCHAR},
+      average_price = #{record.averagePrice,jdbcType=VARCHAR},
+      thumb_url = #{record.thumbUrl,jdbcType=VARCHAR},
+      detail_url = #{record.detailUrl,jdbcType=VARCHAR},
+      build_type = #{record.buildType,jdbcType=VARCHAR},
+      property_type = #{record.propertyType,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      source = #{record.source,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tt.entity.QfangXiaoquNotFiveYear" >
+    update q_fang_xiaoqu_not_five_year
+    <set >
+      <if test="qId != null" >
+        q_id = #{qId,jdbcType=VARCHAR},
+      </if>
+      <if test="internalId != null" >
+        internal_id = #{internalId,jdbcType=VARCHAR},
+      </if>
+      <if test="homeName != null" >
+        home_name = #{homeName,jdbcType=VARCHAR},
+      </if>
+      <if test="searchName != null" >
+        search_name = #{searchName,jdbcType=VARCHAR},
+      </if>
+      <if test="alias != null" >
+        alias = #{alias,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="region != null" >
+        region = #{region,jdbcType=VARCHAR},
+      </if>
+      <if test="plate != null" >
+        plate = #{plate,jdbcType=VARCHAR},
+      </if>
+      <if test="buildYear != null" >
+        build_year = #{buildYear,jdbcType=VARCHAR},
+      </if>
+      <if test="averagePrice != null" >
+        average_price = #{averagePrice,jdbcType=VARCHAR},
+      </if>
+      <if test="thumbUrl != null" >
+        thumb_url = #{thumbUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="detailUrl != null" >
+        detail_url = #{detailUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="buildType != null" >
+        build_type = #{buildType,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyType != null" >
+        property_type = #{propertyType,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        source = #{source,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tt.entity.QfangXiaoquNotFiveYear" >
+    update q_fang_xiaoqu_not_five_year
+    set q_id = #{qId,jdbcType=VARCHAR},
+      internal_id = #{internalId,jdbcType=VARCHAR},
+      home_name = #{homeName,jdbcType=VARCHAR},
+      search_name = #{searchName,jdbcType=VARCHAR},
+      alias = #{alias,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      region = #{region,jdbcType=VARCHAR},
+      plate = #{plate,jdbcType=VARCHAR},
+      build_year = #{buildYear,jdbcType=VARCHAR},
+      average_price = #{averagePrice,jdbcType=VARCHAR},
+      thumb_url = #{thumbUrl,jdbcType=VARCHAR},
+      detail_url = #{detailUrl,jdbcType=VARCHAR},
+      build_type = #{buildType,jdbcType=VARCHAR},
+      property_type = #{propertyType,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      source = #{source,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

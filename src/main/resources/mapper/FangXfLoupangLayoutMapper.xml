@@ -1,0 +1,528 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tt.dao.FangXfLoupangLayoutMapper" >
+  <resultMap id="BaseResultMap" type="com.tt.entity.FangXfLoupangLayout" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <id column="shares_area" property="sharesArea" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="title_id" property="titleId" jdbcType="VARCHAR" />
+    <result column="detail_pc" property="detailPc" jdbcType="VARCHAR" />
+    <result column="huxing_url" property="huxingUrl" jdbcType="VARCHAR" />
+    <result column="huxing_id" property="huxingId" jdbcType="VARCHAR" />
+    <result column="huxing_name" property="huxingName" jdbcType="VARCHAR" />
+    <result column="current_area" property="currentArea" jdbcType="VARCHAR" />
+    <result column="huxing_status" property="huxingStatus" jdbcType="VARCHAR" />
+    <result column="aveprice" property="aveprice" jdbcType="VARCHAR" />
+    <result column="totalprice" property="totalprice" jdbcType="VARCHAR" />
+    <result column="tag" property="tag" jdbcType="VARCHAR" />
+    <result column="building_dist" property="buildingDist" jdbcType="VARCHAR" />
+    <result column="score" property="score" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="frame_image" property="frameImage" jdbcType="VARCHAR" />
+    <result column="upright_score" property="uprightScore" jdbcType="VARCHAR" />
+    <result column="daylighting_score" property="daylightingScore" jdbcType="VARCHAR" />
+    <result column="distribution_score" property="distributionScore" jdbcType="VARCHAR" />
+    <result column="area_score" property="areaScore" jdbcType="VARCHAR" />
+    <result column="effien_score" property="effienScore" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="batch_id" property="batchId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, shares_area, title, title_id, detail_pc, huxing_url, huxing_id, huxing_name, 
+    current_area, huxing_status, aveprice, totalprice, tag, building_dist, score, description, 
+    frame_image, upright_score, daylighting_score, distribution_score, area_score, effien_score, 
+    status, createtime, batch_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tt.entity.FangXfLoupangLayoutExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from fang_xf_loupang_layout
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.tt.entity.FangXfLoupangLayoutKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from fang_xf_loupang_layout
+    where id = #{id,jdbcType=VARCHAR}
+      and shares_area = #{sharesArea,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.tt.entity.FangXfLoupangLayoutKey" >
+    delete from fang_xf_loupang_layout
+    where id = #{id,jdbcType=VARCHAR}
+      and shares_area = #{sharesArea,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tt.entity.FangXfLoupangLayoutExample" >
+    delete from fang_xf_loupang_layout
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tt.entity.FangXfLoupangLayout" >
+    insert into fang_xf_loupang_layout (id, shares_area, title, 
+      title_id, detail_pc, huxing_url, 
+      huxing_id, huxing_name, current_area, 
+      huxing_status, aveprice, totalprice, 
+      tag, building_dist, score, 
+      description, frame_image, upright_score, 
+      daylighting_score, distribution_score, area_score, 
+      effien_score, status, createtime, 
+      batch_id)
+    values (#{id,jdbcType=VARCHAR}, #{sharesArea,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{titleId,jdbcType=VARCHAR}, #{detailPc,jdbcType=VARCHAR}, #{huxingUrl,jdbcType=VARCHAR}, 
+      #{huxingId,jdbcType=VARCHAR}, #{huxingName,jdbcType=VARCHAR}, #{currentArea,jdbcType=VARCHAR}, 
+      #{huxingStatus,jdbcType=VARCHAR}, #{aveprice,jdbcType=VARCHAR}, #{totalprice,jdbcType=VARCHAR}, 
+      #{tag,jdbcType=VARCHAR}, #{buildingDist,jdbcType=VARCHAR}, #{score,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{frameImage,jdbcType=VARCHAR}, #{uprightScore,jdbcType=VARCHAR}, 
+      #{daylightingScore,jdbcType=VARCHAR}, #{distributionScore,jdbcType=VARCHAR}, #{areaScore,jdbcType=VARCHAR}, 
+      #{effienScore,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{batchId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tt.entity.FangXfLoupangLayout" >
+    insert into fang_xf_loupang_layout
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="sharesArea != null" >
+        shares_area,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="titleId != null" >
+        title_id,
+      </if>
+      <if test="detailPc != null" >
+        detail_pc,
+      </if>
+      <if test="huxingUrl != null" >
+        huxing_url,
+      </if>
+      <if test="huxingId != null" >
+        huxing_id,
+      </if>
+      <if test="huxingName != null" >
+        huxing_name,
+      </if>
+      <if test="currentArea != null" >
+        current_area,
+      </if>
+      <if test="huxingStatus != null" >
+        huxing_status,
+      </if>
+      <if test="aveprice != null" >
+        aveprice,
+      </if>
+      <if test="totalprice != null" >
+        totalprice,
+      </if>
+      <if test="tag != null" >
+        tag,
+      </if>
+      <if test="buildingDist != null" >
+        building_dist,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="frameImage != null" >
+        frame_image,
+      </if>
+      <if test="uprightScore != null" >
+        upright_score,
+      </if>
+      <if test="daylightingScore != null" >
+        daylighting_score,
+      </if>
+      <if test="distributionScore != null" >
+        distribution_score,
+      </if>
+      <if test="areaScore != null" >
+        area_score,
+      </if>
+      <if test="effienScore != null" >
+        effien_score,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="batchId != null" >
+        batch_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="sharesArea != null" >
+        #{sharesArea,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="titleId != null" >
+        #{titleId,jdbcType=VARCHAR},
+      </if>
+      <if test="detailPc != null" >
+        #{detailPc,jdbcType=VARCHAR},
+      </if>
+      <if test="huxingUrl != null" >
+        #{huxingUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="huxingId != null" >
+        #{huxingId,jdbcType=VARCHAR},
+      </if>
+      <if test="huxingName != null" >
+        #{huxingName,jdbcType=VARCHAR},
+      </if>
+      <if test="currentArea != null" >
+        #{currentArea,jdbcType=VARCHAR},
+      </if>
+      <if test="huxingStatus != null" >
+        #{huxingStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="aveprice != null" >
+        #{aveprice,jdbcType=VARCHAR},
+      </if>
+      <if test="totalprice != null" >
+        #{totalprice,jdbcType=VARCHAR},
+      </if>
+      <if test="tag != null" >
+        #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingDist != null" >
+        #{buildingDist,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="frameImage != null" >
+        #{frameImage,jdbcType=VARCHAR},
+      </if>
+      <if test="uprightScore != null" >
+        #{uprightScore,jdbcType=VARCHAR},
+      </if>
+      <if test="daylightingScore != null" >
+        #{daylightingScore,jdbcType=VARCHAR},
+      </if>
+      <if test="distributionScore != null" >
+        #{distributionScore,jdbcType=VARCHAR},
+      </if>
+      <if test="areaScore != null" >
+        #{areaScore,jdbcType=VARCHAR},
+      </if>
+      <if test="effienScore != null" >
+        #{effienScore,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="batchId != null" >
+        #{batchId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tt.entity.FangXfLoupangLayoutExample" resultType="java.lang.Integer" >
+    select count(*) from fang_xf_loupang_layout
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update fang_xf_loupang_layout
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sharesArea != null" >
+        shares_area = #{record.sharesArea,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.titleId != null" >
+        title_id = #{record.titleId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.detailPc != null" >
+        detail_pc = #{record.detailPc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.huxingUrl != null" >
+        huxing_url = #{record.huxingUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.huxingId != null" >
+        huxing_id = #{record.huxingId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.huxingName != null" >
+        huxing_name = #{record.huxingName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.currentArea != null" >
+        current_area = #{record.currentArea,jdbcType=VARCHAR},
+      </if>
+      <if test="record.huxingStatus != null" >
+        huxing_status = #{record.huxingStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aveprice != null" >
+        aveprice = #{record.aveprice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.totalprice != null" >
+        totalprice = #{record.totalprice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tag != null" >
+        tag = #{record.tag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildingDist != null" >
+        building_dist = #{record.buildingDist,jdbcType=VARCHAR},
+      </if>
+      <if test="record.score != null" >
+        score = #{record.score,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.frameImage != null" >
+        frame_image = #{record.frameImage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uprightScore != null" >
+        upright_score = #{record.uprightScore,jdbcType=VARCHAR},
+      </if>
+      <if test="record.daylightingScore != null" >
+        daylighting_score = #{record.daylightingScore,jdbcType=VARCHAR},
+      </if>
+      <if test="record.distributionScore != null" >
+        distribution_score = #{record.distributionScore,jdbcType=VARCHAR},
+      </if>
+      <if test="record.areaScore != null" >
+        area_score = #{record.areaScore,jdbcType=VARCHAR},
+      </if>
+      <if test="record.effienScore != null" >
+        effien_score = #{record.effienScore,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createtime != null" >
+        createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.batchId != null" >
+        batch_id = #{record.batchId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update fang_xf_loupang_layout
+    set id = #{record.id,jdbcType=VARCHAR},
+      shares_area = #{record.sharesArea,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      title_id = #{record.titleId,jdbcType=VARCHAR},
+      detail_pc = #{record.detailPc,jdbcType=VARCHAR},
+      huxing_url = #{record.huxingUrl,jdbcType=VARCHAR},
+      huxing_id = #{record.huxingId,jdbcType=VARCHAR},
+      huxing_name = #{record.huxingName,jdbcType=VARCHAR},
+      current_area = #{record.currentArea,jdbcType=VARCHAR},
+      huxing_status = #{record.huxingStatus,jdbcType=VARCHAR},
+      aveprice = #{record.aveprice,jdbcType=VARCHAR},
+      totalprice = #{record.totalprice,jdbcType=VARCHAR},
+      tag = #{record.tag,jdbcType=VARCHAR},
+      building_dist = #{record.buildingDist,jdbcType=VARCHAR},
+      score = #{record.score,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      frame_image = #{record.frameImage,jdbcType=VARCHAR},
+      upright_score = #{record.uprightScore,jdbcType=VARCHAR},
+      daylighting_score = #{record.daylightingScore,jdbcType=VARCHAR},
+      distribution_score = #{record.distributionScore,jdbcType=VARCHAR},
+      area_score = #{record.areaScore,jdbcType=VARCHAR},
+      effien_score = #{record.effienScore,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      batch_id = #{record.batchId,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tt.entity.FangXfLoupangLayout" >
+    update fang_xf_loupang_layout
+    <set >
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="titleId != null" >
+        title_id = #{titleId,jdbcType=VARCHAR},
+      </if>
+      <if test="detailPc != null" >
+        detail_pc = #{detailPc,jdbcType=VARCHAR},
+      </if>
+      <if test="huxingUrl != null" >
+        huxing_url = #{huxingUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="huxingId != null" >
+        huxing_id = #{huxingId,jdbcType=VARCHAR},
+      </if>
+      <if test="huxingName != null" >
+        huxing_name = #{huxingName,jdbcType=VARCHAR},
+      </if>
+      <if test="currentArea != null" >
+        current_area = #{currentArea,jdbcType=VARCHAR},
+      </if>
+      <if test="huxingStatus != null" >
+        huxing_status = #{huxingStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="aveprice != null" >
+        aveprice = #{aveprice,jdbcType=VARCHAR},
+      </if>
+      <if test="totalprice != null" >
+        totalprice = #{totalprice,jdbcType=VARCHAR},
+      </if>
+      <if test="tag != null" >
+        tag = #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingDist != null" >
+        building_dist = #{buildingDist,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="frameImage != null" >
+        frame_image = #{frameImage,jdbcType=VARCHAR},
+      </if>
+      <if test="uprightScore != null" >
+        upright_score = #{uprightScore,jdbcType=VARCHAR},
+      </if>
+      <if test="daylightingScore != null" >
+        daylighting_score = #{daylightingScore,jdbcType=VARCHAR},
+      </if>
+      <if test="distributionScore != null" >
+        distribution_score = #{distributionScore,jdbcType=VARCHAR},
+      </if>
+      <if test="areaScore != null" >
+        area_score = #{areaScore,jdbcType=VARCHAR},
+      </if>
+      <if test="effienScore != null" >
+        effien_score = #{effienScore,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="batchId != null" >
+        batch_id = #{batchId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+      and shares_area = #{sharesArea,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tt.entity.FangXfLoupangLayout" >
+    update fang_xf_loupang_layout
+    set title = #{title,jdbcType=VARCHAR},
+      title_id = #{titleId,jdbcType=VARCHAR},
+      detail_pc = #{detailPc,jdbcType=VARCHAR},
+      huxing_url = #{huxingUrl,jdbcType=VARCHAR},
+      huxing_id = #{huxingId,jdbcType=VARCHAR},
+      huxing_name = #{huxingName,jdbcType=VARCHAR},
+      current_area = #{currentArea,jdbcType=VARCHAR},
+      huxing_status = #{huxingStatus,jdbcType=VARCHAR},
+      aveprice = #{aveprice,jdbcType=VARCHAR},
+      totalprice = #{totalprice,jdbcType=VARCHAR},
+      tag = #{tag,jdbcType=VARCHAR},
+      building_dist = #{buildingDist,jdbcType=VARCHAR},
+      score = #{score,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      frame_image = #{frameImage,jdbcType=VARCHAR},
+      upright_score = #{uprightScore,jdbcType=VARCHAR},
+      daylighting_score = #{daylightingScore,jdbcType=VARCHAR},
+      distribution_score = #{distributionScore,jdbcType=VARCHAR},
+      area_score = #{areaScore,jdbcType=VARCHAR},
+      effien_score = #{effienScore,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      batch_id = #{batchId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+      and shares_area = #{sharesArea,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,1250 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tt.dao.AnjukeCommunityHuizongMapper" >
+  <resultMap id="BaseResultMap" type="com.tt.entity.AnjukeCommunityHuizong" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="fang_id" property="fangId" jdbcType="VARCHAR" />
+    <result column="home_name" property="homeName" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="region" property="region" jdbcType="VARCHAR" />
+    <result column="plate" property="plate" jdbcType="VARCHAR" />
+    <result column="build_year" property="buildYear" jdbcType="VARCHAR" />
+    <result column="average_price" property="averagePrice" jdbcType="VARCHAR" />
+    <result column="thumb_url" property="thumbUrl" jdbcType="VARCHAR" />
+    <result column="detail_url" property="detailUrl" jdbcType="VARCHAR" />
+    <result column="build_type" property="buildType" jdbcType="VARCHAR" />
+    <result column="build_structure" property="buildStructure" jdbcType="VARCHAR" />
+    <result column="loop_position" property="loopPosition" jdbcType="VARCHAR" />
+    <result column="home_total" property="homeTotal" jdbcType="VARCHAR" />
+    <result column="loudong_num" property="loudongNum" jdbcType="VARCHAR" />
+    <result column="build_developers" property="buildDevelopers" jdbcType="VARCHAR" />
+    <result column="build_area" property="buildArea" jdbcType="VARCHAR" />
+    <result column="floor_area" property="floorArea" jdbcType="VARCHAR" />
+    <result column="plot_rate" property="plotRate" jdbcType="VARCHAR" />
+    <result column="green_rate" property="greenRate" jdbcType="VARCHAR" />
+    <result column="chanquan_description" property="chanquanDescription" jdbcType="VARCHAR" />
+    <result column="property_company" property="propertyCompany" jdbcType="VARCHAR" />
+    <result column="property_phone" property="propertyPhone" jdbcType="VARCHAR" />
+    <result column="property_price" property="propertyPrice" jdbcType="VARCHAR" />
+    <result column="property_type" property="propertyType" jdbcType="VARCHAR" />
+    <result column="service_center" property="serviceCenter" jdbcType="VARCHAR" />
+    <result column="duikou_school" property="duikouSchool" jdbcType="VARCHAR" />
+    <result column="water" property="water" jdbcType="VARCHAR" />
+    <result column="heating" property="heating" jdbcType="VARCHAR" />
+    <result column="supply_electricity" property="supplyElectricity" jdbcType="VARCHAR" />
+    <result column="gas" property="gas" jdbcType="VARCHAR" />
+    <result column="dianti" property="dianti" jdbcType="VARCHAR" />
+    <result column="security" property="security" jdbcType="VARCHAR" />
+    <result column="weisheng" property="weisheng" jdbcType="VARCHAR" />
+    <result column="parking_space" property="parkingSpace" jdbcType="VARCHAR" />
+    <result column="xiaoqu_photo_url" property="xiaoquPhotoUrl" jdbcType="VARCHAR" />
+    <result column="xiaoqu_esf_url" property="xiaoquEsfUrl" jdbcType="VARCHAR" />
+    <result column="xiaoqu_zufang_url" property="xiaoquZufangUrl" jdbcType="VARCHAR" />
+    <result column="offices_level" property="officesLevel" jdbcType="VARCHAR" />
+    <result column="zufang_info" property="zufangInfo" jdbcType="VARCHAR" />
+    <result column="tag" property="tag" jdbcType="VARCHAR" />
+    <result column="dianti_num" property="diantiNum" jdbcType="VARCHAR" />
+    <result column="decoration" property="decoration" jdbcType="VARCHAR" />
+    <result column="floor_num" property="floorNum" jdbcType="VARCHAR" />
+    <result column="park_ratio" property="parkRatio" jdbcType="VARCHAR" />
+    <result column="under_num" property="underNum" jdbcType="VARCHAR" />
+    <result column="upper_num" property="upperNum" jdbcType="VARCHAR" />
+    <result column="fixed_charge" property="fixedCharge" jdbcType="VARCHAR" />
+    <result column="park_num" property="parkNum" jdbcType="VARCHAR" />
+    <result column="high_batch_handle" property="highBatchHandle" jdbcType="VARCHAR" />
+    <result column="is_del" property="isDel" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.tt.entity.AnjukeCommunityHuizongWithBLOBs" extends="BaseResultMap" >
+    <result column="overhead_information" property="overheadInformation" jdbcType="LONGVARCHAR" />
+    <result column="communication" property="communication" jdbcType="LONGVARCHAR" />
+    <result column="exit_infos" property="exitInfos" jdbcType="LONGVARCHAR" />
+    <result column="traffic" property="traffic" jdbcType="LONGVARCHAR" />
+    <result column="peripheral_information" property="peripheralInformation" jdbcType="LONGVARCHAR" />
+    <result column="xiaoqu_averagePrice_url" property="xiaoquAveragepriceUrl" jdbcType="LONGVARCHAR" />
+    <result column="open_information_history" property="openInformationHistory" jdbcType="LONGVARCHAR" />
+    <result column="photo_json" property="photoJson" jdbcType="LONGVARCHAR" />
+    <result column="layout_images" property="layoutImages" jdbcType="LONGVARCHAR" />
+    <result column="reality_images" property="realityImages" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, fang_id, home_name, address, city, region, plate, build_year, average_price, 
+    thumb_url, detail_url, build_type, build_structure, loop_position, home_total, loudong_num, 
+    build_developers, build_area, floor_area, plot_rate, green_rate, chanquan_description, 
+    property_company, property_phone, property_price, property_type, service_center, 
+    duikou_school, water, heating, supply_electricity, gas, dianti, security, weisheng, 
+    parking_space, xiaoqu_photo_url, xiaoqu_esf_url, xiaoqu_zufang_url, offices_level, 
+    zufang_info, tag, dianti_num, decoration, floor_num, park_ratio, under_num, upper_num, 
+    fixed_charge, park_num, high_batch_handle, is_del
+  </sql>
+  <sql id="Blob_Column_List" >
+    overhead_information, communication, exit_infos, traffic, peripheral_information, 
+    xiaoqu_averagePrice_url, open_information_history, photo_json, layout_images, reality_images
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.tt.entity.AnjukeCommunityHuizongExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from anjuke_community_huizong
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tt.entity.AnjukeCommunityHuizongExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from anjuke_community_huizong
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from anjuke_community_huizong
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from anjuke_community_huizong
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tt.entity.AnjukeCommunityHuizongExample" >
+    delete from anjuke_community_huizong
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tt.entity.AnjukeCommunityHuizongWithBLOBs" >
+    insert into anjuke_community_huizong (id, fang_id, home_name, 
+      address, city, region, 
+      plate, build_year, average_price, 
+      thumb_url, detail_url, build_type, 
+      build_structure, loop_position, home_total, 
+      loudong_num, build_developers, build_area, 
+      floor_area, plot_rate, green_rate, 
+      chanquan_description, property_company, property_phone, 
+      property_price, property_type, service_center, 
+      duikou_school, water, heating, 
+      supply_electricity, gas, dianti, 
+      security, weisheng, parking_space, 
+      xiaoqu_photo_url, xiaoqu_esf_url, xiaoqu_zufang_url, 
+      offices_level, zufang_info, tag, 
+      dianti_num, decoration, floor_num, 
+      park_ratio, under_num, upper_num, 
+      fixed_charge, park_num, high_batch_handle, 
+      is_del, overhead_information, communication, 
+      exit_infos, traffic, peripheral_information, 
+      xiaoqu_averagePrice_url, open_information_history, 
+      photo_json, layout_images, reality_images
+      )
+    values (#{id,jdbcType=VARCHAR}, #{fangId,jdbcType=VARCHAR}, #{homeName,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{region,jdbcType=VARCHAR}, 
+      #{plate,jdbcType=VARCHAR}, #{buildYear,jdbcType=VARCHAR}, #{averagePrice,jdbcType=VARCHAR}, 
+      #{thumbUrl,jdbcType=VARCHAR}, #{detailUrl,jdbcType=VARCHAR}, #{buildType,jdbcType=VARCHAR}, 
+      #{buildStructure,jdbcType=VARCHAR}, #{loopPosition,jdbcType=VARCHAR}, #{homeTotal,jdbcType=VARCHAR}, 
+      #{loudongNum,jdbcType=VARCHAR}, #{buildDevelopers,jdbcType=VARCHAR}, #{buildArea,jdbcType=VARCHAR}, 
+      #{floorArea,jdbcType=VARCHAR}, #{plotRate,jdbcType=VARCHAR}, #{greenRate,jdbcType=VARCHAR}, 
+      #{chanquanDescription,jdbcType=VARCHAR}, #{propertyCompany,jdbcType=VARCHAR}, #{propertyPhone,jdbcType=VARCHAR}, 
+      #{propertyPrice,jdbcType=VARCHAR}, #{propertyType,jdbcType=VARCHAR}, #{serviceCenter,jdbcType=VARCHAR}, 
+      #{duikouSchool,jdbcType=VARCHAR}, #{water,jdbcType=VARCHAR}, #{heating,jdbcType=VARCHAR}, 
+      #{supplyElectricity,jdbcType=VARCHAR}, #{gas,jdbcType=VARCHAR}, #{dianti,jdbcType=VARCHAR}, 
+      #{security,jdbcType=VARCHAR}, #{weisheng,jdbcType=VARCHAR}, #{parkingSpace,jdbcType=VARCHAR}, 
+      #{xiaoquPhotoUrl,jdbcType=VARCHAR}, #{xiaoquEsfUrl,jdbcType=VARCHAR}, #{xiaoquZufangUrl,jdbcType=VARCHAR}, 
+      #{officesLevel,jdbcType=VARCHAR}, #{zufangInfo,jdbcType=VARCHAR}, #{tag,jdbcType=VARCHAR}, 
+      #{diantiNum,jdbcType=VARCHAR}, #{decoration,jdbcType=VARCHAR}, #{floorNum,jdbcType=VARCHAR}, 
+      #{parkRatio,jdbcType=VARCHAR}, #{underNum,jdbcType=VARCHAR}, #{upperNum,jdbcType=VARCHAR}, 
+      #{fixedCharge,jdbcType=VARCHAR}, #{parkNum,jdbcType=VARCHAR}, #{highBatchHandle,jdbcType=VARCHAR}, 
+      #{isDel,jdbcType=VARCHAR}, #{overheadInformation,jdbcType=LONGVARCHAR}, #{communication,jdbcType=LONGVARCHAR}, 
+      #{exitInfos,jdbcType=LONGVARCHAR}, #{traffic,jdbcType=LONGVARCHAR}, #{peripheralInformation,jdbcType=LONGVARCHAR}, 
+      #{xiaoquAveragepriceUrl,jdbcType=LONGVARCHAR}, #{openInformationHistory,jdbcType=LONGVARCHAR}, 
+      #{photoJson,jdbcType=LONGVARCHAR}, #{layoutImages,jdbcType=LONGVARCHAR}, #{realityImages,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tt.entity.AnjukeCommunityHuizongWithBLOBs" >
+    insert into anjuke_community_huizong
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="fangId != null" >
+        fang_id,
+      </if>
+      <if test="homeName != null" >
+        home_name,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="region != null" >
+        region,
+      </if>
+      <if test="plate != null" >
+        plate,
+      </if>
+      <if test="buildYear != null" >
+        build_year,
+      </if>
+      <if test="averagePrice != null" >
+        average_price,
+      </if>
+      <if test="thumbUrl != null" >
+        thumb_url,
+      </if>
+      <if test="detailUrl != null" >
+        detail_url,
+      </if>
+      <if test="buildType != null" >
+        build_type,
+      </if>
+      <if test="buildStructure != null" >
+        build_structure,
+      </if>
+      <if test="loopPosition != null" >
+        loop_position,
+      </if>
+      <if test="homeTotal != null" >
+        home_total,
+      </if>
+      <if test="loudongNum != null" >
+        loudong_num,
+      </if>
+      <if test="buildDevelopers != null" >
+        build_developers,
+      </if>
+      <if test="buildArea != null" >
+        build_area,
+      </if>
+      <if test="floorArea != null" >
+        floor_area,
+      </if>
+      <if test="plotRate != null" >
+        plot_rate,
+      </if>
+      <if test="greenRate != null" >
+        green_rate,
+      </if>
+      <if test="chanquanDescription != null" >
+        chanquan_description,
+      </if>
+      <if test="propertyCompany != null" >
+        property_company,
+      </if>
+      <if test="propertyPhone != null" >
+        property_phone,
+      </if>
+      <if test="propertyPrice != null" >
+        property_price,
+      </if>
+      <if test="propertyType != null" >
+        property_type,
+      </if>
+      <if test="serviceCenter != null" >
+        service_center,
+      </if>
+      <if test="duikouSchool != null" >
+        duikou_school,
+      </if>
+      <if test="water != null" >
+        water,
+      </if>
+      <if test="heating != null" >
+        heating,
+      </if>
+      <if test="supplyElectricity != null" >
+        supply_electricity,
+      </if>
+      <if test="gas != null" >
+        gas,
+      </if>
+      <if test="dianti != null" >
+        dianti,
+      </if>
+      <if test="security != null" >
+        security,
+      </if>
+      <if test="weisheng != null" >
+        weisheng,
+      </if>
+      <if test="parkingSpace != null" >
+        parking_space,
+      </if>
+      <if test="xiaoquPhotoUrl != null" >
+        xiaoqu_photo_url,
+      </if>
+      <if test="xiaoquEsfUrl != null" >
+        xiaoqu_esf_url,
+      </if>
+      <if test="xiaoquZufangUrl != null" >
+        xiaoqu_zufang_url,
+      </if>
+      <if test="officesLevel != null" >
+        offices_level,
+      </if>
+      <if test="zufangInfo != null" >
+        zufang_info,
+      </if>
+      <if test="tag != null" >
+        tag,
+      </if>
+      <if test="diantiNum != null" >
+        dianti_num,
+      </if>
+      <if test="decoration != null" >
+        decoration,
+      </if>
+      <if test="floorNum != null" >
+        floor_num,
+      </if>
+      <if test="parkRatio != null" >
+        park_ratio,
+      </if>
+      <if test="underNum != null" >
+        under_num,
+      </if>
+      <if test="upperNum != null" >
+        upper_num,
+      </if>
+      <if test="fixedCharge != null" >
+        fixed_charge,
+      </if>
+      <if test="parkNum != null" >
+        park_num,
+      </if>
+      <if test="highBatchHandle != null" >
+        high_batch_handle,
+      </if>
+      <if test="isDel != null" >
+        is_del,
+      </if>
+      <if test="overheadInformation != null" >
+        overhead_information,
+      </if>
+      <if test="communication != null" >
+        communication,
+      </if>
+      <if test="exitInfos != null" >
+        exit_infos,
+      </if>
+      <if test="traffic != null" >
+        traffic,
+      </if>
+      <if test="peripheralInformation != null" >
+        peripheral_information,
+      </if>
+      <if test="xiaoquAveragepriceUrl != null" >
+        xiaoqu_averagePrice_url,
+      </if>
+      <if test="openInformationHistory != null" >
+        open_information_history,
+      </if>
+      <if test="photoJson != null" >
+        photo_json,
+      </if>
+      <if test="layoutImages != null" >
+        layout_images,
+      </if>
+      <if test="realityImages != null" >
+        reality_images,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="fangId != null" >
+        #{fangId,jdbcType=VARCHAR},
+      </if>
+      <if test="homeName != null" >
+        #{homeName,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="region != null" >
+        #{region,jdbcType=VARCHAR},
+      </if>
+      <if test="plate != null" >
+        #{plate,jdbcType=VARCHAR},
+      </if>
+      <if test="buildYear != null" >
+        #{buildYear,jdbcType=VARCHAR},
+      </if>
+      <if test="averagePrice != null" >
+        #{averagePrice,jdbcType=VARCHAR},
+      </if>
+      <if test="thumbUrl != null" >
+        #{thumbUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="detailUrl != null" >
+        #{detailUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="buildType != null" >
+        #{buildType,jdbcType=VARCHAR},
+      </if>
+      <if test="buildStructure != null" >
+        #{buildStructure,jdbcType=VARCHAR},
+      </if>
+      <if test="loopPosition != null" >
+        #{loopPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="homeTotal != null" >
+        #{homeTotal,jdbcType=VARCHAR},
+      </if>
+      <if test="loudongNum != null" >
+        #{loudongNum,jdbcType=VARCHAR},
+      </if>
+      <if test="buildDevelopers != null" >
+        #{buildDevelopers,jdbcType=VARCHAR},
+      </if>
+      <if test="buildArea != null" >
+        #{buildArea,jdbcType=VARCHAR},
+      </if>
+      <if test="floorArea != null" >
+        #{floorArea,jdbcType=VARCHAR},
+      </if>
+      <if test="plotRate != null" >
+        #{plotRate,jdbcType=VARCHAR},
+      </if>
+      <if test="greenRate != null" >
+        #{greenRate,jdbcType=VARCHAR},
+      </if>
+      <if test="chanquanDescription != null" >
+        #{chanquanDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyCompany != null" >
+        #{propertyCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyPhone != null" >
+        #{propertyPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyPrice != null" >
+        #{propertyPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyType != null" >
+        #{propertyType,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceCenter != null" >
+        #{serviceCenter,jdbcType=VARCHAR},
+      </if>
+      <if test="duikouSchool != null" >
+        #{duikouSchool,jdbcType=VARCHAR},
+      </if>
+      <if test="water != null" >
+        #{water,jdbcType=VARCHAR},
+      </if>
+      <if test="heating != null" >
+        #{heating,jdbcType=VARCHAR},
+      </if>
+      <if test="supplyElectricity != null" >
+        #{supplyElectricity,jdbcType=VARCHAR},
+      </if>
+      <if test="gas != null" >
+        #{gas,jdbcType=VARCHAR},
+      </if>
+      <if test="dianti != null" >
+        #{dianti,jdbcType=VARCHAR},
+      </if>
+      <if test="security != null" >
+        #{security,jdbcType=VARCHAR},
+      </if>
+      <if test="weisheng != null" >
+        #{weisheng,jdbcType=VARCHAR},
+      </if>
+      <if test="parkingSpace != null" >
+        #{parkingSpace,jdbcType=VARCHAR},
+      </if>
+      <if test="xiaoquPhotoUrl != null" >
+        #{xiaoquPhotoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="xiaoquEsfUrl != null" >
+        #{xiaoquEsfUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="xiaoquZufangUrl != null" >
+        #{xiaoquZufangUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="officesLevel != null" >
+        #{officesLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="zufangInfo != null" >
+        #{zufangInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="tag != null" >
+        #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="diantiNum != null" >
+        #{diantiNum,jdbcType=VARCHAR},
+      </if>
+      <if test="decoration != null" >
+        #{decoration,jdbcType=VARCHAR},
+      </if>
+      <if test="floorNum != null" >
+        #{floorNum,jdbcType=VARCHAR},
+      </if>
+      <if test="parkRatio != null" >
+        #{parkRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="underNum != null" >
+        #{underNum,jdbcType=VARCHAR},
+      </if>
+      <if test="upperNum != null" >
+        #{upperNum,jdbcType=VARCHAR},
+      </if>
+      <if test="fixedCharge != null" >
+        #{fixedCharge,jdbcType=VARCHAR},
+      </if>
+      <if test="parkNum != null" >
+        #{parkNum,jdbcType=VARCHAR},
+      </if>
+      <if test="highBatchHandle != null" >
+        #{highBatchHandle,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null" >
+        #{isDel,jdbcType=VARCHAR},
+      </if>
+      <if test="overheadInformation != null" >
+        #{overheadInformation,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="communication != null" >
+        #{communication,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="exitInfos != null" >
+        #{exitInfos,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="traffic != null" >
+        #{traffic,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="peripheralInformation != null" >
+        #{peripheralInformation,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="xiaoquAveragepriceUrl != null" >
+        #{xiaoquAveragepriceUrl,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="openInformationHistory != null" >
+        #{openInformationHistory,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="photoJson != null" >
+        #{photoJson,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="layoutImages != null" >
+        #{layoutImages,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="realityImages != null" >
+        #{realityImages,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tt.entity.AnjukeCommunityHuizongExample" resultType="java.lang.Integer" >
+    select count(*) from anjuke_community_huizong
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update anjuke_community_huizong
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fangId != null" >
+        fang_id = #{record.fangId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.homeName != null" >
+        home_name = #{record.homeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.city != null" >
+        city = #{record.city,jdbcType=VARCHAR},
+      </if>
+      <if test="record.region != null" >
+        region = #{record.region,jdbcType=VARCHAR},
+      </if>
+      <if test="record.plate != null" >
+        plate = #{record.plate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildYear != null" >
+        build_year = #{record.buildYear,jdbcType=VARCHAR},
+      </if>
+      <if test="record.averagePrice != null" >
+        average_price = #{record.averagePrice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.thumbUrl != null" >
+        thumb_url = #{record.thumbUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.detailUrl != null" >
+        detail_url = #{record.detailUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildType != null" >
+        build_type = #{record.buildType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildStructure != null" >
+        build_structure = #{record.buildStructure,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loopPosition != null" >
+        loop_position = #{record.loopPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="record.homeTotal != null" >
+        home_total = #{record.homeTotal,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loudongNum != null" >
+        loudong_num = #{record.loudongNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildDevelopers != null" >
+        build_developers = #{record.buildDevelopers,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildArea != null" >
+        build_area = #{record.buildArea,jdbcType=VARCHAR},
+      </if>
+      <if test="record.floorArea != null" >
+        floor_area = #{record.floorArea,jdbcType=VARCHAR},
+      </if>
+      <if test="record.plotRate != null" >
+        plot_rate = #{record.plotRate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.greenRate != null" >
+        green_rate = #{record.greenRate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chanquanDescription != null" >
+        chanquan_description = #{record.chanquanDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="record.propertyCompany != null" >
+        property_company = #{record.propertyCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="record.propertyPhone != null" >
+        property_phone = #{record.propertyPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.propertyPrice != null" >
+        property_price = #{record.propertyPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.propertyType != null" >
+        property_type = #{record.propertyType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceCenter != null" >
+        service_center = #{record.serviceCenter,jdbcType=VARCHAR},
+      </if>
+      <if test="record.duikouSchool != null" >
+        duikou_school = #{record.duikouSchool,jdbcType=VARCHAR},
+      </if>
+      <if test="record.water != null" >
+        water = #{record.water,jdbcType=VARCHAR},
+      </if>
+      <if test="record.heating != null" >
+        heating = #{record.heating,jdbcType=VARCHAR},
+      </if>
+      <if test="record.supplyElectricity != null" >
+        supply_electricity = #{record.supplyElectricity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gas != null" >
+        gas = #{record.gas,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dianti != null" >
+        dianti = #{record.dianti,jdbcType=VARCHAR},
+      </if>
+      <if test="record.security != null" >
+        security = #{record.security,jdbcType=VARCHAR},
+      </if>
+      <if test="record.weisheng != null" >
+        weisheng = #{record.weisheng,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parkingSpace != null" >
+        parking_space = #{record.parkingSpace,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xiaoquPhotoUrl != null" >
+        xiaoqu_photo_url = #{record.xiaoquPhotoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xiaoquEsfUrl != null" >
+        xiaoqu_esf_url = #{record.xiaoquEsfUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xiaoquZufangUrl != null" >
+        xiaoqu_zufang_url = #{record.xiaoquZufangUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.officesLevel != null" >
+        offices_level = #{record.officesLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zufangInfo != null" >
+        zufang_info = #{record.zufangInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tag != null" >
+        tag = #{record.tag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.diantiNum != null" >
+        dianti_num = #{record.diantiNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.decoration != null" >
+        decoration = #{record.decoration,jdbcType=VARCHAR},
+      </if>
+      <if test="record.floorNum != null" >
+        floor_num = #{record.floorNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parkRatio != null" >
+        park_ratio = #{record.parkRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="record.underNum != null" >
+        under_num = #{record.underNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.upperNum != null" >
+        upper_num = #{record.upperNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fixedCharge != null" >
+        fixed_charge = #{record.fixedCharge,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parkNum != null" >
+        park_num = #{record.parkNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.highBatchHandle != null" >
+        high_batch_handle = #{record.highBatchHandle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDel != null" >
+        is_del = #{record.isDel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.overheadInformation != null" >
+        overhead_information = #{record.overheadInformation,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.communication != null" >
+        communication = #{record.communication,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.exitInfos != null" >
+        exit_infos = #{record.exitInfos,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.traffic != null" >
+        traffic = #{record.traffic,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.peripheralInformation != null" >
+        peripheral_information = #{record.peripheralInformation,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.xiaoquAveragepriceUrl != null" >
+        xiaoqu_averagePrice_url = #{record.xiaoquAveragepriceUrl,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.openInformationHistory != null" >
+        open_information_history = #{record.openInformationHistory,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.photoJson != null" >
+        photo_json = #{record.photoJson,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.layoutImages != null" >
+        layout_images = #{record.layoutImages,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.realityImages != null" >
+        reality_images = #{record.realityImages,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update anjuke_community_huizong
+    set id = #{record.id,jdbcType=VARCHAR},
+      fang_id = #{record.fangId,jdbcType=VARCHAR},
+      home_name = #{record.homeName,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      city = #{record.city,jdbcType=VARCHAR},
+      region = #{record.region,jdbcType=VARCHAR},
+      plate = #{record.plate,jdbcType=VARCHAR},
+      build_year = #{record.buildYear,jdbcType=VARCHAR},
+      average_price = #{record.averagePrice,jdbcType=VARCHAR},
+      thumb_url = #{record.thumbUrl,jdbcType=VARCHAR},
+      detail_url = #{record.detailUrl,jdbcType=VARCHAR},
+      build_type = #{record.buildType,jdbcType=VARCHAR},
+      build_structure = #{record.buildStructure,jdbcType=VARCHAR},
+      loop_position = #{record.loopPosition,jdbcType=VARCHAR},
+      home_total = #{record.homeTotal,jdbcType=VARCHAR},
+      loudong_num = #{record.loudongNum,jdbcType=VARCHAR},
+      build_developers = #{record.buildDevelopers,jdbcType=VARCHAR},
+      build_area = #{record.buildArea,jdbcType=VARCHAR},
+      floor_area = #{record.floorArea,jdbcType=VARCHAR},
+      plot_rate = #{record.plotRate,jdbcType=VARCHAR},
+      green_rate = #{record.greenRate,jdbcType=VARCHAR},
+      chanquan_description = #{record.chanquanDescription,jdbcType=VARCHAR},
+      property_company = #{record.propertyCompany,jdbcType=VARCHAR},
+      property_phone = #{record.propertyPhone,jdbcType=VARCHAR},
+      property_price = #{record.propertyPrice,jdbcType=VARCHAR},
+      property_type = #{record.propertyType,jdbcType=VARCHAR},
+      service_center = #{record.serviceCenter,jdbcType=VARCHAR},
+      duikou_school = #{record.duikouSchool,jdbcType=VARCHAR},
+      water = #{record.water,jdbcType=VARCHAR},
+      heating = #{record.heating,jdbcType=VARCHAR},
+      supply_electricity = #{record.supplyElectricity,jdbcType=VARCHAR},
+      gas = #{record.gas,jdbcType=VARCHAR},
+      dianti = #{record.dianti,jdbcType=VARCHAR},
+      security = #{record.security,jdbcType=VARCHAR},
+      weisheng = #{record.weisheng,jdbcType=VARCHAR},
+      parking_space = #{record.parkingSpace,jdbcType=VARCHAR},
+      xiaoqu_photo_url = #{record.xiaoquPhotoUrl,jdbcType=VARCHAR},
+      xiaoqu_esf_url = #{record.xiaoquEsfUrl,jdbcType=VARCHAR},
+      xiaoqu_zufang_url = #{record.xiaoquZufangUrl,jdbcType=VARCHAR},
+      offices_level = #{record.officesLevel,jdbcType=VARCHAR},
+      zufang_info = #{record.zufangInfo,jdbcType=VARCHAR},
+      tag = #{record.tag,jdbcType=VARCHAR},
+      dianti_num = #{record.diantiNum,jdbcType=VARCHAR},
+      decoration = #{record.decoration,jdbcType=VARCHAR},
+      floor_num = #{record.floorNum,jdbcType=VARCHAR},
+      park_ratio = #{record.parkRatio,jdbcType=VARCHAR},
+      under_num = #{record.underNum,jdbcType=VARCHAR},
+      upper_num = #{record.upperNum,jdbcType=VARCHAR},
+      fixed_charge = #{record.fixedCharge,jdbcType=VARCHAR},
+      park_num = #{record.parkNum,jdbcType=VARCHAR},
+      high_batch_handle = #{record.highBatchHandle,jdbcType=VARCHAR},
+      is_del = #{record.isDel,jdbcType=VARCHAR},
+      overhead_information = #{record.overheadInformation,jdbcType=LONGVARCHAR},
+      communication = #{record.communication,jdbcType=LONGVARCHAR},
+      exit_infos = #{record.exitInfos,jdbcType=LONGVARCHAR},
+      traffic = #{record.traffic,jdbcType=LONGVARCHAR},
+      peripheral_information = #{record.peripheralInformation,jdbcType=LONGVARCHAR},
+      xiaoqu_averagePrice_url = #{record.xiaoquAveragepriceUrl,jdbcType=LONGVARCHAR},
+      open_information_history = #{record.openInformationHistory,jdbcType=LONGVARCHAR},
+      photo_json = #{record.photoJson,jdbcType=LONGVARCHAR},
+      layout_images = #{record.layoutImages,jdbcType=LONGVARCHAR},
+      reality_images = #{record.realityImages,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update anjuke_community_huizong
+    set id = #{record.id,jdbcType=VARCHAR},
+      fang_id = #{record.fangId,jdbcType=VARCHAR},
+      home_name = #{record.homeName,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      city = #{record.city,jdbcType=VARCHAR},
+      region = #{record.region,jdbcType=VARCHAR},
+      plate = #{record.plate,jdbcType=VARCHAR},
+      build_year = #{record.buildYear,jdbcType=VARCHAR},
+      average_price = #{record.averagePrice,jdbcType=VARCHAR},
+      thumb_url = #{record.thumbUrl,jdbcType=VARCHAR},
+      detail_url = #{record.detailUrl,jdbcType=VARCHAR},
+      build_type = #{record.buildType,jdbcType=VARCHAR},
+      build_structure = #{record.buildStructure,jdbcType=VARCHAR},
+      loop_position = #{record.loopPosition,jdbcType=VARCHAR},
+      home_total = #{record.homeTotal,jdbcType=VARCHAR},
+      loudong_num = #{record.loudongNum,jdbcType=VARCHAR},
+      build_developers = #{record.buildDevelopers,jdbcType=VARCHAR},
+      build_area = #{record.buildArea,jdbcType=VARCHAR},
+      floor_area = #{record.floorArea,jdbcType=VARCHAR},
+      plot_rate = #{record.plotRate,jdbcType=VARCHAR},
+      green_rate = #{record.greenRate,jdbcType=VARCHAR},
+      chanquan_description = #{record.chanquanDescription,jdbcType=VARCHAR},
+      property_company = #{record.propertyCompany,jdbcType=VARCHAR},
+      property_phone = #{record.propertyPhone,jdbcType=VARCHAR},
+      property_price = #{record.propertyPrice,jdbcType=VARCHAR},
+      property_type = #{record.propertyType,jdbcType=VARCHAR},
+      service_center = #{record.serviceCenter,jdbcType=VARCHAR},
+      duikou_school = #{record.duikouSchool,jdbcType=VARCHAR},
+      water = #{record.water,jdbcType=VARCHAR},
+      heating = #{record.heating,jdbcType=VARCHAR},
+      supply_electricity = #{record.supplyElectricity,jdbcType=VARCHAR},
+      gas = #{record.gas,jdbcType=VARCHAR},
+      dianti = #{record.dianti,jdbcType=VARCHAR},
+      security = #{record.security,jdbcType=VARCHAR},
+      weisheng = #{record.weisheng,jdbcType=VARCHAR},
+      parking_space = #{record.parkingSpace,jdbcType=VARCHAR},
+      xiaoqu_photo_url = #{record.xiaoquPhotoUrl,jdbcType=VARCHAR},
+      xiaoqu_esf_url = #{record.xiaoquEsfUrl,jdbcType=VARCHAR},
+      xiaoqu_zufang_url = #{record.xiaoquZufangUrl,jdbcType=VARCHAR},
+      offices_level = #{record.officesLevel,jdbcType=VARCHAR},
+      zufang_info = #{record.zufangInfo,jdbcType=VARCHAR},
+      tag = #{record.tag,jdbcType=VARCHAR},
+      dianti_num = #{record.diantiNum,jdbcType=VARCHAR},
+      decoration = #{record.decoration,jdbcType=VARCHAR},
+      floor_num = #{record.floorNum,jdbcType=VARCHAR},
+      park_ratio = #{record.parkRatio,jdbcType=VARCHAR},
+      under_num = #{record.underNum,jdbcType=VARCHAR},
+      upper_num = #{record.upperNum,jdbcType=VARCHAR},
+      fixed_charge = #{record.fixedCharge,jdbcType=VARCHAR},
+      park_num = #{record.parkNum,jdbcType=VARCHAR},
+      high_batch_handle = #{record.highBatchHandle,jdbcType=VARCHAR},
+      is_del = #{record.isDel,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tt.entity.AnjukeCommunityHuizongWithBLOBs" >
+    update anjuke_community_huizong
+    <set >
+      <if test="fangId != null" >
+        fang_id = #{fangId,jdbcType=VARCHAR},
+      </if>
+      <if test="homeName != null" >
+        home_name = #{homeName,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="region != null" >
+        region = #{region,jdbcType=VARCHAR},
+      </if>
+      <if test="plate != null" >
+        plate = #{plate,jdbcType=VARCHAR},
+      </if>
+      <if test="buildYear != null" >
+        build_year = #{buildYear,jdbcType=VARCHAR},
+      </if>
+      <if test="averagePrice != null" >
+        average_price = #{averagePrice,jdbcType=VARCHAR},
+      </if>
+      <if test="thumbUrl != null" >
+        thumb_url = #{thumbUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="detailUrl != null" >
+        detail_url = #{detailUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="buildType != null" >
+        build_type = #{buildType,jdbcType=VARCHAR},
+      </if>
+      <if test="buildStructure != null" >
+        build_structure = #{buildStructure,jdbcType=VARCHAR},
+      </if>
+      <if test="loopPosition != null" >
+        loop_position = #{loopPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="homeTotal != null" >
+        home_total = #{homeTotal,jdbcType=VARCHAR},
+      </if>
+      <if test="loudongNum != null" >
+        loudong_num = #{loudongNum,jdbcType=VARCHAR},
+      </if>
+      <if test="buildDevelopers != null" >
+        build_developers = #{buildDevelopers,jdbcType=VARCHAR},
+      </if>
+      <if test="buildArea != null" >
+        build_area = #{buildArea,jdbcType=VARCHAR},
+      </if>
+      <if test="floorArea != null" >
+        floor_area = #{floorArea,jdbcType=VARCHAR},
+      </if>
+      <if test="plotRate != null" >
+        plot_rate = #{plotRate,jdbcType=VARCHAR},
+      </if>
+      <if test="greenRate != null" >
+        green_rate = #{greenRate,jdbcType=VARCHAR},
+      </if>
+      <if test="chanquanDescription != null" >
+        chanquan_description = #{chanquanDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyCompany != null" >
+        property_company = #{propertyCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyPhone != null" >
+        property_phone = #{propertyPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyPrice != null" >
+        property_price = #{propertyPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyType != null" >
+        property_type = #{propertyType,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceCenter != null" >
+        service_center = #{serviceCenter,jdbcType=VARCHAR},
+      </if>
+      <if test="duikouSchool != null" >
+        duikou_school = #{duikouSchool,jdbcType=VARCHAR},
+      </if>
+      <if test="water != null" >
+        water = #{water,jdbcType=VARCHAR},
+      </if>
+      <if test="heating != null" >
+        heating = #{heating,jdbcType=VARCHAR},
+      </if>
+      <if test="supplyElectricity != null" >
+        supply_electricity = #{supplyElectricity,jdbcType=VARCHAR},
+      </if>
+      <if test="gas != null" >
+        gas = #{gas,jdbcType=VARCHAR},
+      </if>
+      <if test="dianti != null" >
+        dianti = #{dianti,jdbcType=VARCHAR},
+      </if>
+      <if test="security != null" >
+        security = #{security,jdbcType=VARCHAR},
+      </if>
+      <if test="weisheng != null" >
+        weisheng = #{weisheng,jdbcType=VARCHAR},
+      </if>
+      <if test="parkingSpace != null" >
+        parking_space = #{parkingSpace,jdbcType=VARCHAR},
+      </if>
+      <if test="xiaoquPhotoUrl != null" >
+        xiaoqu_photo_url = #{xiaoquPhotoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="xiaoquEsfUrl != null" >
+        xiaoqu_esf_url = #{xiaoquEsfUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="xiaoquZufangUrl != null" >
+        xiaoqu_zufang_url = #{xiaoquZufangUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="officesLevel != null" >
+        offices_level = #{officesLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="zufangInfo != null" >
+        zufang_info = #{zufangInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="tag != null" >
+        tag = #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="diantiNum != null" >
+        dianti_num = #{diantiNum,jdbcType=VARCHAR},
+      </if>
+      <if test="decoration != null" >
+        decoration = #{decoration,jdbcType=VARCHAR},
+      </if>
+      <if test="floorNum != null" >
+        floor_num = #{floorNum,jdbcType=VARCHAR},
+      </if>
+      <if test="parkRatio != null" >
+        park_ratio = #{parkRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="underNum != null" >
+        under_num = #{underNum,jdbcType=VARCHAR},
+      </if>
+      <if test="upperNum != null" >
+        upper_num = #{upperNum,jdbcType=VARCHAR},
+      </if>
+      <if test="fixedCharge != null" >
+        fixed_charge = #{fixedCharge,jdbcType=VARCHAR},
+      </if>
+      <if test="parkNum != null" >
+        park_num = #{parkNum,jdbcType=VARCHAR},
+      </if>
+      <if test="highBatchHandle != null" >
+        high_batch_handle = #{highBatchHandle,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null" >
+        is_del = #{isDel,jdbcType=VARCHAR},
+      </if>
+      <if test="overheadInformation != null" >
+        overhead_information = #{overheadInformation,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="communication != null" >
+        communication = #{communication,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="exitInfos != null" >
+        exit_infos = #{exitInfos,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="traffic != null" >
+        traffic = #{traffic,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="peripheralInformation != null" >
+        peripheral_information = #{peripheralInformation,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="xiaoquAveragepriceUrl != null" >
+        xiaoqu_averagePrice_url = #{xiaoquAveragepriceUrl,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="openInformationHistory != null" >
+        open_information_history = #{openInformationHistory,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="photoJson != null" >
+        photo_json = #{photoJson,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="layoutImages != null" >
+        layout_images = #{layoutImages,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="realityImages != null" >
+        reality_images = #{realityImages,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.tt.entity.AnjukeCommunityHuizongWithBLOBs" >
+    update anjuke_community_huizong
+    set fang_id = #{fangId,jdbcType=VARCHAR},
+      home_name = #{homeName,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      region = #{region,jdbcType=VARCHAR},
+      plate = #{plate,jdbcType=VARCHAR},
+      build_year = #{buildYear,jdbcType=VARCHAR},
+      average_price = #{averagePrice,jdbcType=VARCHAR},
+      thumb_url = #{thumbUrl,jdbcType=VARCHAR},
+      detail_url = #{detailUrl,jdbcType=VARCHAR},
+      build_type = #{buildType,jdbcType=VARCHAR},
+      build_structure = #{buildStructure,jdbcType=VARCHAR},
+      loop_position = #{loopPosition,jdbcType=VARCHAR},
+      home_total = #{homeTotal,jdbcType=VARCHAR},
+      loudong_num = #{loudongNum,jdbcType=VARCHAR},
+      build_developers = #{buildDevelopers,jdbcType=VARCHAR},
+      build_area = #{buildArea,jdbcType=VARCHAR},
+      floor_area = #{floorArea,jdbcType=VARCHAR},
+      plot_rate = #{plotRate,jdbcType=VARCHAR},
+      green_rate = #{greenRate,jdbcType=VARCHAR},
+      chanquan_description = #{chanquanDescription,jdbcType=VARCHAR},
+      property_company = #{propertyCompany,jdbcType=VARCHAR},
+      property_phone = #{propertyPhone,jdbcType=VARCHAR},
+      property_price = #{propertyPrice,jdbcType=VARCHAR},
+      property_type = #{propertyType,jdbcType=VARCHAR},
+      service_center = #{serviceCenter,jdbcType=VARCHAR},
+      duikou_school = #{duikouSchool,jdbcType=VARCHAR},
+      water = #{water,jdbcType=VARCHAR},
+      heating = #{heating,jdbcType=VARCHAR},
+      supply_electricity = #{supplyElectricity,jdbcType=VARCHAR},
+      gas = #{gas,jdbcType=VARCHAR},
+      dianti = #{dianti,jdbcType=VARCHAR},
+      security = #{security,jdbcType=VARCHAR},
+      weisheng = #{weisheng,jdbcType=VARCHAR},
+      parking_space = #{parkingSpace,jdbcType=VARCHAR},
+      xiaoqu_photo_url = #{xiaoquPhotoUrl,jdbcType=VARCHAR},
+      xiaoqu_esf_url = #{xiaoquEsfUrl,jdbcType=VARCHAR},
+      xiaoqu_zufang_url = #{xiaoquZufangUrl,jdbcType=VARCHAR},
+      offices_level = #{officesLevel,jdbcType=VARCHAR},
+      zufang_info = #{zufangInfo,jdbcType=VARCHAR},
+      tag = #{tag,jdbcType=VARCHAR},
+      dianti_num = #{diantiNum,jdbcType=VARCHAR},
+      decoration = #{decoration,jdbcType=VARCHAR},
+      floor_num = #{floorNum,jdbcType=VARCHAR},
+      park_ratio = #{parkRatio,jdbcType=VARCHAR},
+      under_num = #{underNum,jdbcType=VARCHAR},
+      upper_num = #{upperNum,jdbcType=VARCHAR},
+      fixed_charge = #{fixedCharge,jdbcType=VARCHAR},
+      park_num = #{parkNum,jdbcType=VARCHAR},
+      high_batch_handle = #{highBatchHandle,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=VARCHAR},
+      overhead_information = #{overheadInformation,jdbcType=LONGVARCHAR},
+      communication = #{communication,jdbcType=LONGVARCHAR},
+      exit_infos = #{exitInfos,jdbcType=LONGVARCHAR},
+      traffic = #{traffic,jdbcType=LONGVARCHAR},
+      peripheral_information = #{peripheralInformation,jdbcType=LONGVARCHAR},
+      xiaoqu_averagePrice_url = #{xiaoquAveragepriceUrl,jdbcType=LONGVARCHAR},
+      open_information_history = #{openInformationHistory,jdbcType=LONGVARCHAR},
+      photo_json = #{photoJson,jdbcType=LONGVARCHAR},
+      layout_images = #{layoutImages,jdbcType=LONGVARCHAR},
+      reality_images = #{realityImages,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tt.entity.AnjukeCommunityHuizong" >
+    update anjuke_community_huizong
+    set fang_id = #{fangId,jdbcType=VARCHAR},
+      home_name = #{homeName,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      region = #{region,jdbcType=VARCHAR},
+      plate = #{plate,jdbcType=VARCHAR},
+      build_year = #{buildYear,jdbcType=VARCHAR},
+      average_price = #{averagePrice,jdbcType=VARCHAR},
+      thumb_url = #{thumbUrl,jdbcType=VARCHAR},
+      detail_url = #{detailUrl,jdbcType=VARCHAR},
+      build_type = #{buildType,jdbcType=VARCHAR},
+      build_structure = #{buildStructure,jdbcType=VARCHAR},
+      loop_position = #{loopPosition,jdbcType=VARCHAR},
+      home_total = #{homeTotal,jdbcType=VARCHAR},
+      loudong_num = #{loudongNum,jdbcType=VARCHAR},
+      build_developers = #{buildDevelopers,jdbcType=VARCHAR},
+      build_area = #{buildArea,jdbcType=VARCHAR},
+      floor_area = #{floorArea,jdbcType=VARCHAR},
+      plot_rate = #{plotRate,jdbcType=VARCHAR},
+      green_rate = #{greenRate,jdbcType=VARCHAR},
+      chanquan_description = #{chanquanDescription,jdbcType=VARCHAR},
+      property_company = #{propertyCompany,jdbcType=VARCHAR},
+      property_phone = #{propertyPhone,jdbcType=VARCHAR},
+      property_price = #{propertyPrice,jdbcType=VARCHAR},
+      property_type = #{propertyType,jdbcType=VARCHAR},
+      service_center = #{serviceCenter,jdbcType=VARCHAR},
+      duikou_school = #{duikouSchool,jdbcType=VARCHAR},
+      water = #{water,jdbcType=VARCHAR},
+      heating = #{heating,jdbcType=VARCHAR},
+      supply_electricity = #{supplyElectricity,jdbcType=VARCHAR},
+      gas = #{gas,jdbcType=VARCHAR},
+      dianti = #{dianti,jdbcType=VARCHAR},
+      security = #{security,jdbcType=VARCHAR},
+      weisheng = #{weisheng,jdbcType=VARCHAR},
+      parking_space = #{parkingSpace,jdbcType=VARCHAR},
+      xiaoqu_photo_url = #{xiaoquPhotoUrl,jdbcType=VARCHAR},
+      xiaoqu_esf_url = #{xiaoquEsfUrl,jdbcType=VARCHAR},
+      xiaoqu_zufang_url = #{xiaoquZufangUrl,jdbcType=VARCHAR},
+      offices_level = #{officesLevel,jdbcType=VARCHAR},
+      zufang_info = #{zufangInfo,jdbcType=VARCHAR},
+      tag = #{tag,jdbcType=VARCHAR},
+      dianti_num = #{diantiNum,jdbcType=VARCHAR},
+      decoration = #{decoration,jdbcType=VARCHAR},
+      floor_num = #{floorNum,jdbcType=VARCHAR},
+      park_ratio = #{parkRatio,jdbcType=VARCHAR},
+      under_num = #{underNum,jdbcType=VARCHAR},
+      upper_num = #{upperNum,jdbcType=VARCHAR},
+      fixed_charge = #{fixedCharge,jdbcType=VARCHAR},
+      park_num = #{parkNum,jdbcType=VARCHAR},
+      high_batch_handle = #{highBatchHandle,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

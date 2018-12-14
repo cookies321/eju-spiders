@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tt.dao.AnjukeCommunityDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.tt.entity.AnjukeCommunityDetail" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="fang_id" property="fangId" jdbcType="VARCHAR" />
+    <result column="home_name" property="homeName" jdbcType="VARCHAR" />
+    <result column="detail_url" property="detailUrl" jdbcType="VARCHAR" />
+    <result column="home_total" property="homeTotal" jdbcType="VARCHAR" />
+    <result column="build_developers" property="buildDevelopers" jdbcType="VARCHAR" />
+    <result column="build_area" property="buildArea" jdbcType="VARCHAR" />
+    <result column="plot_rate" property="plotRate" jdbcType="VARCHAR" />
+    <result column="green_rate" property="greenRate" jdbcType="VARCHAR" />
+    <result column="property_type" property="propertyType" jdbcType="VARCHAR" />
+    <result column="property_company" property="propertyCompany" jdbcType="VARCHAR" />
+    <result column="property_price" property="propertyPrice" jdbcType="VARCHAR" />
+    <result column="duikou_school" property="duikouSchool" jdbcType="VARCHAR" />
+    <result column="park_num" property="parkNum" jdbcType="VARCHAR" />
+    <result column="layout_url" property="layoutUrl" jdbcType="VARCHAR" />
+    <result column="reality_url" property="realityUrl" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="batch_id" property="batchId" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, fang_id, home_name, detail_url, home_total, build_developers, build_area, plot_rate, 
+    green_rate, property_type, property_company, property_price, duikou_school, park_num, 
+    layout_url, reality_url, status, batch_id, create_date
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tt.entity.AnjukeCommunityDetailExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from anjuke_community_detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from anjuke_community_detail
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from anjuke_community_detail
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tt.entity.AnjukeCommunityDetailExample" >
+    delete from anjuke_community_detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tt.entity.AnjukeCommunityDetail" >
+    insert into anjuke_community_detail (id, fang_id, home_name, 
+      detail_url, home_total, build_developers, 
+      build_area, plot_rate, green_rate, 
+      property_type, property_company, property_price, 
+      duikou_school, park_num, layout_url, 
+      reality_url, status, batch_id, 
+      create_date)
+    values (#{id,jdbcType=VARCHAR}, #{fangId,jdbcType=VARCHAR}, #{homeName,jdbcType=VARCHAR}, 
+      #{detailUrl,jdbcType=VARCHAR}, #{homeTotal,jdbcType=VARCHAR}, #{buildDevelopers,jdbcType=VARCHAR}, 
+      #{buildArea,jdbcType=VARCHAR}, #{plotRate,jdbcType=VARCHAR}, #{greenRate,jdbcType=VARCHAR}, 
+      #{propertyType,jdbcType=VARCHAR}, #{propertyCompany,jdbcType=VARCHAR}, #{propertyPrice,jdbcType=VARCHAR}, 
+      #{duikouSchool,jdbcType=VARCHAR}, #{parkNum,jdbcType=VARCHAR}, #{layoutUrl,jdbcType=VARCHAR}, 
+      #{realityUrl,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{batchId,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tt.entity.AnjukeCommunityDetail" >
+    insert into anjuke_community_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="fangId != null" >
+        fang_id,
+      </if>
+      <if test="homeName != null" >
+        home_name,
+      </if>
+      <if test="detailUrl != null" >
+        detail_url,
+      </if>
+      <if test="homeTotal != null" >
+        home_total,
+      </if>
+      <if test="buildDevelopers != null" >
+        build_developers,
+      </if>
+      <if test="buildArea != null" >
+        build_area,
+      </if>
+      <if test="plotRate != null" >
+        plot_rate,
+      </if>
+      <if test="greenRate != null" >
+        green_rate,
+      </if>
+      <if test="propertyType != null" >
+        property_type,
+      </if>
+      <if test="propertyCompany != null" >
+        property_company,
+      </if>
+      <if test="propertyPrice != null" >
+        property_price,
+      </if>
+      <if test="duikouSchool != null" >
+        duikou_school,
+      </if>
+      <if test="parkNum != null" >
+        park_num,
+      </if>
+      <if test="layoutUrl != null" >
+        layout_url,
+      </if>
+      <if test="realityUrl != null" >
+        reality_url,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="batchId != null" >
+        batch_id,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="fangId != null" >
+        #{fangId,jdbcType=VARCHAR},
+      </if>
+      <if test="homeName != null" >
+        #{homeName,jdbcType=VARCHAR},
+      </if>
+      <if test="detailUrl != null" >
+        #{detailUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="homeTotal != null" >
+        #{homeTotal,jdbcType=VARCHAR},
+      </if>
+      <if test="buildDevelopers != null" >
+        #{buildDevelopers,jdbcType=VARCHAR},
+      </if>
+      <if test="buildArea != null" >
+        #{buildArea,jdbcType=VARCHAR},
+      </if>
+      <if test="plotRate != null" >
+        #{plotRate,jdbcType=VARCHAR},
+      </if>
+      <if test="greenRate != null" >
+        #{greenRate,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyType != null" >
+        #{propertyType,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyCompany != null" >
+        #{propertyCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyPrice != null" >
+        #{propertyPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="duikouSchool != null" >
+        #{duikouSchool,jdbcType=VARCHAR},
+      </if>
+      <if test="parkNum != null" >
+        #{parkNum,jdbcType=VARCHAR},
+      </if>
+      <if test="layoutUrl != null" >
+        #{layoutUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="realityUrl != null" >
+        #{realityUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="batchId != null" >
+        #{batchId,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tt.entity.AnjukeCommunityDetailExample" resultType="java.lang.Integer" >
+    select count(*) from anjuke_community_detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update anjuke_community_detail
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fangId != null" >
+        fang_id = #{record.fangId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.homeName != null" >
+        home_name = #{record.homeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.detailUrl != null" >
+        detail_url = #{record.detailUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.homeTotal != null" >
+        home_total = #{record.homeTotal,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildDevelopers != null" >
+        build_developers = #{record.buildDevelopers,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildArea != null" >
+        build_area = #{record.buildArea,jdbcType=VARCHAR},
+      </if>
+      <if test="record.plotRate != null" >
+        plot_rate = #{record.plotRate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.greenRate != null" >
+        green_rate = #{record.greenRate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.propertyType != null" >
+        property_type = #{record.propertyType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.propertyCompany != null" >
+        property_company = #{record.propertyCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="record.propertyPrice != null" >
+        property_price = #{record.propertyPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.duikouSchool != null" >
+        duikou_school = #{record.duikouSchool,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parkNum != null" >
+        park_num = #{record.parkNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.layoutUrl != null" >
+        layout_url = #{record.layoutUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.realityUrl != null" >
+        reality_url = #{record.realityUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.batchId != null" >
+        batch_id = #{record.batchId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null" >
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update anjuke_community_detail
+    set id = #{record.id,jdbcType=VARCHAR},
+      fang_id = #{record.fangId,jdbcType=VARCHAR},
+      home_name = #{record.homeName,jdbcType=VARCHAR},
+      detail_url = #{record.detailUrl,jdbcType=VARCHAR},
+      home_total = #{record.homeTotal,jdbcType=VARCHAR},
+      build_developers = #{record.buildDevelopers,jdbcType=VARCHAR},
+      build_area = #{record.buildArea,jdbcType=VARCHAR},
+      plot_rate = #{record.plotRate,jdbcType=VARCHAR},
+      green_rate = #{record.greenRate,jdbcType=VARCHAR},
+      property_type = #{record.propertyType,jdbcType=VARCHAR},
+      property_company = #{record.propertyCompany,jdbcType=VARCHAR},
+      property_price = #{record.propertyPrice,jdbcType=VARCHAR},
+      duikou_school = #{record.duikouSchool,jdbcType=VARCHAR},
+      park_num = #{record.parkNum,jdbcType=VARCHAR},
+      layout_url = #{record.layoutUrl,jdbcType=VARCHAR},
+      reality_url = #{record.realityUrl,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      batch_id = #{record.batchId,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tt.entity.AnjukeCommunityDetail" >
+    update anjuke_community_detail
+    <set >
+      <if test="fangId != null" >
+        fang_id = #{fangId,jdbcType=VARCHAR},
+      </if>
+      <if test="homeName != null" >
+        home_name = #{homeName,jdbcType=VARCHAR},
+      </if>
+      <if test="detailUrl != null" >
+        detail_url = #{detailUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="homeTotal != null" >
+        home_total = #{homeTotal,jdbcType=VARCHAR},
+      </if>
+      <if test="buildDevelopers != null" >
+        build_developers = #{buildDevelopers,jdbcType=VARCHAR},
+      </if>
+      <if test="buildArea != null" >
+        build_area = #{buildArea,jdbcType=VARCHAR},
+      </if>
+      <if test="plotRate != null" >
+        plot_rate = #{plotRate,jdbcType=VARCHAR},
+      </if>
+      <if test="greenRate != null" >
+        green_rate = #{greenRate,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyType != null" >
+        property_type = #{propertyType,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyCompany != null" >
+        property_company = #{propertyCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyPrice != null" >
+        property_price = #{propertyPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="duikouSchool != null" >
+        duikou_school = #{duikouSchool,jdbcType=VARCHAR},
+      </if>
+      <if test="parkNum != null" >
+        park_num = #{parkNum,jdbcType=VARCHAR},
+      </if>
+      <if test="layoutUrl != null" >
+        layout_url = #{layoutUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="realityUrl != null" >
+        reality_url = #{realityUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="batchId != null" >
+        batch_id = #{batchId,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tt.entity.AnjukeCommunityDetail" >
+    update anjuke_community_detail
+    set fang_id = #{fangId,jdbcType=VARCHAR},
+      home_name = #{homeName,jdbcType=VARCHAR},
+      detail_url = #{detailUrl,jdbcType=VARCHAR},
+      home_total = #{homeTotal,jdbcType=VARCHAR},
+      build_developers = #{buildDevelopers,jdbcType=VARCHAR},
+      build_area = #{buildArea,jdbcType=VARCHAR},
+      plot_rate = #{plotRate,jdbcType=VARCHAR},
+      green_rate = #{greenRate,jdbcType=VARCHAR},
+      property_type = #{propertyType,jdbcType=VARCHAR},
+      property_company = #{propertyCompany,jdbcType=VARCHAR},
+      property_price = #{propertyPrice,jdbcType=VARCHAR},
+      duikou_school = #{duikouSchool,jdbcType=VARCHAR},
+      park_num = #{parkNum,jdbcType=VARCHAR},
+      layout_url = #{layoutUrl,jdbcType=VARCHAR},
+      reality_url = #{realityUrl,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      batch_id = #{batchId,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

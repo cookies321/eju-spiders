@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd    
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context.xsd
+            http://www.springframework.org/schema/tx
+       		http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+
+	<!-- 数据库连接池 -->
+	<!-- 加载配置文件 -->
+	<context:property-placeholder location="classpath:db.properties" />
+
+	<!-- 数据库连接池 -->
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+		  destroy-method="close">
+		<property name="url" value="${jdbc.url}" />
+		<property name="driverClassName" value="${jdbc.driver}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="maxActive" value="${druid.maxPoolSize}" />
+		<property name="minIdle" value="${druid.minPoolSize}" />
+	</bean>
+
+	<!-- 配置sqlsessionFactory -->
+	<!-- 配置Mybatis的文件 ，mapperLocations配置**Mapper.xml文件位置，configLocation配置mybatis-config文件位置-->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- 扫描model包 使用别名 -->
+		<property name="typeAliasesPackage" value="com.tt.entity"/>
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="configLocation" value="classpath:mybatis/SqlMapConfig.xml"/>
+		<property name="mapperLocations" value="classpath:mapper/*.xml"/>
+	</bean>
+
+	<!-- 配置扫描包，加载mapper代理对象 -->
+	<!-- 自动扫描了所有的XxxxMapper.xml对应的mapper接口文件，这样就不用一个一个手动配置Mpper的映射了，只要Mapper接口类和Mapper映射文件对应起来就可以了。 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<!-- 注入sqlSessionFactory -->
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+		<!-- 给出需要扫描Dao接口包 -->
+		<property name="basePackage" value="com.tt.dao"></property>
+	</bean>
+
+	<!-- 事务管理器 -->
+	<bean id="transactionManager"
+		  class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<!-- 数据源 -->
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- 配置基于注解的声明式事务 -->
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+
+
+	<!-- 通知 -->
+	<!--<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			&lt;!&ndash; 传播行为 &ndash;&gt;
+			<tx:method name="save*" propagation="REQUIRED" />
+			<tx:method name="insert*" propagation="REQUIRED" />
+			<tx:method name="add*" propagation="REQUIRED" />
+			<tx:method name="create*" propagation="REQUIRED" />
+			<tx:method name="delete*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="find*" propagation="SUPPORTS" read-only="true" />
+			<tx:method name="select*" propagation="SUPPORTS" read-only="true" />
+			<tx:method name="get*" propagation="SUPPORTS" read-only="true" />
+		</tx:attributes>
+	</tx:advice>
+	&lt;!&ndash; 切面 &ndash;&gt;
+	<aop:config>
+		<aop:advisor advice-ref="txAdvice"
+					 pointcut="execution(* com.tt.service.*.*(..))" />
+	</aop:config>-->
+
+</beans>
