@@ -19,7 +19,7 @@ public class ProxyIpPool {
         Scheduler defaultScheduler = StdSchedulerFactory.getDefaultScheduler();
         defaultScheduler.start();
         /********************添加代理IP筛选任务*******************/
-        JobDetail proxyJob = new JobDetail("proxyJob", Scheduler.DEFAULT_GROUP, ProxyJob2.class);// 20 1/1 * * * ?
+        JobDetail proxyJob = new JobDetail("proxyJob", Scheduler.DEFAULT_GROUP, ProxyJob3.class);// 20 1/1 * * * ?
         CronTrigger proxyTrigger = new CronTrigger("ProxyJob", Scheduler.DEFAULT_GROUP, "0 0/2 * * * ?");
         defaultScheduler.scheduleJob(proxyJob, proxyTrigger);
         /********************添加代理IP筛选任务*******************/

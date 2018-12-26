@@ -12,20 +12,19 @@ import org.quartz.JobExecutionException;
 
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.Date;
 
 /**
  * @Auther: 赵乐
  * @Date: 2018/10/29 14:43
  * @Description:
  */
-public class ProxyJob2 implements Job {
+public class ProxyJob3 implements Job {
 
     @Override
     public void  execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         System.out.println("获取代理ip");
-        String url="https://h.wandouip.com/get/ip-list?pack=1076&num=5&xy=2&type=2&lb="+ URLEncoder.encode("\\n")+"&mr=2&";
+        String url="http://h.wandouip.com/get/ip-list?pack=1071&num=5&xy=2&type=2&lb="+ URLEncoder.encode("\\n")+"&mr=2&";
         String ipStr = PageDownLoadUtil.httpClientDefultGet(url);
         long nowTime = System.currentTimeMillis();
         try {

@@ -70,6 +70,7 @@ public class ke_LayLouDongAddressToGaoDe {
                     }
                 }
             }
+            /*String url="https://restapi.amap.com/v3/place/text?keywords=翰林花园&city=hangzhou&output=xml&offset=20&page=1&key=7a87d5b75e0eac5784d90c8654296167&extensions=all";*/
             String strAddress = sb.toString();
             System.out.println(strAddress);
             String url="https://restapi.amap.com/v3/assistant/coordinate/convert?locations="+strAddress+"&coordsys=baidu&output=json&key="+ Constants.AMAP_KEY;

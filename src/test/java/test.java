@@ -59,6 +59,10 @@ public class test {
     private IDownLoadPage iDownLoadPage;
 
 
+
+
+
+
     @Test
     public void test(){
         String n = "https://ajax.ke.com/map2/search/ershoufang/";
@@ -242,7 +246,7 @@ public class test {
     @Test
     public void getListTest() {
         System.out.println("获取代理ip");
-        String url="https://h.wandouip.com/get/ip-list?pack=894&num=20&xy=1&type=2&lb="+ URLEncoder.encode("\\r\\n")+"&mr=2&";
+        String url="https://h.wandouip.com/get/ip-list?pack=1076&num=20&xy=2&type=2&lb="+ URLEncoder.encode("\\n")+"&mr=2&";
         String ipStr = PageDownLoadUtil.httpClientDefultGet(url);
         long nowTime = System.currentTimeMillis();
         try {
@@ -260,9 +264,8 @@ public class test {
                         long time = parseTime.getTime();
                         Long expire=(time - nowTime)/1000;
                         int ex = expire.intValue();
-                        System.out.println(ip+":"+port+"---"+ex);
-                        System.out.println(ex > 0);
                         if(ex > 0){
+                            System.out.println(ip+":"+port+"---"+ex);
                             RedisUtil.setex("PROXY_IP_REDIS_KEY"+ip+":"+port,ex,"1");
                         }
 
@@ -273,6 +276,5 @@ public class test {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 }

@@ -53,16 +53,20 @@ public class parseListingHouse {
 
     @Test
     public void parseDetail() throws InterruptedException {
+        List<String> list = new ArrayList<>();
+        list.add("上海");
+        list.add("北京");
+        list.add("南京");
+        list.add("合肥");
+        list.add("天津");
         LianjiaListingHouseListExample lianjiaListingHouseListExample = new LianjiaListingHouseListExample();
-        lianjiaListingHouseListExample.or().andCityEqualTo("杭州").andStatusIsNull().andDetailUrlIsNotNull();
-
+        lianjiaListingHouseListExample.or().andStatusIsNull().andDetailUrlIsNotNull().andCityIn(list);
         List<LianjiaListingHouseList> lianjiaListingHouseLists = lianjiaListingHouseListMapper.selectByExample(lianjiaListingHouseListExample);
         System.out.println(lianjiaListingHouseLists.size());
         Integer num=4;
         Semaphore semaphore = new Semaphore(num);
         ExecutorService executorService = Executors.newFixedThreadPool(num);
         for (LianjiaListingHouseList lianjiaListingHouseList : lianjiaListingHouseLists) {
-
             semaphore.acquire();
             executorService.execute(new Runnable() {
                 @Override
@@ -538,9 +542,10 @@ public class parseListingHouse {
     @Test
     public void parseIndex(){
         Map<String, String> mapCity = new HashMap<>();
+        mapCity.put("苏州","https://su.lianjia.com/ershoufang/");
         //mapCity.put("杭州","https://hz.lianjia.com/ershoufang/");
         //mapCity.put("上海","https://sh.lianjia.com/ershoufang/");
-        mapCity.put("北京","https://bj.lianjia.com/ershoufang/");
+        //mapCity.put("北京","https://bj.lianjia.com/ershoufang/");
         /*mapCity.put("深圳","https://sz.lianjia.com/ershoufang/");
         mapCity.put("广州","https://gz.lianjia.com/ershoufang/");
         mapCity.put("南京","https://nj.lianjia.com/ershoufang/");

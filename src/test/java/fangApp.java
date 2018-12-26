@@ -1,108 +1,121 @@
-import android.util.Base64;
-import org.junit.Test;
+import com.tt.vo.Hack;
+import org.apache.commons.lang3.StringUtils;
 
+import javax.crypto.Cipher;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.DESKeySpec;
+import javax.crypto.spec.IvParameterSpec;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
+import java.util.Map.Entry;
 
-/**
- * @Auther: 赵乐
- * @Date: 2018/12/14 15:04
- * @Description:
- */
+
 public class fangApp {
 
-    //final String source = "https://app.api.lianjia.com/house/ershoufang/searchv4?city_id=310000&priceRequest&limit_offset=60&shequIdRequest=&moreRequest=&communityRequset=&has_recommend=1&is_suggestion=0&limit_count=20&sugQueryStr=&houseHotTagsRequest=&comunityIdRequest=&areaRequest=&is_history=0&schoolRequest&condition&roomRequest=&isFromMap=false&ad_recommend=1";
-    final String source="https://app.api.lianjia.com/yezhu/publish/getBuildings?community_id=5011000014422";
-    @Test
-    public void test(){
-        String encripty = encripty(source, null);
-        System.out.println(encripty);
-    }
-    /*@Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public static void main(String[] args) throws Exception {
+        String wirelessCheckCode = getWirelessCheckCode("008796761777320" + ";" + "MuMu");
+        System.out.println(wirelessCheckCode);
+        //wirelessCheckCode    983920f277805b065951a717ec92aae6bb8f61d11f6d7174
 
-        String encripty = encripty(source, null);
-
-    }*/
-
-    public String encripty(String str, Map<String, String> map) {
-        Map parmars = getParmars(str);
-
-        HashMap hashMap = new HashMap();
-        if (parmars != null) {
-            hashMap.putAll(parmars);
-        }
-        if (map != null) {
-            hashMap.putAll(map);
-        }
-        List arrayList = new ArrayList(hashMap.entrySet());
-        Collections.sort(arrayList, new Comparator() {
-            @Override
-            public int compare(Object obj, Object obj2) {
-                return a((Map.Entry) obj, (Map.Entry) obj2);
-            }
-
-            public int a(Map.Entry<String, String> entry, Map.Entry<String, String> entry2) {
-                return ((String) entry.getKey()).compareTo((String) entry2.getKey());
-            }
-        });
-        //9264fc28f157c514fe2bcedcea50fd96877c1623
-        String GetAppSecret = "93273ef46a0b880faf4466c48f74878f";
-        String GetAppId = "20170324_android";
-        StringBuilder stringBuilder = new StringBuilder(GetAppSecret);
-        for (int i = 0; i < arrayList.size(); i++) {
-            Map.Entry entry = (Map.Entry) arrayList.get(i);
-            stringBuilder.append(((String) entry.getKey()) + "=" + ((String) entry.getValue()));
-        }
-        System.out.println("ssssStringBuilder:"+stringBuilder.toString());
-        System.out.println("ssssSHA1:"+Digest_SHA1(stringBuilder.toString()));
-        System.out.println("ssss"+GetAppId + ":" + Digest_SHA1(stringBuilder.toString())+"---"+Digest_SHA1(stringBuilder.toString()).length());
-        GetAppSecret = Base64.encodeToString((GetAppId + ":" + Digest_SHA1(stringBuilder.toString())).getBytes(), 2);
-
-        System.out.println("sssss"+GetAppSecret+"----"+GetAppSecret.length());
-        return new String("helloworld");
+        String wirelesscode111="0593F97D1FAE983C83DAFC9EADB3C37D";
+        String url="https://soufunapp.3g.fang.com/http/sfpgservice.jsp?X1=116.403699&Y1=39.914938&city=北京&distance=5&gettype=android&jkVersion=2&maptype=baidu&messagename=lplist&page=4&pagesize=20&tongji=2";
 
 
+        Map<String, String> parmars = getParmars(url);
+        String wirelesscode = getWirelesscode(parmars);
+        System.out.println(wirelesscode);
+        parmars.put("wirelesscode", wirelesscode);
     }
 
-    public static String Digest_SHA1(String str) {
+
+    //008796761777320MuMu
+    public static String getWirelessCheckCode(String str) throws Exception {
+        Cipher instance = Cipher.getInstance("DES/CBC/PKCS5Padding");
+        instance.init(1, SecretKeyFactory.getInstance("DES").generateSecret(new DESKeySpec("r0ei8euo".getBytes("GB2312"))), new IvParameterSpec("a966g0g4".getBytes("GB2312")));
+        return getHexString(instance.doFinal(str.getBytes("GB2312")));
+    }
+
+    public static String getHexString(byte[] bArr) {
+        StringBuffer stringBuffer = new StringBuffer();
+        for (byte b : bArr) {
+            String toHexString = Integer.toHexString(b & 255);
+            if (toHexString.length() < 2) {
+                toHexString = "0" + toHexString;
+            }
+            stringBuffer.append(toHexString);
+        }
+        return stringBuffer.toString();
+    }
+
+    public static String getWirelesscode(Map<String, String> map) {
+        StringBuilder stringBuilder = new StringBuilder();
         try {
-            MessageDigest instance = MessageDigest.getInstance("SHA-1");
-            instance.update(str.getBytes());
-            byte[] digest = instance.digest();
-            StringBuffer stringBuffer = new StringBuffer();
-            for (byte b : digest) {
-                String toHexString = Integer.toHexString(b & 255);
-                if (toHexString.length() < 2) {
-                    stringBuffer.append(0);
+            if (map.size() > 0) {
+                stringBuilder.append("?");
+                List<Map.Entry<String, String>> arrayList = new ArrayList(map.entrySet());
+                Collections.sort(arrayList, new Comparator<Map.Entry<String, String>>() {
+                     //renamed from: a
+                    public int compare(Map.Entry<String, String> entry, Entry<String, String> entry2) {
+                        return ((String) entry.getKey()).compareTo((String) entry2.getKey());
+                    }
+                });
+                for (Entry entry : arrayList) {
+                    String str = "";
+                    str = (String) entry.getValue();
+                    if (StringUtils.isNotBlank(str)) {
+                        if ("NULL".equals(str)) {
+                            str = URLEncoder.encode("", "UTF-8");
+                        } else {
+                            str = URLEncoder.encode(str, "UTF-8");
+                        }
+                        stringBuilder.append((String) entry.getKey()).append("=").append(str).append("&");
+                    }
                 }
-                stringBuffer.append(toHexString);
+                stringBuilder.deleteCharAt(stringBuilder.length() - 1);
             }
-            return stringBuffer.toString();
-        } catch (NoSuchAlgorithmException e) {
+        } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
-            return "";
         }
+        if (StringUtils.isNotBlank(stringBuilder.toString()) || stringBuilder.toString().length() > 0) {
+            return getSec(stringBuilder.toString().substring(1, stringBuilder.toString().length()));
+        }
+        return null;
     }
 
-    /*private Map<String, String> getParmars(String str) {
-        if (str == null || str.length() == 0) {
-            return null;
-        }
-        HashMap hashMap = new HashMap();
-        Uri parse = Uri.parse(str);
 
-        for (String str2 : parse.getQueryParameterNames()) {
-            String str22 = str2.toString();
 
-            hashMap.put(str22, parse.getQueryParameter(str22));
+    public static String getSec(String str){
+        String soufunhttp = md5(new StringBuilder(str).append("soufunhttp").toString());
+        //String soufunhttp = md5(str);
+        return soufunhttp;
+    }
+
+    public static String md5(String str) {
+        MessageDigest messageDigest = null;
+        try {
+            messageDigest = MessageDigest.getInstance("MD5");
+            messageDigest.reset();
+            messageDigest.update(str.getBytes("UTF-8"));
+        } catch (NoSuchAlgorithmException e) {
+        } catch (UnsupportedEncodingException e2) {
+            e2.printStackTrace();
         }
-        return hashMap;
-    }*/
-    public Map<String, String> getParmars(String url) {
+        byte[] digest = messageDigest.digest();
+        StringBuffer stringBuffer = new StringBuffer();
+        for (int i = 0; i < digest.length; i++) {
+            if (Integer.toHexString(digest[i] & 255).length() == 1) {
+                stringBuffer.append("0").append(Integer.toHexString(digest[i] & 255));
+            } else {
+                stringBuffer.append(Integer.toHexString(digest[i] & 255));
+            }
+        }
+        return stringBuffer.toString().toUpperCase();
+    }
+
+    public static Map<String, String> getParmars(String url) {
         Map<String, String> resMap = new HashMap<>();
         String[] split = url.split("\\?");
         if(split.length==2){

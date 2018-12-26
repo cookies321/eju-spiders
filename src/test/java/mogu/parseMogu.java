@@ -1,11 +1,8 @@
 package mogu;
 
-import com.tt.common.DownLoadPage;
-import com.tt.common.utils.HttpClientUtils;
 import com.tt.common.utils.NumUtils;
 import com.tt.common.utils.PageDownLoadUtil;
 import com.tt.service.IDownLoadPage;
-import org.apache.ibatis.ognl.IteratorElementsAccessor;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -16,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import springfox.documentation.spring.web.json.Json;
 
 import java.util.ArrayList;
 import java.util.HashMap;

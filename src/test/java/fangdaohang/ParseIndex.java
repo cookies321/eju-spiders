@@ -17,7 +17,7 @@ public class ParseIndex {
         long startTime = System.currentTimeMillis();
            /* String url="http://shangfengyihao.fang.com/office/";
             HttpHost iPoolProxy = ProxyUtils.getIPoolProxy();
-            String html = HttpClientUtils.get(url,"gbk",iPoolProxy);
+            String html = HttpClientUtils0.get(url,"gbk",iPoolProxy);
             System.out.println(html);*/
         System.out.println(startTime);
         String url="http://androidapi.realtynavi.com/v2/android/Deal/getbargainnewdisklist";

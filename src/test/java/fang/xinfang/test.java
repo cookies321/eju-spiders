@@ -1,12 +1,9 @@
 package fang.xinfang;
 
 import com.tt.common.DownLoadPage;
-import com.tt.common.utils.HttpClientUtils;
-import com.tt.common.utils.ProxyUtils;
 import com.tt.dao.FangXfLoupangListMapper;
 import com.tt.entity.FangXfLoupangList;
 import com.tt.entity.FangXfLoupangListExample;
-import org.apache.http.HttpHost;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.springframework.context.ApplicationContext;
