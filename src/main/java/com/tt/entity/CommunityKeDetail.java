@@ -92,6 +92,14 @@ public class CommunityKeDetail implements Serializable {
 
     private String detailUrl;
 
+    private String railwayAdress;
+
+    private String numForSale;
+
+    private String rentNum;
+
+    private String version;
+
     private static final long serialVersionUID = 1L;
 
     public Long getId() {
@@ -444,5 +452,37 @@ public class CommunityKeDetail implements Serializable {
 
     public void setDetailUrl(String detailUrl) {
         this.detailUrl = detailUrl == null ? null : detailUrl.trim();
+    }
+
+    public String getRailwayAdress() {
+        return railwayAdress;
+    }
+
+    public void setRailwayAdress(String railwayAdress) {
+        this.railwayAdress = railwayAdress == null ? null : railwayAdress.trim();
+    }
+
+    public String getNumForSale() {
+        return numForSale;
+    }
+
+    public void setNumForSale(String numForSale) {
+        this.numForSale = numForSale == null ? null : numForSale.trim();
+    }
+
+    public String getRentNum() {
+        return rentNum;
+    }
+
+    public void setRentNum(String rentNum) {
+        this.rentNum = rentNum == null ? null : rentNum.trim();
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version == null ? null : version.trim();
     }
 }

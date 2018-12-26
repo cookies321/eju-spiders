@@ -42,7 +42,7 @@ public abstract class BaseChromeWebDriver {
             }finally {
                 cnt++;
             }
-        }while (webDriver!=null && webDriver.toString().contains("null")  && cnt < rnt);
+        }while ((webDriver ==null || webDriver.toString().contains("null"))  && cnt < rnt);
 
         return  webDriver;
     }

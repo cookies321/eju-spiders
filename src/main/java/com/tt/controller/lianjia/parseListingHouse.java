@@ -17,6 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.*;
 import java.util.concurrent.ExecutorService;
@@ -29,8 +31,7 @@ import java.util.concurrent.TimeUnit;
  * @Date: 2018/12/12 17:08
  * @Description:
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({"classpath:spring/applicationContext-*.xml"})
+@RestController
 public class parseListingHouse {
 
     @Autowired
@@ -50,18 +51,38 @@ public class parseListingHouse {
     private LianjiaListingHousePicMapper lianjiaListingHousePicMapper;
 
 
-    @Test
+    @RequestMapping("/parseLianjiaDetail")//http://10.122.139.204:8080/parseLianjiaDetail
     public void parseDetail() throws InterruptedException {
-        LianjiaListingHouseListExample lianjiaListingHouseListExample = new LianjiaListingHouseListExample();
-        lianjiaListingHouseListExample.or().andCityEqualTo("杭州").andStatusIsNull().andDetailUrlIsNotNull();
+        List<String> list = new ArrayList<>();
 
+        /*//list.add("上海");//1
+        list.add("北京");//1
+        list.add("南京");//1
+        list.add("合肥");//--
+        list.add("天津");//1*/
+
+
+        /*list.add("广州");//1
+        list.add("武汉");//1
+        list.add("深圳");//1
+        list.add("西安");//1
+        list.add("郑州");//1*/
+
+        /*list.add("成都");//1
+        list.add("沈阳");//1
+        list.add("济南");//1
+        list.add("苏州");//--
+        list.add("重庆");//1
+        list.add("青岛");//1*/
+
+        LianjiaListingHouseListExample lianjiaListingHouseListExample = new LianjiaListingHouseListExample();
+        lianjiaListingHouseListExample.or().andStatusIsNull().andDetailUrlIsNotNull().andCityEqualTo("合肥");
         List<LianjiaListingHouseList> lianjiaListingHouseLists = lianjiaListingHouseListMapper.selectByExample(lianjiaListingHouseListExample);
         System.out.println(lianjiaListingHouseLists.size());
-        Integer num=4;
+        Integer num=8;
         Semaphore semaphore = new Semaphore(num);
         ExecutorService executorService = Executors.newFixedThreadPool(num);
         for (LianjiaListingHouseList lianjiaListingHouseList : lianjiaListingHouseLists) {
-
             semaphore.acquire();
             executorService.execute(new Runnable() {
                 @Override
@@ -73,273 +94,298 @@ public class parseListingHouse {
                     try {
                         Document document = iDownLoadPage.downLoadPageByGet(detailUrl);
                         if(document!=null){
-                            LianjiaListingHouseDetail lianjiaListingHouseDetail = new LianjiaListingHouseDetail();
-                            lianjiaListingHouseDetail.setId(UUID.randomUUID().toString());
-                            lianjiaListingHouseDetail.setGoodsId(goodsId);
-                            lianjiaListingHouseDetail.setDetailUrl(detailUrl);
-                            lianjiaListingHouseDetail.setViewCount(viewCount);
-                            lianjiaListingHouseDetail.setBatchId("v1.0");
-                            lianjiaListingHouseDetail.setCreateTime(new Date());
+                            if(document.html().contains("没找到您访问的页面，可能原因：网址失效")){
+                                lianjiaListingHouseList.setStatus("del");
+                                lianjiaListingHouseListMapper.updateByPrimaryKeySelective(lianjiaListingHouseList);
+                                return;
+                            }else{
+                                LianjiaListingHouseDetail lianjiaListingHouseDetail = new LianjiaListingHouseDetail();
+                                lianjiaListingHouseDetail.setId(UUID.randomUUID().toString());
+                                lianjiaListingHouseDetail.setGoodsId(goodsId);
+                                lianjiaListingHouseDetail.setDetailUrl(detailUrl);
+                                lianjiaListingHouseDetail.setViewCount(viewCount);
+                                lianjiaListingHouseDetail.setBatchId("v1.0");
+                                lianjiaListingHouseDetail.setCreateTime(new Date());
 
-                            //房源名称和房源描述
-                            Elements selectTitle = document.select("div.title-wrapper>div.content>div.title");
-                            if(!selectTitle.isEmpty()){
-                                String title = selectTitle.select("h1.main").text();
-                                String goodsDes = selectTitle.select("div.sub").text();
+                                //房源名称和房源描述
+                                Elements selectTitle = document.select("div.title-wrapper>div.content>div.title");
+                                if(!selectTitle.isEmpty()){
+                                    String title = selectTitle.select("h1.main").text();
+                                    String goodsDes = selectTitle.select("div.sub").text();
 
-                                lianjiaListingHouseDetail.setGoodsName(title);
-                                lianjiaListingHouseDetail.setGoodsDes(goodsDes);
-                            }
-                            //关注房源
-                            Elements selectFav = document.select("span#favCount");
-                            if(!selectFav.isEmpty()){
-                                String concernCount = selectFav.text();
-                                lianjiaListingHouseDetail.setConcernCount(concernCount);
-                            }
-                            //conten信息
-                            Elements elements = document.select("div.overview>div.content");
-                            if(!elements.isEmpty()){
-                                //价格信息
-                                Elements selectPrice = elements.select("div.price");
-                                if(!selectPrice.isEmpty()){
-                                    String price = selectPrice.select("span.total").text();
-                                    String unit = elements.select("span.unit>span").text();
-                                    //总价
-                                    String totalPrice=price+unit;
-                                    //均价
-                                    String avgPrice = selectPrice.select("div.text>div.unitPrice>span.unitPriceValue").text();
-                                    lianjiaListingHouseDetail.setTotalPrice(totalPrice);
-                                    lianjiaListingHouseDetail.setAvgPrice(avgPrice);
+                                    lianjiaListingHouseDetail.setGoodsName(title);
+                                    lianjiaListingHouseDetail.setGoodsDes(goodsDes);
+                                    System.out.println(title);
                                 }
-                                //建造年代
-                                String buildYear = elements.select("div.houseInfo>div.area>div.subInfo").text();
-                                if(StringUtils.isNotBlank(buildYear)){
-                                    String substring = buildYear.substring(0, buildYear.indexOf("/"));
-                                    lianjiaListingHouseDetail.setBuildYear(substring);
+                                //关注房源
+                                Elements selectFav = document.select("span#favCount");
+                                if(!selectFav.isEmpty()){
+                                    String concernCount = selectFav.text();
+                                    lianjiaListingHouseDetail.setConcernCount(concernCount);
                                 }
-                                //小区信息
-                                Elements selectXiaoqu = elements.select("div.aroundInfo");
-
-                                if(!selectXiaoqu.isEmpty()){
-                                    //小区名称
-                                    Elements select = selectXiaoqu.select("div.communityName>a.info");
-                                    if(!select.isEmpty()){
-                                        ///xiaoqu/1111027376129/
-                                        String href = select.attr("href");
-                                        if(StringUtils.isNotBlank(href)){
-                                            String titleId = href.substring(href.indexOf("xiaoqu/") + 7, href.length() - 1);
-                                            lianjiaListingHouseDetail.setTitleId(titleId);
+                                //conten信息
+                                Elements elements = document.select("div.overview>div.content");
+                                if(!elements.isEmpty()){
+                                    //价格信息
+                                    Elements selectPrice = elements.select("div.price");
+                                    if(!selectPrice.isEmpty()){
+                                        String price = selectPrice.select("span.total").text();
+                                        String unit = elements.select("span.unit>span").text();
+                                        //总价
+                                        String totalPrice=price+unit;
+                                        //均价
+                                        String avgPrice = selectPrice.select("div.text>div.unitPrice>span.unitPriceValue").text();
+                                        lianjiaListingHouseDetail.setTotalPrice(totalPrice);
+                                        lianjiaListingHouseDetail.setAvgPrice(avgPrice);
+                                    }
+                                    //建造年代
+                                    String buildYear = elements.select("div.houseInfo>div.area>div.subInfo").text();
+                                    if(StringUtils.isNotBlank(buildYear)){
+                                        try {
+                                            String substring = buildYear.substring(0, buildYear.indexOf("/"));
+                                            lianjiaListingHouseDetail.setBuildYear(substring);
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
                                         }
+                                    }
+                                    //小区信息
+                                    Elements selectXiaoqu = elements.select("div.aroundInfo");
+
+                                    if(!selectXiaoqu.isEmpty()){
                                         //小区名称
-                                        String title = select.text();
-                                        lianjiaListingHouseDetail.setTitle(title);
-                                    }
-                                    //所在区域
-                                    Elements selectArea = selectXiaoqu.select("div.areaName>span.info");
-                                    if(!selectArea.isEmpty()){
-                                        Elements selectA = selectArea.select("a");
-                                        if(selectA.size()==2){
-                                            String region = selectA.get(0).text();
-                                            String plate = selectA.get(1).text();
-                                            lianjiaListingHouseDetail.setRegion(region);
-                                            lianjiaListingHouseDetail.setPlate(plate);
+                                        Elements select = selectXiaoqu.select("div.communityName>a.info");
+                                        if(!select.isEmpty()){
+                                            ///xiaoqu/1111027376129/
+                                            String href = select.attr("href");
+                                            if(StringUtils.isNotBlank(href)){
+                                                try {
+                                                    String titleId = href.substring(href.indexOf("xiaoqu/") + 7, href.length() - 1);
+                                                    lianjiaListingHouseDetail.setTitleId(titleId);
+                                                } catch (Exception e) {
+                                                    e.printStackTrace();
+                                                }
+                                            }
+                                            //小区名称
+                                            String title = select.text();
+                                            lianjiaListingHouseDetail.setTitle(title);
+                                        }
+                                        //所在区域
+                                        Elements selectArea = selectXiaoqu.select("div.areaName>span.info");
+                                        if(!selectArea.isEmpty()){
+                                            Elements selectA = selectArea.select("a");
+                                            if(selectA.size()==2){
+                                                String region = selectA.get(0).text();
+                                                String plate = selectA.get(1).text();
+                                                lianjiaListingHouseDetail.setRegion(region);
+                                                lianjiaListingHouseDetail.setPlate(plate);
+                                            }
+                                        }
+                                        //环线位置
+                                        String loopPosition = selectArea.first().ownText();
+                                        if(StringUtils.isNotBlank(loopPosition)){
+                                            lianjiaListingHouseDetail.setLoopPosition(loopPosition);
+                                        }
+                                        //地铁线路
+                                        String subway = selectXiaoqu.select("div.areaName>a.supplement").text();
+                                        if(StringUtils.isNotBlank(subway)){
+                                            lianjiaListingHouseDetail.setSubway(subway);
+                                        }
+                                        //看房时间
+                                        String watchDescription = selectXiaoqu.select("div.visitTime>span.info").text();
+                                        if(StringUtils.isNotBlank(watchDescription)){
+                                            lianjiaListingHouseDetail.setWatchDescription(watchDescription);
                                         }
                                     }
-                                    //环线位置
-                                    String loopPosition = selectArea.first().ownText();
-                                    if(StringUtils.isNotBlank(loopPosition)){
-                                        lianjiaListingHouseDetail.setLoopPosition(loopPosition);
+                                    //基本信息
+                                    Elements select = document.select("div#introduction>div>div.introContent");
+                                    if(!select.isEmpty()){
+                                        //基本属性
+                                        Elements selectBase = select.select("div.base>div.content>ul>li");
+                                        if(!selectBase.isEmpty()){
+                                            for (Element element : selectBase) {
+                                                String baseTag = element.select("span.label").text();
+                                                String value=element.ownText();
+                                                switch (baseTag){
+                                                    case "房屋户型":
+                                                        lianjiaListingHouseDetail.setLayout(value);
+                                                        break;
+                                                    case "所在楼层":
+                                                        //中楼层 (共29层)
+                                                        try {
+                                                            String[] split = value.split(" \\(");
+                                                            if(split.length==2){
+                                                                String floorHeight = split[0];
+                                                                lianjiaListingHouseDetail.setFloorHeight(floorHeight);
+                                                                String totalFloor = split[1].replace(")","");
+                                                                lianjiaListingHouseDetail.setTotalFloor(totalFloor);
+                                                            }
+                                                        } catch (Exception e) {
+                                                            e.printStackTrace();
+                                                        }
+                                                        break;
+                                                    case "建筑面积":
+                                                        lianjiaListingHouseDetail.setArea(value);
+                                                        break;
+                                                    case "户型结构":
+                                                        lianjiaListingHouseDetail.setLayoutStr(value);
+                                                        break;
+                                                    case"套内面积":
+                                                        lianjiaListingHouseDetail.setDwellingFloorSpace(value);
+                                                        break;
+                                                    case "建筑类型":
+                                                        lianjiaListingHouseDetail.setBuildType(value);
+                                                        break;
+                                                    case "房屋朝向":
+                                                        lianjiaListingHouseDetail.setOrientation(value);
+                                                        break;
+                                                    case "建筑结构":
+                                                        lianjiaListingHouseDetail.setBuildStr(value);
+                                                        break;
+                                                    case "装修情况":
+                                                        lianjiaListingHouseDetail.setDecoration(value);
+                                                        break;
+                                                    case "梯户比例":
+                                                        lianjiaListingHouseDetail.setLadderRatio(value);
+                                                        break;
+                                                    case "供暖方式":
+                                                        lianjiaListingHouseDetail.setHeating(value);
+                                                        break;
+                                                    case "配备电梯":
+                                                        lianjiaListingHouseDetail.setElevator(value);
+                                                        break;
+                                                    case "产权年限":
+                                                        lianjiaListingHouseDetail.setPropertyYear(value);
+                                                        break;
+                                                    default:
+                                                        break;
+                                                }
+                                            }
+                                        }
+                                        //交易属性
+                                        Elements selectTransaction = select.select("div.transaction>div.content>ul>li");
+                                        if(!selectTransaction.isEmpty()){
+                                            for (Element element : selectTransaction) {
+                                                String transactionTag = element.select("span.label").text();
+                                                String value=element.select("span").not("span.label").text();
+                                                switch (transactionTag){
+                                                    case "挂牌时间":
+                                                        lianjiaListingHouseDetail.setGoodsPubtime(value);
+                                                        break;
+                                                    case "交易权属":
+                                                        lianjiaListingHouseDetail.setTradingRights(value);
+                                                        break;
+                                                    case "上次交易":
+                                                        lianjiaListingHouseDetail.setGoodsLastselltime(value);
+                                                        break;
+                                                    case "房屋用途":
+                                                        lianjiaListingHouseDetail.setPropertyType(value);
+                                                        break;
+                                                    case"房屋年限":
+                                                        lianjiaListingHouseDetail.setHousingYears(value);
+                                                        break;
+                                                    case "产权所属":
+                                                        lianjiaListingHouseDetail.setPropertyOwnership(value);
+                                                        break;
+                                                    case "抵押信息":
+                                                        lianjiaListingHouseDetail.setMortgageInformation(value);
+                                                        break;
+                                                    case "房本备件":
+                                                        lianjiaListingHouseDetail.setIsCertificate(value);
+                                                        break;
+                                                    default:
+                                                        break;
+                                                }
+                                            }
+                                        }
                                     }
-                                    //地铁线路
-                                    String subway = selectXiaoqu.select("div.areaName>a.supplement").text();
-                                    if(StringUtils.isNotBlank(subway)){
-                                        lianjiaListingHouseDetail.setSubway(subway);
-                                    }
-                                    //看房时间
-                                    String watchDescription = selectXiaoqu.select("div.visitTime>span.info").text();
-                                    if(StringUtils.isNotBlank(watchDescription)){
-                                        lianjiaListingHouseDetail.setWatchDescription(watchDescription);
-                                    }
-                                }
-                                //基本信息
-                                Elements select = document.select("div#introduction>div>div.introContent");
-                                if(!select.isEmpty()){
-                                    //基本属性
-                                    Elements selectBase = select.select("div.base>div.content>ul>li");
-                                    if(!selectBase.isEmpty()){
-                                        for (Element element : selectBase) {
-                                            String baseTag = element.select("span.label").text();
-                                            String value=element.ownText();
-                                            switch (baseTag){
-                                                case "房屋户型":
-                                                    lianjiaListingHouseDetail.setLayout(value);
-                                                    break;
-                                                case "所在楼层":
-                                                    //中楼层 (共29层)
-                                                    String[] split = value.split(" \\(");
-                                                    if(split.length==2){
-                                                        String floorHeight = split[0];
-                                                        lianjiaListingHouseDetail.setFloorHeight(floorHeight);
-                                                        String totalFloor = split[1].replace(")","");
-                                                        lianjiaListingHouseDetail.setTotalFloor(totalFloor);
+                                    //户型分间
+                                    Elements selectLayout = document.select("div#layout>div.layout>div.content");
+                                    if(!selectLayout.isEmpty()){
+                                        //户型图url
+                                        String src = document.select("div.imgdiv>img").attr("src");
+                                        Elements select1 = document.select("div#infoList>div.row");
+                                        if(!select1.isEmpty()){
+                                            List<Map> list = new ArrayList<>();
+                                            for (Element element : select1) {
+                                                try {
+                                                    Map<String, String> map = new HashMap<>();
+                                                    Elements select2 = element.select("div.col");
+                                                    if(select2.size()==4){
+                                                        map.put("room",select2.get(0).text());
+                                                        map.put("area",select2.get(1).text());
+                                                        map.put("toward",select2.get(2).text());
+                                                        map.put("window",select2.get(3).text());
                                                     }
-                                                    break;
-                                                case "建筑面积":
-                                                    lianjiaListingHouseDetail.setArea(value);
-                                                    break;
-                                                case "户型结构":
-                                                    lianjiaListingHouseDetail.setLayoutStr(value);
-                                                    break;
-                                                case"套内面积":
-                                                    lianjiaListingHouseDetail.setDwellingFloorSpace(value);
-                                                    break;
-                                                case "建筑类型":
-                                                    lianjiaListingHouseDetail.setBuildType(value);
-                                                    break;
-                                                case "房屋朝向":
-                                                    lianjiaListingHouseDetail.setOrientation(value);
-                                                    break;
-                                                case "建筑结构":
-                                                    lianjiaListingHouseDetail.setBuildStr(value);
-                                                    break;
-                                                case "装修情况":
-                                                    lianjiaListingHouseDetail.setDecoration(value);
-                                                    break;
-                                                case "梯户比例":
-                                                    lianjiaListingHouseDetail.setLadderRatio(value);
-                                                    break;
-                                                case "供暖方式":
-                                                    lianjiaListingHouseDetail.setHeating(value);
-                                                    break;
-                                                case "配备电梯":
-                                                    lianjiaListingHouseDetail.setElevator(value);
-                                                    break;
-                                                case "产权年限":
-                                                    lianjiaListingHouseDetail.setPropertyYear(value);
-                                                    break;
-                                                default:
-                                                    break;
+                                                    list.add(map);
+                                                } catch (Exception e) {
+                                                    e.printStackTrace();
+                                                }
                                             }
+                                            String jsonString = JSON.toJSONString(list);
+                                            lianjiaListingHouseDetail.setApartmentSrc(src);
+                                            lianjiaListingHouseDetail.setApartmentDivision(jsonString);
                                         }
+
                                     }
-                                    //交易属性
-                                    Elements selectTransaction = select.select("div.transaction>div.content>ul>li");
-                                    if(!selectTransaction.isEmpty()){
-                                        for (Element element : selectTransaction) {
-                                            String transactionTag = element.select("span.label").text();
-                                            String value=element.select("span").not("span.label").text();
-                                            switch (transactionTag){
-                                                case "挂牌时间":
-                                                    lianjiaListingHouseDetail.setGoodsPubtime(value);
-                                                    break;
-                                                case "交易权属":
-                                                    lianjiaListingHouseDetail.setTradingRights(value);
-                                                    break;
-                                                case "上次交易":
-                                                    lianjiaListingHouseDetail.setGoodsLastselltime(value);
-                                                    break;
-                                                case "房屋用途":
-                                                    lianjiaListingHouseDetail.setPropertyType(value);
-                                                    break;
-                                                case"房屋年限":
-                                                    lianjiaListingHouseDetail.setHousingYears(value);
-                                                    break;
-                                                case "产权所属":
-                                                    lianjiaListingHouseDetail.setPropertyOwnership(value);
-                                                    break;
-                                                case "抵押信息":
-                                                    lianjiaListingHouseDetail.setMortgageInformation(value);
-                                                    break;
-                                                case "房本备件":
-                                                    lianjiaListingHouseDetail.setIsCertificate(value);
-                                                    break;
-                                                default:
-                                                    break;
-                                            }
-                                        }
-                                    }
-                                }
-                                //户型分间
-                                Elements selectLayout = document.select("div#layout>div.layout>div.content");
-                                if(!selectLayout.isEmpty()){
-                                    //户型图url
-                                    String src = document.select("div.imgdiv>img").attr("src");
-                                    Elements select1 = document.select("div#infoList>div.row");
+                                    //看房记录
+                                    //七天的带看次数
+                                    String viewCount7days = document.select("div#record>div.panel>div.count").text();
+                                    //三十天的带看次数
+                                    String viewCount30days = document.select("div#record>div.panel>div.totalCount>span").text();
+                                    lianjiaListingHouseDetail.setViewCount7days(viewCount7days);
+                                    lianjiaListingHouseDetail.setViewCount30days(viewCount30days);
+
+                                    //房源照片
+                                    Elements select1 = document.select("div.content-wrapper.housePic>div.container>div.list>div");
                                     if(!select1.isEmpty()){
-                                        List<Map> list = new ArrayList<>();
                                         for (Element element : select1) {
-                                            Map<String, String> map = new HashMap<>();
-                                            Elements select2 = element.select("div.col");
-                                            if(select2.size()==4){
-                                                map.put("room",select2.get(0).text());
-                                                map.put("area",select2.get(1).text());
-                                                map.put("toward",select2.get(2).text());
-                                                map.put("window",select2.get(3).text());
+                                            String attr = element.select("img").attr("src");
+                                            String picType = element.select("span.name").text();
+                                            if(StringUtils.isNotBlank(attr)){
+                                                LianjiaListingHousePic lianjiaListingHousePic = new LianjiaListingHousePic();
+                                                lianjiaListingHousePic.setId(UUID.randomUUID().toString());
+                                                lianjiaListingHousePic.setDetailUrl(detailUrl);
+                                                lianjiaListingHousePic.setGoodId(goodsId);
+                                                lianjiaListingHousePic.setBatchId("v1.0");
+                                                lianjiaListingHousePic.setCreateTime(new Date());
+
+                                                lianjiaListingHousePic.setPicSrc(attr);
+                                                lianjiaListingHousePic.setPicType(picType);
+                                                lianjiaListingHousePicMapper.insertSelective(lianjiaListingHousePic);
                                             }
-                                            list.add(map);
+
                                         }
-                                        String jsonString = JSON.toJSONString(list);
-                                        lianjiaListingHouseDetail.setApartmentSrc(src);
-                                        lianjiaListingHouseDetail.setApartmentDivision(jsonString);
+                                    }
+                                    //房主自荐
+                                    Elements selectImg = document.select("div.newwrap.shuofang>div.bd>ul.images>li>img");
+                                    if(!selectImg.isEmpty()){
+                                        for (Element element : selectImg) {
+                                            String src = element.attr("src");
+                                            if(StringUtils.isNotBlank(src)){
+                                                LianjiaListingHousePic lianjiaListingHousePic = new LianjiaListingHousePic();
+                                                lianjiaListingHousePic.setId(UUID.randomUUID().toString());
+                                                lianjiaListingHousePic.setDetailUrl(detailUrl);
+                                                lianjiaListingHousePic.setGoodId(goodsId);
+                                                lianjiaListingHousePic.setBatchId("v1.0");
+                                                lianjiaListingHousePic.setCreateTime(new Date());
+
+                                                lianjiaListingHousePic.setPicSrc(src);
+                                                lianjiaListingHousePic.setPicType("房主自荐");
+                                                lianjiaListingHousePicMapper.insertSelective(lianjiaListingHousePic);
+                                            }
+
+                                        }
+                                    }
+
+                                    System.out.println("插入数据");
+                                    int i = lianjiaListingHouseDetailMapper.insertSelective(lianjiaListingHouseDetail);
+                                    if(i==1){
+                                        lianjiaListingHouseList.setStatus("1");
+                                        lianjiaListingHouseListMapper.updateByPrimaryKeySelective(lianjiaListingHouseList);
                                     }
 
                                 }
-                                //看房记录
-                                //七天的带看次数
-                                String viewCount7days = document.select("div#record>div.panel>div.count").text();
-                                //三十天的带看次数
-                                String viewCount30days = document.select("div#record>div.panel>div.totalCount>span").text();
-                                lianjiaListingHouseDetail.setViewCount7days(viewCount7days);
-                                lianjiaListingHouseDetail.setViewCount30days(viewCount30days);
-
-                                //房源照片
-                                Elements select1 = document.select("div.content-wrapper.housePic>div.container>div.list>div");
-                                if(!select1.isEmpty()){
-                                    for (Element element : select1) {
-                                        String attr = element.select("img").attr("src");
-                                        String picType = element.select("span.name").text();
-                                        if(StringUtils.isNotBlank(attr)){
-                                            LianjiaListingHousePic lianjiaListingHousePic = new LianjiaListingHousePic();
-                                            lianjiaListingHousePic.setId(UUID.randomUUID().toString());
-                                            lianjiaListingHousePic.setDetailUrl(detailUrl);
-                                            lianjiaListingHousePic.setGoodId(goodsId);
-                                            lianjiaListingHousePic.setBatchId("v1.0");
-                                            lianjiaListingHousePic.setCreateTime(new Date());
-
-                                            lianjiaListingHousePic.setPicSrc(attr);
-                                            lianjiaListingHousePic.setPicType(picType);
-                                            lianjiaListingHousePicMapper.insertSelective(lianjiaListingHousePic);
-                                        }
-
-                                    }
-                                }
-                                //房主自荐
-                                Elements selectImg = document.select("div.newwrap.shuofang>div.bd>ul.images>li>img");
-                                if(!selectImg.isEmpty()){
-                                    for (Element element : selectImg) {
-                                        String src = element.attr("src");
-                                        if(StringUtils.isNotBlank(src)){
-                                            LianjiaListingHousePic lianjiaListingHousePic = new LianjiaListingHousePic();
-                                            lianjiaListingHousePic.setId(UUID.randomUUID().toString());
-                                            lianjiaListingHousePic.setDetailUrl(detailUrl);
-                                            lianjiaListingHousePic.setGoodId(goodsId);
-                                            lianjiaListingHousePic.setBatchId("v1.0");
-                                            lianjiaListingHousePic.setCreateTime(new Date());
-
-                                            lianjiaListingHousePic.setPicSrc(src);
-                                            lianjiaListingHousePic.setPicType("房主自荐");
-                                            lianjiaListingHousePicMapper.insertSelective(lianjiaListingHousePic);
-                                        }
-
-                                    }
-                                }
-
-
-                                lianjiaListingHouseDetailMapper.insertSelective(lianjiaListingHouseDetail);
-
                             }
-
-
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -348,8 +394,7 @@ public class parseListingHouse {
                     }
                 }
             });
-            lianjiaListingHouseList.setStatus("1");
-            lianjiaListingHouseListMapper.updateByPrimaryKeySelective(lianjiaListingHouseList);
+
         }
         executorService.shutdown();
         while (!executorService.awaitTermination(1,TimeUnit.SECONDS));
@@ -366,7 +411,7 @@ public class parseListingHouse {
      * @auther: 赵乐
      * @date: 2018/12/12 18:04
      */
-    @Test
+    @RequestMapping("/parseLianjiaList")
     public void parsePlate() throws InterruptedException {
         LianjiaListingHousePlateExample lianjiaListingHousePlateExample = new LianjiaListingHousePlateExample();
         lianjiaListingHousePlateExample.or().andStatusIsNull();
@@ -537,13 +582,14 @@ public class parseListingHouse {
     @Test
     public void parseIndex(){
         Map<String, String> mapCity = new HashMap<>();
+        mapCity.put("苏州","https://su.lianjia.com/ershoufang/");
         //mapCity.put("杭州","https://hz.lianjia.com/ershoufang/");
         //mapCity.put("上海","https://sh.lianjia.com/ershoufang/");
-        mapCity.put("北京","https://bj.lianjia.com/ershoufang/");
-        /*mapCity.put("深圳","https://sz.lianjia.com/ershoufang/");
+        /*mapCity.put("北京","https://bj.lianjia.com/ershoufang/");
+        mapCity.put("深圳","https://sz.lianjia.com/ershoufang/");
         mapCity.put("广州","https://gz.lianjia.com/ershoufang/");
         mapCity.put("南京","https://nj.lianjia.com/ershoufang/");
-        mapCity.put("苏州","https://sz.lianjia.com/ershoufang/");
+        mapCity.put("苏州","https://su.lianjia.com/ershoufang/");
         mapCity.put("重庆","https://cq.lianjia.com/ershoufang/");
         mapCity.put("成都","https://cd.lianjia.com/ershoufang/");
         mapCity.put("西安","https://xa.lianjia.com/ershoufang/");

@@ -1,19 +1,14 @@
 package com.tt.common;
 
-import com.tt.common.utils.HttpClientUtils;
 import com.tt.common.utils.PageDownLoadUtil;
-import com.tt.common.utils.ProxyUtils;
 import com.tt.common.utils.ValidateUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpEntity;
-import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.util.EntityUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
-import java.io.IOException;
 import java.util.Map;
 
 public class DownLoadPage {
@@ -72,7 +67,7 @@ public class DownLoadPage {
                 }
                 //result = PageDownLoadUtil.httpClientQuanGet(url);
                /* HttpHost iPoolProxy = ProxyUtils.getIPoolProxy();
-                result = HttpClientUtils.get(url,"UTF-8",iPoolProxy);*/
+                result = HttpClientUtils0.get(url,"UTF-8",iPoolProxy);*/
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -96,7 +91,7 @@ public class DownLoadPage {
                             }
                         }
                         /*HttpHost iPoolProxy = ProxyUtils.getIPoolProxy();
-                        result = HttpClientUtils.get(url,"UTF-8",iPoolProxy);*/
+                        result = HttpClientUtils0.get(url,"UTF-8",iPoolProxy);*/
                         if (!ValidateUtil.valid(result)) {
                             Document doc = Jsoup.parse(result);
                             if (doc == null) {

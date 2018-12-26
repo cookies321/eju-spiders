@@ -93,7 +93,7 @@ public class ParseDeal {
                                     if(StringUtils.isBlank(html) || !(html.contains("<tr>"))){
                                         for (int j = 1; j < 21; j++) {
                                             HttpHost iPoolProxy1 = ProxyUtils.getIPoolProxy();
-                                            html=HttpClientUtils.get(pageUrl, "UTF-8", header, iPoolProxy1);
+                                            html= HttpClientUtils.get(pageUrl, "UTF-8", header, iPoolProxy1);
                                             if(StringUtils.isNotBlank(html) && html.contains("<tr>")){
                                                 System.out.println("重试成功"+j);
                                                 break;

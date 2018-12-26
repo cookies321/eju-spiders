@@ -68,7 +68,8 @@ public class HzdetailAndPicChromeWeb extends BaseChromeWebDriver{
                         String pageSource =null;
                         if(StringUtils.isBlank(pageSource0) || pageSource0.contains("未连接到互联网") || pageSource0.contains("代理服务器出现问题，或者地址有误。")
                                 ||pageSource0.contains("哦~ 网络似乎开小差了")|| pageSource0.contains("该网页无法正常运作")
-                                || pageSource0.contains("An error occurred")){
+                                || pageSource0.contains("An error occurred") || pageSource0.contains("<body></body>")
+                                || pageSource0.contains("images/404bg.jpg")){
                             closeWebDriver(webDriver);
                             result.put("detailUrl",detailUrl);
                             return result;
@@ -79,9 +80,16 @@ public class HzdetailAndPicChromeWeb extends BaseChromeWebDriver{
                                 try {
                                     /*String href = select.attr("href");
                                     webDriver.get("http://www.tmsf.com"+href);*/
-                                    WebElement element = webDriver.findElement(By.cssSelector("div.buildtxtbox.classones.fl.famwei>p>a"));
-                                    if(element!=null){
-                                        element.click();
+                                    try {
+                                        WebElement element = webDriver.findElement(By.cssSelector("div.buildtxtbox.classones.fl.famwei>p>a"));
+                                        if(element!=null){
+                                            element.click();
+                                        }
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                        closeWebDriver(webDriver);
+                                        result.put("detailUrl",detailUrl);
+                                        return result;
                                     }
                                     String windowHandle = webDriver.getWindowHandle();
                                     Set<String> windowHandles = webDriver.getWindowHandles();
@@ -122,7 +130,8 @@ public class HzdetailAndPicChromeWeb extends BaseChromeWebDriver{
                         if(StringUtils.isNotBlank(pageSource)){
                             if(StringUtils.isBlank(pageSource) || pageSource.contains("未连接到互联网") || pageSource.contains("代理服务器出现问题，或者地址有误。")
                                     ||pageSource.contains("哦~ 网络似乎开小差了")|| pageSource.contains("该网页无法正常运作")
-                                    || pageSource.contains("An error occurred")){
+                                    || pageSource.contains("An error occurred")|| pageSource.contains("<body></body>")
+                                    || pageSource.contains("images/404bg.jpg")){
                                 result.put("detailUrl",detailUrl);
                                 closeWebDriver(webDriver);
                                 return result;
@@ -161,7 +170,8 @@ public class HzdetailAndPicChromeWeb extends BaseChromeWebDriver{
                     String pageSource = webDriver.getPageSource();
                     if(StringUtils.isBlank(pageSource) || pageSource.contains("未连接到互联网") || pageSource.contains("代理服务器出现问题，或者地址有误。")
                             ||pageSource.contains("哦~ 网络似乎开小差了")|| pageSource.contains("该网页无法正常运作")
-                            ||pageSource.contains("浏览器的页面无法") || pageSource.contains("An error occurred")){
+                            ||pageSource.contains("浏览器的页面无法") || pageSource.contains("An error occurred")|| pageSource.contains("<body></body>")
+                            || pageSource.contains("images/404bg.jpg")){
                         result.put("pictureUrl",pictureUrl);
                         closeWebDriver(webDriver);
                         return result;
@@ -204,7 +214,7 @@ public class HzdetailAndPicChromeWeb extends BaseChromeWebDriver{
                     map.put("detailUrl",detailUrl1);
                     Map<String, String> result = doWebPrase(webDriver, map);
                     int count=0;
-                    while (result!=null && count<5){
+                    while (result!=null && count < 5 ){
                         count++;
                         String detailUrl = result.get("detailUrl");
                         String pictureUrl = result.get("pictureUrl");

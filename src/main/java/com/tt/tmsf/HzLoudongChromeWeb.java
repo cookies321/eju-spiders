@@ -60,7 +60,7 @@ public class HzLoudongChromeWeb extends BaseChromeWebDriver{
                     if (StringUtils.isBlank(pageSource) || pageSource.contains("未连接到互联网") || pageSource.contains("代理服务器出现问题，或者地址有误。")
                             || pageSource.contains("哦~ 网络似乎开小差了") || pageSource.contains("该网页无法正常运作")
                             || pageSource.contains("An error occurred") || pageSource.contains("<body></body>")
-                            ||pageSource.contains("images/404bg.jpg")) {
+                            || pageSource.contains("images/404bg.jpg")) {
                         result.put("priceUrl", priceUrl);
                         closeWebDriver(webDriver);
                         return result;
