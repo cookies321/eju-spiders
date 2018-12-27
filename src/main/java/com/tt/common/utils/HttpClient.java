@@ -37,6 +37,9 @@ public class HttpClient {
     private static final String POST_FROM = "post-from";
     private static final String POST_JSON = "post-json";
     private static final ReentrantLock LOCK = new ReentrantLock();
+    private static final X509TrustManager TRUST_ALL_MANAGER = getTrustAllManager();
+    private static final SSLSocketFactory SSL_SOCKET_FACTORY = createTrustAllSSLFactory(TRUST_ALL_MANAGER);
+    private static final HostnameVerifier HOSTNAME_VERIFIER = getHostnameVerifier();
     private static final ConcurrentLinkedQueue<HttpHost> IP_LIST = new ConcurrentLinkedQueue<>();
 
     private final String proxyJsonDefault;
@@ -46,6 +49,7 @@ public class HttpClient {
     private final int connectTimeout;
     private final int readTimeout;
     private final int retryMax;
+    private final boolean retryEnable;
     private final String charset;
     private final List<String> proxyRetryTag;
 
@@ -53,6 +57,7 @@ public class HttpClient {
         this.proxyLessThan = builder.proxyLessThan;
         this.connectTimeout = builder.connectTimeout;
         this.readTimeout = builder.readTimeout;
+        this.retryEnable = builder.retryEnable;
         this.retryMax = builder.retryMax;
         this.charset = builder.charset;
         this.proxyUrl = builder.proxyUrl;
@@ -62,11 +67,11 @@ public class HttpClient {
     }
 
     public String get(String url) {
-        return  httpRequest(url, GET,this.charset,this.connectTimeout, this.readTimeout, null,null,null);
+        return  httpRequest(url, GET,null,null, null, null,null,null);
     }
 
     public String get(String url, Map<String, String> headers) {
-        return  httpRequest(url, GET,this.charset,this.connectTimeout, this.readTimeout, headers,null,null);
+        return  httpRequest(url, GET,null,null, null, headers,null,null);
     }
 
     public String get(String url,String charset, Integer connTimeout, Integer readTimeout, Map<String, String> headers) {
@@ -74,11 +79,11 @@ public class HttpClient {
     }
 
     public String postFrom(String url, Map<String, String> params){
-        return  httpRequest(url, POST_FROM ,this.charset,this.connectTimeout, this.readTimeout, null,params,null);
+        return  httpRequest(url, POST_FROM ,null,null, null, null,params,null);
     }
 
     public String postFrom(String url, Map<String, String> headers, Map<String, String> params){
-        return  httpRequest(url, POST_FROM ,this.charset,this.connectTimeout, this.readTimeout, headers,params,null);
+        return  httpRequest(url, POST_FROM ,null,null, null, headers,params,null);
     }
 
     public String postFrom(String url,String charset, Integer connTimeout, Integer readTimeout, Map<String, String> headers, Map<String, String> params){
@@ -86,11 +91,11 @@ public class HttpClient {
     }
 
     public String postJson(String url, String json) {
-        return  httpRequest(url,POST_JSON,this.charset,this.connectTimeout, this.readTimeout, null,json,null);
+        return  httpRequest(url,POST_JSON,null,null, null, null,json,null);
     }
 
     public String postJson(String url, Map<String, String> headers,String json) {
-        return  httpRequest(url,POST_JSON,this.charset,this.connectTimeout, this.readTimeout, headers,json,null);
+        return  httpRequest(url,POST_JSON,null,null, null, headers,json,null);
     }
 
     public String postJson(String url, String charset, Integer connTimeout, Integer readTimeout, Map<String, String> headers,String json) {
@@ -98,27 +103,27 @@ public class HttpClient {
     }
 
     public String proxyGet(String url) {
-        return fnBody(retryMax, null, new Function<HttpHostExt, String>() {
+        return proxyRetry(null, null, new Function<HttpHostExt, String>() {
             @Override
             public String apply(HttpHostExt httpHostExt) {
-                return httpRequest(url, GET,charset, connectTimeout, readTimeout,httpHostExt.getHeaders() ,null,httpHostExt.getHttpHost())+"";
+                return httpRequest(url, GET,null, null, null,httpHostExt.getHeaders() ,null,httpHostExt.getHttpHost())+"";
             }
         });
 
     }
 
     public String proxyGet(String url,String charset,Map<String, String> headers) {
-        return fnBody(retryMax, headers, new Function<HttpHostExt, String>() {
+        return proxyRetry(null, headers, new Function<HttpHostExt, String>() {
             @Override
             public String apply(HttpHostExt httpHostExt) {
-                return httpRequest(url, GET,charset, connectTimeout, readTimeout,httpHostExt.getHeaders() ,null,httpHostExt.getHttpHost())+"";
+                return httpRequest(url, GET,charset, null, null,httpHostExt.getHeaders() ,null,httpHostExt.getHttpHost())+"";
             }
         });
 
     }
 
     public String proxyGet(String url,String charset, Integer connTimeout, Integer readTimeout, Integer retry, Map<String, String> headers ) {
-        return fnBody(retry, headers, new Function<HttpHostExt, String>() {
+        return proxyRetry(retry, headers, new Function<HttpHostExt, String>() {
             @Override
             public String apply(HttpHostExt httpHostExt) {
                 return httpRequest(url, GET,charset,connTimeout, readTimeout, httpHostExt.getHeaders(),null,httpHostExt.getHttpHost())+"";
@@ -128,25 +133,25 @@ public class HttpClient {
     }
 
     public String proxyPostFrom(String url,Map<String, String> params){
-        return fnBody(this.retryMax, null, new Function<HttpHostExt, String>() {
+        return proxyRetry(null, null, new Function<HttpHostExt, String>() {
             @Override
             public String apply(HttpHostExt httpHostExt) {
-                return  httpRequest(url, POST_FROM ,charset,connectTimeout, readTimeout, httpHostExt.getHeaders(),params,httpHostExt.getHttpHost());
+                return  httpRequest(url, POST_FROM ,null,null, null, httpHostExt.getHeaders(),params,httpHostExt.getHttpHost());
             }
         });
     }
 
     public String proxyPostFrom(String url,String charset,Map<String, String> headers,Map<String, String> params){
-        return fnBody(this.retryMax, headers, new Function<HttpHostExt, String>() {
+        return proxyRetry(null, headers, new Function<HttpHostExt, String>() {
             @Override
             public String apply(HttpHostExt httpHostExt) {
-                return  httpRequest(url, POST_FROM ,charset,connectTimeout, readTimeout, httpHostExt.getHeaders(),params,httpHostExt.getHttpHost());
+                return  httpRequest(url, POST_FROM ,charset,null, null, httpHostExt.getHeaders(),params,httpHostExt.getHttpHost());
             }
         });
     }
 
     public String proxyPostFrom(String url,String charset, Integer connTimeout, Integer readTimeout, Integer retry, Map<String, String> headers,Map<String, String> params){
-        return fnBody(retry, headers, new Function<HttpHostExt, String>() {
+        return proxyRetry(retry, headers, new Function<HttpHostExt, String>() {
             @Override
             public String apply(HttpHostExt httpHostExt) {
                 return  httpRequest(url, POST_FROM ,charset,connTimeout, readTimeout, httpHostExt.getHeaders(),params,httpHostExt.getHttpHost());
@@ -155,25 +160,25 @@ public class HttpClient {
     }
 
     public String proxyPostJson(String url,String json) {
-        return fnBody(this.retryMax, null, new Function<HttpHostExt, String>() {
+        return proxyRetry(null, null, new Function<HttpHostExt, String>() {
             @Override
             public String apply(HttpHostExt httpHostExt) {
-                return  httpRequest(url,POST_JSON,charset,connectTimeout, readTimeout, httpHostExt.getHeaders(),json,httpHostExt.getHttpHost());
+                return  httpRequest(url,POST_JSON,null,null, null, httpHostExt.getHeaders(),json,httpHostExt.getHttpHost());
             }
         });
     }
 
     public String proxyPostJson(String url,String charset,Map<String, String> headers, String json) {
-        return fnBody(this.retryMax, headers, new Function<HttpHostExt, String>() {
+        return proxyRetry(null, headers, new Function<HttpHostExt, String>() {
             @Override
             public String apply(HttpHostExt httpHostExt) {
-                return  httpRequest(url,POST_JSON,charset,connectTimeout, readTimeout, httpHostExt.getHeaders(),json,httpHostExt.getHttpHost());
+                return  httpRequest(url,POST_JSON,charset,null, null, httpHostExt.getHeaders(),json,httpHostExt.getHttpHost());
             }
         });
     }
 
     public String proxyPostJson(String url, String charset, Integer connTimeout, Integer readTimeout, Integer retry, Map<String, String> headers, String json) {
-        return fnBody(retry, headers, new Function<HttpHostExt, String>() {
+        return proxyRetry(retry, headers, new Function<HttpHostExt, String>() {
             @Override
             public String apply(HttpHostExt httpHostExt) {
                 return  httpRequest(url,POST_JSON,charset,connTimeout, readTimeout, httpHostExt.getHeaders(),json,httpHostExt.getHttpHost());
@@ -181,8 +186,8 @@ public class HttpClient {
         });
     }
 
-    private String fnBody(Integer retry, Map<String, String> headers, Function<HttpHostExt,String> fn){
-        int cnt = retry!=null&&retry>-1?retry:0;
+    private String proxyRetry(Integer retry, Map<String, String> headers, Function<HttpHostExt,String> fn){
+        int cnt = retry==null?this.retryMax:retry;
         String body = null;
         boolean flag = true;
         for (int i = 0; i<=cnt && flag; i++){
@@ -253,19 +258,21 @@ public class HttpClient {
         return httpHostExt;
     }
 
-    private String httpRequest(String url, String type, String charset, Integer connTimeout, Integer readTimeout, Map<String, String> headers, Object argus, HttpHost httpHost){
+    private String httpRequest(String url, String type, String charset, Integer conTimeout, Integer readTimeout, Map<String, String> headers, Object argus, HttpHost httpHost){
         String resultBody =  null;
         Response response = null;
         try {
             Headers reHeaders = null;
-            Request.Builder requestBuilder =  new Request.Builder().url(url);
-            X509TrustManager trustAllManager = getTrustAllManager();
+            charset = charset==null?this.charset:charset;
             OkHttpClient.Builder httpBuilder = SingleOkHttp.instance.newBuilder()
-                    .connectTimeout(connTimeout, TimeUnit.MILLISECONDS)
-                    .readTimeout(readTimeout, TimeUnit.MILLISECONDS)
-                    .writeTimeout(readTimeout, TimeUnit.MILLISECONDS)
-                    .sslSocketFactory(createTrustAllSSLFactory(trustAllManager),trustAllManager)
-                    .hostnameVerifier(getHostnameVerifier());
+                    .followRedirects(retryEnable)
+                    .followSslRedirects(retryEnable)
+                    .hostnameVerifier(HOSTNAME_VERIFIER)
+                    .sslSocketFactory(SSL_SOCKET_FACTORY, TRUST_ALL_MANAGER)
+                    .connectTimeout(conTimeout==null?this.connectTimeout:conTimeout, TimeUnit.MILLISECONDS)
+                    .readTimeout(readTimeout==null?this.readTimeout:readTimeout, TimeUnit.MILLISECONDS)
+                    .writeTimeout(readTimeout==null?this.readTimeout:readTimeout, TimeUnit.MILLISECONDS);
+            Request.Builder requestBuilder =  new Request.Builder().url(url);
             if(headers!=null){
                 headers.entrySet().forEach(e->{
                     if(!"responseHeaders".equals(e.getKey())){
@@ -309,10 +316,13 @@ public class HttpClient {
                 }
                 headers.put("responseHeaders",JSON.toJSONString(responseHeaders));
             }
-            if(response.isSuccessful()){
-                resultBody = IOUtils.toString(response.body().byteStream(), charset);
-            }else {
-                resultBody = "ejuResponseCode="+response.code() + response.message();
+            if(response!=null){
+                if(response.isSuccessful()){
+                    resultBody = IOUtils.toString(response.body().byteStream(), charset);
+                }else {
+                    resultBody = "ejuResponseCode="+response.code() + response.message();
+                }
+                response.body().close();
             }
         } catch (ConnectTimeoutException ce) {
             //log.error("connect timeout:" + url);
@@ -370,13 +380,12 @@ public class HttpClient {
 
     //获取HostnameVerifier
     private static final HostnameVerifier getHostnameVerifier() {
-        HostnameVerifier hostnameVerifier = new HostnameVerifier() {
+        return new HostnameVerifier() {
             @Override
             public boolean verify(String s, SSLSession sslSession) {
                 return true;
             }
         };
-        return hostnameVerifier;
     }
 
     //okHttp
@@ -463,6 +472,7 @@ public class HttpClient {
         int connectTimeout;
         int readTimeout;
         int retryMax;
+        boolean retryEnable;
         String charset;
         String proxyJsonDefault;
         String proxyUrl;
@@ -474,6 +484,7 @@ public class HttpClient {
             this.connectTimeout = 3000;
             this.readTimeout = 3000;
             this.retryMax = 3;
+            this.retryEnable = true;
             this.charset = "utf-8";
             this.proxyJsonDefault = "{'hostname':'transfer.mogumiao.com','port':9001,'scheme':'http','header':{'Authorization':'Basic QzNjSEpJMVpXOUVxOGpRQTpGZzZvQmczd05tTjJwc1JO'}}";
             this.proxyUrl = null;
@@ -495,6 +506,11 @@ public class HttpClient {
                 throw new IllegalArgumentException(connectTimeout + " < 0");
             }
             this.readTimeout = readTimeout;
+            return this;
+        }
+
+        public Builder retryDisable(){
+            this.retryEnable = false;
             return this;
         }
 
@@ -585,7 +601,7 @@ public class HttpClient {
         //QzNjSEpJMVpXOUVxOGpRQTpGZzZvQmczd05tTjJwc1JO
         //MjAxODAxMTFfYW5kcm9pZDplNmYyZDE1NzJiNjU0NGFjNTNkZThjMjkwOTlmZTc1YzVmYTgzZWE4
         //header.put("Authorization", "MjAxODAxMTFfYW5kcm9pZDplNmYyZDE1NzJiNjU0NGFjNTNkZThjMjkwOTlmZTc1YzVmYTgzZWE4");
-        for (int i=0; i< 5 ; i++){
+        for (int i=0; i< 10 ; i++){
             new Thread(new Runnable() {
                 @Override
                 public void run() {
