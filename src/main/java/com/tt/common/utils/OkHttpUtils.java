@@ -242,13 +242,14 @@ public class OkHttpUtils {
         }else {
             throw new UnsupportedOperationException("no support request http type:"+type.value);
         }
-
-        if (reHeaders != null&&reHeaders.names()!=null) {
-            Map<String,String> responseHeaders = new HashMap<>();
-            for (String name : reHeaders.names()) {
-                responseHeaders.put(name,reHeaders.get(name));
+        if(headers!=null){
+            if (reHeaders != null && reHeaders.names()!=null) {
+                Map<String,String> responseHeaders = new HashMap<>();
+                for (String name : reHeaders.names()) {
+                    responseHeaders.put(name,reHeaders.get(name));
+                }
+                headers.put("responseHeaders", JSON.toJSONString(responseHeaders));
             }
-            headers.put("responseHeaders", JSON.toJSONString(responseHeaders));
         }
         return response;
     }
