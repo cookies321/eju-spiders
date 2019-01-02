@@ -195,7 +195,6 @@ public class OkHttpUtils {
     }
 
     private static Response getResponse(String url, HttpType type, Charset charset, Integer connTimeout, Integer readTimeout, Map<String, String> headers, Object argus , HttpHost proxyServer) throws Exception {
-
         Response response = null;
         Headers reHeaders = null;
         Request.Builder requestBuilder =  new Request.Builder().url(url);
@@ -205,6 +204,8 @@ public class OkHttpUtils {
                 .readTimeout(readTimeout, TimeUnit.MILLISECONDS)
                 .writeTimeout(readTimeout, TimeUnit.MILLISECONDS)
                 .sslSocketFactory(createTrustAllSSLFactory(trustAllManager),trustAllManager)
+                .followRedirects(false)//禁制OkHttp的重定向操作，我们自己处理重定向
+                .followSslRedirects(false)//https的重定向也自己处理
                 .hostnameVerifier(getHostnameVerifier());
         if(headers!=null){
             headers.entrySet().forEach(e->{
