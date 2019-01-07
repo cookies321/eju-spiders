@@ -31,9 +31,9 @@ import java.util.function.Function;
  * @version v0.1.0
  * @see <font color="#0000FF">ip-proxy-pool</font>
  */
-public class OkHttpClient {
+public class OkHttpDownLoadUtil {
 
-    private Logger log = LoggerFactory.getLogger(OkHttpClient.class);
+    private Logger log = LoggerFactory.getLogger(OkHttpDownLoadUtil.class);
 
     private static final String GET = "get";
     private static final String POST_FROM = "post-from";
@@ -50,7 +50,7 @@ public class OkHttpClient {
     private final String charset;
     private final List<String> proxyRetryTag;
 
-    private OkHttpClient(OkHttpClient.Builder builder){
+    private OkHttpDownLoadUtil(OkHttpDownLoadUtil.Builder builder){
         this.proxyLessThan = builder.proxyLessThan;
         this.connectTimeout = builder.connectTimeout;
         this.readTimeout = builder.readTimeout;
@@ -226,7 +226,7 @@ public class OkHttpClient {
         try {
             Headers reHeaders = null;
             charset = charset==null?this.charset:charset;
-            okhttp3.OkHttpClient.Builder httpBuilder = OkHttpClient.SingleOkHttp.instance.newBuilder()
+            okhttp3.OkHttpClient.Builder httpBuilder = OkHttpDownLoadUtil.SingleOkHttp.instance.newBuilder()
                     .followRedirects(retryEnable)
                     .followSslRedirects(retryEnable)
                     .hostnameVerifier(SingleOkHttp.HOSTNAME_VERIFIER)
@@ -317,8 +317,8 @@ public class OkHttpClient {
     }
 
     //构建
-    public static final OkHttpClient.Builder newBuilder() {
-        return new OkHttpClient.Builder();
+    public static final OkHttpDownLoadUtil.Builder newBuilder() {
+        return new OkHttpDownLoadUtil.Builder();
     }
 
     //构建
@@ -350,7 +350,7 @@ public class OkHttpClient {
             this.proxyRetryTag.add("ejuResponseCode=");
         }
 
-        public OkHttpClient.Builder connectTimeout(int connectTimeout){
+        public OkHttpDownLoadUtil.Builder connectTimeout(int connectTimeout){
             if(connectTimeout < 0L) {
                 throw new IllegalArgumentException(connectTimeout + " < 0");
             }
@@ -358,7 +358,7 @@ public class OkHttpClient {
             return this;
         }
 
-        public OkHttpClient.Builder readTimeout(int readTimeout){
+        public OkHttpDownLoadUtil.Builder readTimeout(int readTimeout){
             if(connectTimeout < 0L) {
                 throw new IllegalArgumentException(connectTimeout + " < 0");
             }
@@ -366,12 +366,12 @@ public class OkHttpClient {
             return this;
         }
 
-        public OkHttpClient.Builder retryDisable(){
+        public OkHttpDownLoadUtil.Builder retryDisable(){
             this.retryEnable = false;
             return this;
         }
 
-        public OkHttpClient.Builder retryMax(int retryMax){
+        public OkHttpDownLoadUtil.Builder retryMax(int retryMax){
             if(this.retryMax < 0){
                 throw new NullPointerException("retryMax < "+retryMax);
             }
@@ -379,7 +379,7 @@ public class OkHttpClient {
             return this;
         }
 
-        public OkHttpClient.Builder addUserAgent(String userAgent){
+        public OkHttpDownLoadUtil.Builder addUserAgent(String userAgent){
             if(userAgent == null) {
                 throw new NullPointerException("userAgent == null");
             }else if(this.userAgent==null){
@@ -389,7 +389,7 @@ public class OkHttpClient {
             return this;
         }
 
-        public OkHttpClient.Builder charset(String Charset){
+        public OkHttpDownLoadUtil.Builder charset(String Charset){
             if(Charset == null || "".equals(Charset.trim())) {
                 throw new NullPointerException("charset == null");
             }
@@ -397,7 +397,7 @@ public class OkHttpClient {
             return this;
         }
 
-        public OkHttpClient.Builder proxyUrl(String proxyUrl){
+        public OkHttpDownLoadUtil.Builder proxyUrl(String proxyUrl){
             if(proxyUrl == null || "".equals(proxyUrl.trim())) {
                 throw new NullPointerException("proxyUrl == null");
             }
@@ -405,7 +405,7 @@ public class OkHttpClient {
             return this;
         }
 
-        public OkHttpClient.Builder proxySeparator(String proxySeparator){
+        public OkHttpDownLoadUtil.Builder proxySeparator(String proxySeparator){
             if(proxySeparator == null) {
                 throw new NullPointerException("proxySeparator == null");
             }
@@ -413,7 +413,7 @@ public class OkHttpClient {
             return this;
         }
 
-        public OkHttpClient.Builder proxyRetryTag(List<String> proxyRetryTag){
+        public OkHttpDownLoadUtil.Builder proxyRetryTag(List<String> proxyRetryTag){
             if(proxyRetryTag == null) {
                 throw new NullPointerException("proxyRetryTag == null");
             }
@@ -421,7 +421,7 @@ public class OkHttpClient {
             return this;
         }
 
-        public OkHttpClient.Builder addProxyRetryTag(String proxyRetryTag){
+        public OkHttpDownLoadUtil.Builder addProxyRetryTag(String proxyRetryTag){
             if(this.proxyRetryTag ==null){
                 throw new NullPointerException("proxyRetryTag == null");
             }
@@ -429,7 +429,7 @@ public class OkHttpClient {
             return this;
         }
 
-        public OkHttpClient.Builder proxyJsonDefault(String proxyJsonDefault){
+        public OkHttpDownLoadUtil.Builder proxyJsonDefault(String proxyJsonDefault){
             if(proxyJsonDefault!=null
                     &&(proxyJsonDefault.indexOf("hostname")==-1
                     ||proxyJsonDefault.indexOf("port")==-1
@@ -440,8 +440,8 @@ public class OkHttpClient {
             return this;
         }
 
-        public OkHttpClient builder(){
-            return new OkHttpClient(this);
+        public OkHttpDownLoadUtil builder(){
+            return new OkHttpDownLoadUtil(this);
         }
 
     }
@@ -572,6 +572,13 @@ public class OkHttpClient {
         }
     }
 
+    public static OkHttpDownLoadUtil createOkHttpClient(){
+        OkHttpDownLoadUtil httpClient = OkHttpDownLoadUtil.newBuilder()
+                .proxyUrl("http://10.122.139.34:8087/get/ip-list/3?key=557F35CA07AE2470F80E5CFC710FE61E&degree=2&protocol=https")
+                .addProxyRetryTag("null").builder();
+        return httpClient;
+    }
+
 
     public static void main(String[] args) {
         //HttpHost proxy = new HttpHost("transfer.mogumiao.com", 9001, "http");
@@ -585,7 +592,7 @@ public class OkHttpClient {
         header.put("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36");
         **/
         //String url = "https://www.baidu.com";
-        OkHttpClient httpClient = OkHttpClient.newBuilder()
+        OkHttpDownLoadUtil httpClient = OkHttpDownLoadUtil.newBuilder()
                 .proxyUrl("http://10.122.139.34:8087/get/ip-list/3?key=557F35CA07AE2470F80E5CFC710FE61E&degree=2&protocol=https")
                 .addProxyRetryTag("null").builder();
         String url = "https://hz.lianjia.com/ershoufang/103102678884.html";
