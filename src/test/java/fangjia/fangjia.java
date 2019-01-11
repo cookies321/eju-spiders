@@ -75,7 +75,6 @@ public class fangjia{
                 executorService.execute(new Runnable() {
                     @Override
                     public void run() {
-
                         try {
                             String cityName = jiageNameList.getCity();
                             Long id = jiageNameList.getId();
@@ -88,7 +87,6 @@ public class fangjia{
                                 case"北京":
                                     modelUrl="http://bj.fangjia.com/trend/year2Data?defaultCityName=北京&districtName=%s&region=%s&block=%s&keyword=%s";
                                     break;
-
                                 case "东莞":
                                     modelUrl="http://dongguan.fangjia.com/trend/year2Data?defaultCityName=东莞&districtName=%s&region=%s&block=%s&keyword=%s";
                                     break;
@@ -140,7 +138,6 @@ public class fangjia{
                                 try {
                                     Map<String, String> map = new HashMap();
                                     map.put("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36");
-                                    //map.put("Host", "sh.fangjia.com");
 
                                     Document document = downLoadPage.downLoadPageByGet(String.format(modelUrl, "", "", "", jiageNameList.getName()),map);
                                     if(document!=null){

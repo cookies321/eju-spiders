@@ -1,9 +1,7 @@
 package beike;
 
-import com.tt.common.utils.PageDownLoadUtil;
 import com.tt.service.IDownLoadPage;
 import org.apache.commons.lang3.StringUtils;
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;

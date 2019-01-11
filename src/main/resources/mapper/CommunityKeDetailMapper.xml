@@ -46,6 +46,10 @@
     <result column="status" property="status" jdbcType="VARCHAR" />
     <result column="loop_position" property="loopPosition" jdbcType="VARCHAR" />
     <result column="detail_url" property="detailUrl" jdbcType="VARCHAR" />
+    <result column="railway_adress" property="railwayAdress" jdbcType="VARCHAR" />
+    <result column="num_for_sale" property="numForSale" jdbcType="VARCHAR" />
+    <result column="rent_num" property="rentNum" jdbcType="VARCHAR" />
+    <result column="version" property="version" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.tt.entity.CommunityKeDetailWithBLOBs" extends="BaseResultMap" >
     <result column="gate" property="gate" jdbcType="LONGVARCHAR" />
@@ -118,7 +122,8 @@
     plot_rate, build_type, loudong_num, home_total, property_price, property_company, 
     property_phone, park_num, upper_num, under_num, park_ratio, fixed_charge, green_rate, 
     water, supply_electricity, heating, heating_cost, gas, uses, loudong_url, layout_url, 
-    create_time, source, tag, status, loop_position, detail_url
+    create_time, source, tag, status, loop_position, detail_url, railway_adress, num_for_sale, 
+    rent_num, version
   </sql>
   <sql id="Blob_Column_List" >
     gate, xiaoqu_photo_url, introduction, arch_des, building_des
@@ -186,9 +191,10 @@
       heating_cost, gas, uses, 
       loudong_url, layout_url, create_time, 
       source, tag, status, 
-      loop_position, detail_url, gate, 
-      xiaoqu_photo_url, introduction, arch_des, 
-      building_des)
+      loop_position, detail_url, railway_adress, 
+      num_for_sale, rent_num, version, 
+      gate, xiaoqu_photo_url, introduction, 
+      arch_des, building_des)
     values (#{id,jdbcType=BIGINT}, #{titleId,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
       #{alias,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{cityCode,jdbcType=VARCHAR}, 
       #{city,jdbcType=VARCHAR}, #{regionCode,jdbcType=VARCHAR}, #{region,jdbcType=VARCHAR}, 
@@ -203,9 +209,10 @@
       #{heatingCost,jdbcType=VARCHAR}, #{gas,jdbcType=VARCHAR}, #{uses,jdbcType=VARCHAR}, 
       #{loudongUrl,jdbcType=VARCHAR}, #{layoutUrl,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{source,jdbcType=VARCHAR}, #{tag,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
-      #{loopPosition,jdbcType=VARCHAR}, #{detailUrl,jdbcType=VARCHAR}, #{gate,jdbcType=LONGVARCHAR}, 
-      #{xiaoquPhotoUrl,jdbcType=LONGVARCHAR}, #{introduction,jdbcType=LONGVARCHAR}, #{archDes,jdbcType=LONGVARCHAR}, 
-      #{buildingDes,jdbcType=LONGVARCHAR})
+      #{loopPosition,jdbcType=VARCHAR}, #{detailUrl,jdbcType=VARCHAR}, #{railwayAdress,jdbcType=VARCHAR}, 
+      #{numForSale,jdbcType=VARCHAR}, #{rentNum,jdbcType=VARCHAR}, #{version,jdbcType=VARCHAR}, 
+      #{gate,jdbcType=LONGVARCHAR}, #{xiaoquPhotoUrl,jdbcType=LONGVARCHAR}, #{introduction,jdbcType=LONGVARCHAR}, 
+      #{archDes,jdbcType=LONGVARCHAR}, #{buildingDes,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.tt.entity.CommunityKeDetailWithBLOBs" >
     insert into community_ke_detail
@@ -341,6 +348,18 @@
       </if>
       <if test="detailUrl != null" >
         detail_url,
+      </if>
+      <if test="railwayAdress != null" >
+        railway_adress,
+      </if>
+      <if test="numForSale != null" >
+        num_for_sale,
+      </if>
+      <if test="rentNum != null" >
+        rent_num,
+      </if>
+      <if test="version != null" >
+        version,
       </if>
       <if test="gate != null" >
         gate,
@@ -490,6 +509,18 @@
       </if>
       <if test="detailUrl != null" >
         #{detailUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="railwayAdress != null" >
+        #{railwayAdress,jdbcType=VARCHAR},
+      </if>
+      <if test="numForSale != null" >
+        #{numForSale,jdbcType=VARCHAR},
+      </if>
+      <if test="rentNum != null" >
+        #{rentNum,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=VARCHAR},
       </if>
       <if test="gate != null" >
         #{gate,jdbcType=LONGVARCHAR},
@@ -649,6 +680,18 @@
       <if test="record.detailUrl != null" >
         detail_url = #{record.detailUrl,jdbcType=VARCHAR},
       </if>
+      <if test="record.railwayAdress != null" >
+        railway_adress = #{record.railwayAdress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.numForSale != null" >
+        num_for_sale = #{record.numForSale,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rentNum != null" >
+        rent_num = #{record.rentNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.version != null" >
+        version = #{record.version,jdbcType=VARCHAR},
+      </if>
       <if test="record.gate != null" >
         gate = #{record.gate,jdbcType=LONGVARCHAR},
       </if>
@@ -715,6 +758,10 @@
       status = #{record.status,jdbcType=VARCHAR},
       loop_position = #{record.loopPosition,jdbcType=VARCHAR},
       detail_url = #{record.detailUrl,jdbcType=VARCHAR},
+      railway_adress = #{record.railwayAdress,jdbcType=VARCHAR},
+      num_for_sale = #{record.numForSale,jdbcType=VARCHAR},
+      rent_num = #{record.rentNum,jdbcType=VARCHAR},
+      version = #{record.version,jdbcType=VARCHAR},
       gate = #{record.gate,jdbcType=LONGVARCHAR},
       xiaoqu_photo_url = #{record.xiaoquPhotoUrl,jdbcType=LONGVARCHAR},
       introduction = #{record.introduction,jdbcType=LONGVARCHAR},
@@ -769,7 +816,11 @@
       tag = #{record.tag,jdbcType=VARCHAR},
       status = #{record.status,jdbcType=VARCHAR},
       loop_position = #{record.loopPosition,jdbcType=VARCHAR},
-      detail_url = #{record.detailUrl,jdbcType=VARCHAR}
+      detail_url = #{record.detailUrl,jdbcType=VARCHAR},
+      railway_adress = #{record.railwayAdress,jdbcType=VARCHAR},
+      num_for_sale = #{record.numForSale,jdbcType=VARCHAR},
+      rent_num = #{record.rentNum,jdbcType=VARCHAR},
+      version = #{record.version,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -906,6 +957,18 @@
       <if test="detailUrl != null" >
         detail_url = #{detailUrl,jdbcType=VARCHAR},
       </if>
+      <if test="railwayAdress != null" >
+        railway_adress = #{railwayAdress,jdbcType=VARCHAR},
+      </if>
+      <if test="numForSale != null" >
+        num_for_sale = #{numForSale,jdbcType=VARCHAR},
+      </if>
+      <if test="rentNum != null" >
+        rent_num = #{rentNum,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null" >
+        version = #{version,jdbcType=VARCHAR},
+      </if>
       <if test="gate != null" >
         gate = #{gate,jdbcType=LONGVARCHAR},
       </if>
@@ -969,6 +1032,10 @@
       status = #{status,jdbcType=VARCHAR},
       loop_position = #{loopPosition,jdbcType=VARCHAR},
       detail_url = #{detailUrl,jdbcType=VARCHAR},
+      railway_adress = #{railwayAdress,jdbcType=VARCHAR},
+      num_for_sale = #{numForSale,jdbcType=VARCHAR},
+      rent_num = #{rentNum,jdbcType=VARCHAR},
+      version = #{version,jdbcType=VARCHAR},
       gate = #{gate,jdbcType=LONGVARCHAR},
       xiaoqu_photo_url = #{xiaoquPhotoUrl,jdbcType=LONGVARCHAR},
       introduction = #{introduction,jdbcType=LONGVARCHAR},
@@ -1020,7 +1087,11 @@
       tag = #{tag,jdbcType=VARCHAR},
       status = #{status,jdbcType=VARCHAR},
       loop_position = #{loopPosition,jdbcType=VARCHAR},
-      detail_url = #{detailUrl,jdbcType=VARCHAR}
+      detail_url = #{detailUrl,jdbcType=VARCHAR},
+      railway_adress = #{railwayAdress,jdbcType=VARCHAR},
+      num_for_sale = #{numForSale,jdbcType=VARCHAR},
+      rent_num = #{rentNum,jdbcType=VARCHAR},
+      version = #{version,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

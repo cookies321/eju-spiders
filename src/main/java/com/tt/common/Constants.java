@@ -14,7 +14,7 @@ public class Constants {
     /**
      * 高德地图KEY
      */
-    public static final String AMAP_KEY = "7a87d5b75e0eac5784d90c8654296167"; //  04d10ace129b632221b4bc1a6d2b6638
+    public static final String AMAP_KEY = "50fa7b34a8a07b5c46969979f260d109"; //  7a87d5b75e0eac5784d90c8654296167  04d10ace129b632221b4bc1a6d2b6638
     /**
      * 百度地图KEY
      */

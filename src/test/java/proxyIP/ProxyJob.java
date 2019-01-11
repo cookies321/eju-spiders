@@ -17,7 +17,7 @@ public class ProxyJob implements Job {
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         System.out.println("获取代理ip");
-        String url="http://1752203729.v4.dailiyun.com/query.txt?key=NPD64FFEAC&word=%E6%B1%9F%E8%8B%8F&c%E6%B1%9F%E8%8B%8F&count=35&rand=false&detail=false";
+        String url="http://10.122.139.34:8087/get/ip-list/3?key=557F35CA07AE2470F80E5CFC710FE61E&degree=2&protocol=https";
         String ipStr = PageDownLoadUtil.httpClientDefultGet(url);
         System.out.println(ipStr);
         try {
@@ -25,8 +25,8 @@ public class ProxyJob implements Job {
             String[] split=ipStr.split("\n");
             if(split.length!=0){
                 for (String fristIp : split) {
-                    if(StringUtils.isNotBlank(fristIp)){
-                        RedisUtil.setex("PROXY_IP_REDIS_KEY"+fristIp,115,"1");
+                    if(StringUtils.isNotBlank(fristIp) && !("null".equals(fristIp))){
+                        RedisUtil.setex("PROXY_IP_REDIS_KEY"+fristIp,60,"1");
                     }
                 }
             }

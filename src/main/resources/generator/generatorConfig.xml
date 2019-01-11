@@ -78,7 +78,10 @@
        <!-- <table schema="" tableName="community_tmsf_hz_list_forhouse" domainObjectName="CommunityTmsfHzForhouse"></table>
         <table schema="" tableName="community_tmsf_hz_list_loudong" domainObjectName="CommunityTmsfHzListLoudong"></table>-->
 
-        <table schema="" tableName="lianjia_listing_house_detail" domainObjectName="LianjiaListingHouseDetail"></table>
-        <table schema="" tableName="lianjia_listing_house_pic" domainObjectName="LianjiaListingHousePic"></table>
+      <!--  <table schema="" tableName="lianjia_listing_house_detail" domainObjectName="LianjiaListingHouseDetail"></table>
+        <table schema="" tableName="lianjia_listing_house_pic" domainObjectName="LianjiaListingHousePic"></table>-->
+        <!--<table schema="" tableName="lianjia_chengjiao_house_plate" domainOCbjectName="LianjiaChengjiaoHousePlate"></table>-->
+       <!-- <table schema="" tableName="lianjia_chengjiao_house_list" domainObjectName="LianjiaChengjiaoHouseList"></table>-->
+        <table tableName="building_key_list_sh2_feedback" domainObjectName="BuildingKeyListSh2Feedback"></table>
     </context>
 </generatorConfiguration>

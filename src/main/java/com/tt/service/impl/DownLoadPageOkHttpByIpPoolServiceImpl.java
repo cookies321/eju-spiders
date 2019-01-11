@@ -10,6 +10,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -24,7 +25,7 @@ public class DownLoadPageOkHttpByIpPoolServiceImpl implements IDownLoadPage{
 
     @Override
     public Document downLoadPageByGet(String url) {
-        return downLoadPageByGet(url,null);
+        return downLoadPageByGet(url,new HashMap<String, String>());
     }
 
     @Override

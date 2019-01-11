@@ -55,9 +55,6 @@ public class ParseZhuge {
         mapCity.put("深圳","http://sz.ershoufang.zhuge.com/community/");
         mapCity.put("苏州","http://su.ershoufang.zhuge.com/community/");
         mapCity.put("青岛","http://qd.ershoufang.zhuge.com/community/");
-
-
-
         for (String city : mapCity.keySet()) {
 
             String indexUrl = mapCity.get(city);

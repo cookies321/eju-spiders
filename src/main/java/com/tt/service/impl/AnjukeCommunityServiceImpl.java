@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AnjukeCommunityServiceImpl implements AnjukeCommunityService {
+public class AnjukeCommunityServiceImpl implements AnjukeCommunityService{
 
     @Autowired
     private AnjukeCommunityMapper anjukeCommunityMapper;

@@ -11,12 +11,22 @@ public class CommunityKeDetailExample {
 
     protected List<Criteria> oredCriteria;
 
+    protected String groupByClause;
+
     public CommunityKeDetailExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
     public void setOrderByClause(String orderByClause) {
         this.orderByClause = orderByClause;
+    }
+
+    public void setGroupByClause(String groupByClause) {
+        this.groupByClause = groupByClause;
+    }
+
+    public String getGroupByClause() {
+        return groupByClause;
     }
 
     public String getOrderByClause() {

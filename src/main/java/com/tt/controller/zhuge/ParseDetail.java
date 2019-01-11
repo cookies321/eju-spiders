@@ -112,7 +112,6 @@ public class ParseDetail {
      * @date: 2018/11/5 16:00
      */
     public static void parseDetail(Document document, ZhugeCommunity zhugeCommunity){
-
         Elements selectLeft = document.select("div.detail_content>div.detail_left");
         if(!selectLeft.isEmpty()){
             Elements selectTitle = selectLeft.select("div.left_header>h1");

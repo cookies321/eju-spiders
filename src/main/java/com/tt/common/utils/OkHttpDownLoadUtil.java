@@ -154,7 +154,7 @@ public class OkHttpDownLoadUtil {
                 for(int y =0 ; y<proxyRetryTag.size();y++){
                     if("null".equals(proxyRetryTag.get(y))){
                         flag = body.equals(proxyRetryTag.get(y))?true:false;
-                        break;
+                        if(flag){break;}
                     }else if(body.indexOf(proxyRetryTag.get(y))!=-1){
                         flag = true;
                         break;
@@ -574,8 +574,8 @@ public class OkHttpDownLoadUtil {
 
     public static OkHttpDownLoadUtil createOkHttpClient(){
         OkHttpDownLoadUtil httpClient = OkHttpDownLoadUtil.newBuilder()
-                .proxyUrl("http://10.122.139.34:8087/get/ip-list/3?key=557F35CA07AE2470F80E5CFC710FE61E&degree=2&protocol=https")
-                .addProxyRetryTag("null").builder();
+                .proxyUrl("http://10.122.139.34:8087/get/ip-list/14?key=7CD7CC040B837F8D91A23CDCF0011D85&degree=2&protocol=https")
+                .addProxyRetryTag("null").addProxyRetryTag("rgv587_flag").retryMax(20).builder();
         return httpClient;
     }
 
@@ -595,7 +595,18 @@ public class OkHttpDownLoadUtil {
         OkHttpDownLoadUtil httpClient = OkHttpDownLoadUtil.newBuilder()
                 .proxyUrl("http://10.122.139.34:8087/get/ip-list/3?key=557F35CA07AE2470F80E5CFC710FE61E&degree=2&protocol=https")
                 .addProxyRetryTag("null").builder();
-        String url = "https://hz.lianjia.com/ershoufang/103102678884.html";
+        String url = "http://qd.ershoufang.zhuge.com/community/";
+        Map<String,String> header1=new HashMap<>();
+        header1.put("Host","http://qd.ershoufang.zhuge.com");
+        header1.put("Accept-Language","zh-CN,zh;q=0.9");
+        header1.put("Accept-Encoding","gzip, deflate");
+        header1.put("If-None-Match","W/125e-8pYtdxwALKZH7kOMgUjllg");
+        header1.put("Accept","text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8");
+        header1.put("User-Agent","Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36");
+        String s = httpClient.proxyGet(url,"UTF-8",header1);
+        System.out.println(s);
+
+
         //HttpHost proxy = new HttpHost("113.122.173.217", 36410);
         Map<String, String> header = new HashMap<>();
         //QzNjSEpJMVpXOUVxOGpRQTpGZzZvQmczd05tTjJwc1JO

@@ -5,11 +5,10 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.tt.common.Constants;
 import com.tt.common.utils.PageDownLoadUtil;
+import com.tt.dao.CommunityKe17cityAbcdMapper;
 import com.tt.dao.CommunityKeDetailGaodeAddressMapper;
 import com.tt.dao.CommunityKeDetailMapper;
-import com.tt.entity.CommunityKeDetailExample;
-import com.tt.entity.CommunityKeDetailGaodeAddress;
-import com.tt.entity.CommunityKeDetailWithBLOBs;
+import com.tt.entity.*;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,28 +36,35 @@ public class ke_community_addressToGaode {
     private CommunityKeDetailMapper communityKeDetailMapper;
 
     @Autowired
+    private CommunityKe17cityAbcdMapper communityKe17cityAbcdMapper;
+
+    @Autowired
     private CommunityKeDetailGaodeAddressMapper communityKeDetailGaodeAddressMapper;
+
 
 
     @Test
     public void addressToGaode() throws InterruptedException {
-        CommunityKeDetailExample communityKeDetailExample = new CommunityKeDetailExample();
+        /*CommunityKeDetailExample communityKeDetailExample = new CommunityKeDetailExample();
         communityKeDetailExample.or().andVersionEqualTo("2011");
-        List<CommunityKeDetailWithBLOBs> communityKeDetailWithBLOBs = communityKeDetailMapper.selectByExampleWithBLOBs(communityKeDetailExample);
-        System.out.println(communityKeDetailWithBLOBs.size());
+        List<CommunityKeDetailWithBLOBs> communityKeDetailWithBLOBs = communityKeDetailMapper.selectByExampleWithBLOBs(communityKeDetailExample);*/
+        CommunityKe17cityAbcdExample communityKe17cityAbcdExample = new CommunityKe17cityAbcdExample();
+        communityKe17cityAbcdExample.or().andSourceIsNull();
+        List<CommunityKe17cityAbcd> communityKe17cityAbcds = communityKe17cityAbcdMapper.selectByExample(communityKe17cityAbcdExample);
+        System.out.println(communityKe17cityAbcds.size());
         Integer count=6;
         Semaphore semaphore = new Semaphore(count);
         ExecutorService executorService = Executors.newFixedThreadPool(count);
-        for (CommunityKeDetailWithBLOBs communityKeDetailWithBLOB : communityKeDetailWithBLOBs) {
+        for (CommunityKe17cityAbcd communityKe17cityAbcd : communityKe17cityAbcds) {
             semaphore.acquire();
             executorService.execute(new Runnable() {
                 @Override
                 public void run() {
                     try {
                         String city="杭州";
-                        String title = communityKeDetailWithBLOB.getTitle();
-                        String titleId = communityKeDetailWithBLOB.getTitleId();
-                        String url1="https://restapi.amap.com/v3/place/text?keywords=西湖美庐&types=120000&city=杭州&output=json&offset=20&page=1&key=7a87d5b75e0eac5784d90c8654296167&extensions=all";
+                        String title = communityKe17cityAbcd.getTitle();
+                        String titleId = communityKe17cityAbcd.getTitleId();
+                        //String url1="https://restapi.amap.com/v3/place/text?keywords=西湖美庐&types=120000&city=杭州&output=json&offset=20&page=1&key=7a87d5b75e0eac5784d90c8654296167&extensions=all";
                         String url="https://restapi.amap.com/v3/place/text?keywords="+title+"&types=120000&city="+city+"&output=json&offset=20&page=1&key="+ Constants.AMAP_KEY+"&extensions=all";
                         String result = PageDownLoadUtil.httpClientDefultGet(url,null);
                         if(StringUtils.isNotBlank(result)){
@@ -85,11 +91,12 @@ public class ke_community_addressToGaode {
                                     communityKeDetailGaodeAddress.setProvinceGaode(pname);
                                     communityKeDetailGaodeAddress.setCityGaode(cityname);
                                     communityKeDetailGaodeAddress.setRegionGaode(adname);
+                                    communityKeDetailGaodeAddress.setSource("v2.0");
 
                                     int i = communityKeDetailGaodeAddressMapper.insertSelective(communityKeDetailGaodeAddress);
                                     if(i==1){
-                                        communityKeDetailWithBLOB.setVersion(null);
-                                        communityKeDetailMapper.updateByPrimaryKeySelective(communityKeDetailWithBLOB);
+                                        communityKe17cityAbcd.setSource("1");
+                                        communityKe17cityAbcdMapper.updateByPrimaryKeySelective(communityKe17cityAbcd);
                                     }
 
                                 }

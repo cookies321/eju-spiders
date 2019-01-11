@@ -62,23 +62,16 @@ public class test {
 
 
 
-
     @Test
     public void test(){
-        String n = "https://ajax.ke.com/map2/search/ershoufang/";
-        Map<String,String> a=new HashMap<>();
-        a.put("city_id","310000");//从页面中获取
-        a.put("group_type","bizcircle");
-        a.put("max_lat","31.249813899272");
-        a.put("min_lat","31.194663");
-        a.put("max_lng","121.51618798431");
-        a.put("min_lng","121.463281");
-        a.put("filters","{}");//从页面中获取
-        a.put("request_ts",new Date().getTime()+"");//时间戳
+        OkHttpDownLoadUtil httpClient = OkHttpDownLoadUtil.newBuilder()
+                .proxyUrl("http://10.122.139.34:8087/get/ip-list/3?key=557F35CA07AE2470F80E5CFC710FE61E&degree=2&protocol=https")
+                .addProxyRetryTag("null").builder();
 
-        String time=new Date().getTime()+"";
-        System.out.println(time);
-        String md5 = getMd5(a);
+        String url = "https://hz.lianjia.com/ershoufang/103102678884.html";
+
+        String s = httpClient.proxyGet(url);
+        System.out.println(s);
 
     }
 
@@ -246,33 +239,26 @@ public class test {
     @Test
     public void getListTest() {
         System.out.println("获取代理ip");
-        String url="https://h.wandouip.com/get/ip-list?pack=1076&num=20&xy=2&type=2&lb="+ URLEncoder.encode("\\n")+"&mr=2&";
+        String url="http://10.122.139.34:8087/get/ip-list/3?key=557F35CA07AE2470F80E5CFC710FE61E&degree=2&protocol=https";
         String ipStr = PageDownLoadUtil.httpClientDefultGet(url);
-        long nowTime = System.currentTimeMillis();
+        System.out.println(ipStr);
         try {
-            JSONObject object = JSON.parseObject(ipStr);
-            if(object.getInteger("code")==200){
-                JSONArray data = object.getJSONArray("data");
-                if(data!=null && data.size()!=0){
-                    for (int i = 0; i < data.size(); i++) {
-                        JSONObject jsonObject = data.getJSONObject(i);
-                        String ip = jsonObject.getString("ip");
-                        Integer port = jsonObject.getInteger("port");
-                        String expireTime = jsonObject.getString("expire_time");
-                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                        Date parseTime = simpleDateFormat.parse(expireTime);
-                        long time = parseTime.getTime();
-                        Long expire=(time - nowTime)/1000;
-                        int ex = expire.intValue();
-                        if(ex > 0){
-                            System.out.println(ip+":"+port+"---"+ex);
-                            RedisUtil.setex("PROXY_IP_REDIS_KEY"+ip+":"+port,ex,"1");
-                        }
-
+            //String[] split = ipStr.split(",");
+            String[] split=ipStr.split("\n");
+            if(split.length!=0){
+                for (String fristIp : split) {
+                    if(StringUtils.isNotBlank(fristIp)){
+                        System.out.println(fristIp);
+                        RedisUtil.setex("PROXY_IP_REDIS_KEY"+fristIp,50,"1");
                     }
                 }
             }
-
+            /*if(split.length==2){
+                String fristIp=split[0];
+                String secondIp=split[1];
+                RedisUtil.setex("PROXY_IP_REDIS_KEY"+fristIp,55,"1");
+                RedisUtil.setex("PROXY_IP_REDIS_KEY"+secondIp,55,"1");
+            }*/
         } catch (Exception e) {
             e.printStackTrace();
         }

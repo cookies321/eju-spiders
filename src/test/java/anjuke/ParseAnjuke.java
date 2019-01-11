@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSON;
 import com.tt.common.DownLoadPage;
 import com.tt.common.utils.PageDownLoadUtil;
 import com.tt.common.utils.Pinyin4Util;
-import com.tt.entity.AnjukeCommunityLayout;
 import com.tt.entity.AnjukeCommunityWithBLOBs;
 import com.tt.service.AnjukeCommunityService;
 import org.apache.commons.lang3.StringUtils;
@@ -15,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
@@ -176,7 +176,7 @@ public class ParseAnjuke {
      * @param document
      */
     public static String parseModel(Document document){
-        List<Map<String, Object>> floorPlanList = new ArrayList<Map<String, Object>>();
+        List<Map<String, Object>> floorPlanList = new ArrayList<>();
         if(document==null){
             return null;
         }else{
@@ -358,7 +358,7 @@ public class ParseAnjuke {
         String plate = anjukeCommunityWithBLOBs.getPlate();
 
         //存放列表下的详情种子链接
-        List<AnjukeCommunityWithBLOBs> listDetail= new ArrayList<AnjukeCommunityWithBLOBs>();
+        List<AnjukeCommunityWithBLOBs> listDetail= new ArrayList<>();
         if(document==null){
             return listDetail;
         }else{

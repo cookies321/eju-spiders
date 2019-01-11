@@ -42,7 +42,7 @@ public class ke_loudong {
                         try {
                             String loudongUrl = communityKeDetailWithBLOBs.getLoudongUrl();
                             if(StringUtils.isNotBlank(loudongUrl)){
-                                Map<String, Object> map = new HashMap<String, Object>();
+                                Map<String, Object> map = new HashMap<>();
                                 map.put("titleId",communityKeDetailWithBLOBs.getTitleId());
                                 map.put("loudongUrl",communityKeDetailWithBLOBs.getLoudongUrl());
                                 System.out.println("放入种子"+communityKeDetailWithBLOBs.getLoudongUrl());
